@@ -4,8 +4,14 @@ public class CS3072_1911859 {
 	public static void main(String[] args) {
 		//to test new_TSP:
 		test_new_TSP();
+		//sets i - the number of iterations the TSP modifier will run
+		int i = 1000; //will test 1000 iterations
+		//sets j - the number of iterations the TSP solver (algorithm 2) will run inside each i iteration
+		int j = 1000; //will test 1000 iterations
+		//total runtime should be approximately proportional to i.j
 		
-
+		
+		
 	}
 
 	public static void test_new_TSP()
