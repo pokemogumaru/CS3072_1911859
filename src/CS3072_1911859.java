@@ -10,16 +10,12 @@ public class CS3072_1911859 {
 
 	public static void test_new_TSP()
 	{
-		//start of new_TSP test
+		//this method tests the initial TSP generator by counting values and showing each value
 				double[] arr = new_TSP();
-				  
-				  System.out.println("Number of items: " + arr.length);
-
+				  System.out.println("Number of items: " + arr.length); //prints the number of values
 				  for(double value : arr) {
-				    System.out.println(value);
+				    System.out.println(value); //prints each value as part of testing
 				  }
-
-				//end of new_TSP test
 	}
 	
 	public static double[] new_TSP() {
