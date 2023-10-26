@@ -140,10 +140,10 @@ returns a 1-D array of type double
 		  // Loop through rows
 		// Outer loop for rows (y coordinate)
 		  System.out.println("matrix.length = " + matrix.length);
-		  //System.out.println("matrix[y].length = " + matrix[y].length);
+		  
 
 		  for(int y = 0; y < matrix.length; y++) {
-
+			//System.out.println("matrix[y].length = " + matrix[y].length);
 		    // Inner loop for columns (x coordinate)
 		    for(int x = 0; x < matrix[y].length; x++){
 
