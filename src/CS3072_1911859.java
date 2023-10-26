@@ -78,9 +78,12 @@ returns a 1-D array of type double
 		// Create 2D array with x by x size
 		double[][] array_2D = new double[(int) x][(int) x]; //new 2D distance matrix
 		int a = 0; //used to track position in the 1D array
+		double b = 0; //using this to track array_1D values as we use less reads
 		for(int i = 0; i < x-2; i++) { //x-2 because we count from 0 and we ignore 1st 0 value which would be from a city to the same city
 			  for(int j = i+1; j < x; j++) {
-			    array_2D[i][j] = array_1D[a]; //populate 2D values
+				b = array_1D[a];
+			    array_2D[i][j] = b; //populate 2D values
+			    array_2D[j][i] = b;
 			    a++; //increment a
 			    
 			  }
