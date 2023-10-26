@@ -3,14 +3,14 @@ public class CS3072_1911859 {
 
 	public static void main(String[] args) {
 		//to test new_TSP:
-		test_new_TSP();
+		//test_new_TSP();
 		//sets i - the number of iterations the TSP modifier will run
-		int i = 1000; //will test 1000 iterations
+		//int i = 1000; //will test 1000 iterations
 		//sets j - the number of iterations the TSP solver (algorithm 2) will run inside each i iteration
-		int j = 1000; //will test 1000 iterations
+		//int j = 1000; //will test 1000 iterations
 		//total runtime should be approximately proportional to i.j
 		
-		
+		test_2D();
 		
 	}
 
@@ -22,6 +22,7 @@ public class CS3072_1911859 {
 				  for(double value : arr) {
 				    System.out.println(value); //prints each value as part of testing
 				  }
+				  System.out.println("end of TSP test");
 	}
 	
 	public static double[] new_TSP() {
@@ -53,4 +54,62 @@ returns a 1-D array of type double
 		  return arr;
 		}
 	
+	public static double[][] convert_1D_to_2D(double[] array_1D)
+	{
+		// Get size of 1D array
+		  int n = array_1D.length;
+		  if (n < 1)
+		  {
+			  // should never be less than 1 element, giving a 2x2 matrix
+			  double[][] array_2D = new double[1][1];
+			  System.out.println("less than 1 unique element, likely an error.");
+			  return array_2D;
+			  
+		  }
+		  //get size of width / height (called x)
+		  double x;
+		// Calculate square root term 
+		double sqrtTerm = Math.sqrt(1 + 8*n);
+		// Calculate x
+		x = (1 + sqrtTerm) / 2;
+		//test this
+		System.out.println("x = " + x);
+		
+		// Create 2D array with x by x size
+		double[][] array_2D = new double[(int) x][(int) x]; //new 2D distance matrix
+		int a = 0; //used to track position in the 1D array
+		for(int i = 0; i < x-2; i++) { //x-2 because we count from 0 and we ignore 1st 0 value which would be from a city to the same city
+			  for(int j = i+1; j < x; j++) {
+			    array_2D[i][j] = array_1D[a]; //populate 2D values
+			    a++; //increment a
+			    
+			  }
+			}
+		return array_2D;
+	}
+	public static void test_2D()
+	{
+		//this method tests the initial TSP generator by counting values and showing each value
+		double[] array1D = new_TSP();
+		  System.out.println("Number of items: " + array1D.length); //prints the number of values
+		  for(double value : array1D) {
+		    System.out.println(value); //prints each value as part of testing
+		  }
+		  System.out.println("end of TSP test");
+		  double[][] array2D = convert_1D_to_2D(array1D);
+		  
+		// Loop through each row (outer loop)
+		  for(int i = 0; i < array2D.length; i++) {
+
+		    // Loop through each column (inner loop) 
+		    for(int j = 0; j < array2D[i].length; j++) {
+		      
+		      // Print value and position    
+		      System.out.println("Value at x=" + i + ", y=" + j + ": " + array2D[i][j]);
+		      
+		    }
+		  }
+
+
+	}
 }
