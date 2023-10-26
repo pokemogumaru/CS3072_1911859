@@ -97,15 +97,19 @@ returns a 1-D array of type double
 		  }
 		  System.out.println("end of TSP test");
 		  double[][] array2D = convert_1D_to_2D(array1D);
-		  
+		  int iPlusOne = 0;
+		  int jPlusOne = 0;
+		  //using PlusOne variables to display 1 to 10 rather than 0 to 9
+		  //better way to do this but using this for now.
 		// Loop through each row (outer loop)
 		  for(int i = 0; i < array2D.length; i++) {
 
 		    // Loop through each column (inner loop) 
 		    for(int j = 0; j < array2D[i].length; j++) {
-		      
+		      iPlusOne = i +1;
+		      jPlusOne = j +1;
 		      // Print value and position    
-		      System.out.println("Value at x=" + i + ", y=" + j + ": " + array2D[i][j]);
+		      System.out.println("Value at x=" + iPlusOne + ", y=" + jPlusOne + ": " + array2D[i][j]);
 		      
 		    }
 		  }
