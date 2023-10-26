@@ -1,4 +1,8 @@
 
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class CS3072_1911859 {
 
 	public static void main(String[] args) {
@@ -113,10 +117,56 @@ returns a 1-D array of type double
 		      jPlusOne = j +1;
 		      // Print value and position    
 		      System.out.println("Value at x=" + iPlusOne + ", y=" + jPlusOne + ": " + array2D[i][j]);
-		      
+		      //output to csv
+		      try {
+				generate_CSV_from_2D(array2D);
+			} catch (Exception e) {
+				System.out.println("csv failed");
+				e.printStackTrace();
+			}
 		    }
 		  }
 
 
 	}
-}
+	public static void generate_CSV_from_2D(double[][] matrix) throws Exception {
+
+		  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+		  LocalDateTime now = LocalDateTime.now();
+		  String filename = "2D_output_" + dtf.format(now) + ".csv";
+
+		  PrintWriter writer = new PrintWriter("C:\\Users\\james\\Documents\\School\\Uni\\Year 3\\CS3072 FYP\\Misc\\test_output_data\\" + filename);
+
+		  // Loop through rows
+		// Outer loop for rows (y coordinate)
+		  for(int y = 0; y < matrix.length; y++) {
+
+		    // Inner loop for columns (x coordinate)
+		    for(int x = 0; x < matrix[y].length; x++){
+
+		      // Print x,y,value on one line
+		      writer.print(x + "," + y + "," + matrix[y][x]);
+
+		   // Add comma if not last column
+		      if(x != matrix[y].length - 1) {
+		        writer.print(","); 
+		      }
+
+		    }
+		    
+		 // Add newline after each row
+		    writer.println(); 
+
+		  }
+
+			  // Join String array   
+			  //String csvLine = String.join(",", csvRow);
+
+			  //writer.println(csvLine);  
+		  
+		  writer.close();
+		  
+		}
+	
+	}
+
