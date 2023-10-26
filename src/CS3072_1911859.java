@@ -117,16 +117,16 @@ returns a 1-D array of type double
 		      jPlusOne = j +1;
 		      // Print value and position    
 		      System.out.println("Value at x=" + iPlusOne + ", y=" + jPlusOne + ": " + array2D[i][j]);
-		      //output to csv
-		      try {
-				generate_CSV_from_2D(array2D);
-			} catch (Exception e) {
-				System.out.println("csv failed");
-				e.printStackTrace();
-			}
+		      
 		    }
 		  }
-
+		//output to csv
+	      try {
+			generate_CSV_from_2D(array2D);
+		} catch (Exception e) {
+			System.out.println("csv failed");
+			e.printStackTrace();
+		}
 
 	}
 	public static void generate_CSV_from_2D(double[][] matrix) throws Exception {
@@ -139,6 +139,9 @@ returns a 1-D array of type double
 
 		  // Loop through rows
 		// Outer loop for rows (y coordinate)
+		  System.out.println("matrix.length = " + matrix.length);
+		  //System.out.println("matrix[y].length = " + matrix[y].length);
+
 		  for(int y = 0; y < matrix.length; y++) {
 
 		    // Inner loop for columns (x coordinate)
