@@ -10,6 +10,11 @@ public class SolveTSP { //this class is used for solving TSPs
     int numCities = calculateCitiesAmount(distances);
     List<List<Integer>> permutations = generatePermutations(numCities);
     List<List<Integer>> validPerms = acceptanceVisited(permutations); 
+  //TODO: add a middle step here where we add an element to each ArrayList
+    //this element will be copied from the 1st element from the list
+    //as this will mean we return to the start
+    //this must be done after we check each city is visited once
+    //but must be done before the possible check as the return to start must be possible
     List<List<Integer>> possibleTours = acceptancePossible(validPerms, distances);
     List<Integer> optimalTour = getOptimalTour(possibleTours, distances);
     
