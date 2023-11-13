@@ -130,13 +130,12 @@ returns a 1-D array of type double
 
 	}
 	public static void generate_CSV_from_2D(double[][] matrix) throws Exception {
-
+		//This method attempts to generate a CSV for the 2D array
 		  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
 		  LocalDateTime now = LocalDateTime.now();
 		  String filename = "2D_output_" + dtf.format(now) + ".csv";
-
+		  //Making the file names contain the date time so they are unique and easy to find
 		  PrintWriter writer = new PrintWriter("C:\\Users\\james\\Documents\\School\\Uni\\Year 3\\CS3072 FYP\\Misc\\test_output_data\\" + filename);
-
 		  // Loop through rows
 		// Outer loop for rows (y coordinate)
 		  System.out.println("matrix.length = " + matrix.length);
@@ -164,7 +163,6 @@ returns a 1-D array of type double
 
 			  // Join String array   
 			  //String csvLine = String.join(",", csvRow);
-
 			  //writer.println(csvLine);  
 		  
 		  writer.close();
