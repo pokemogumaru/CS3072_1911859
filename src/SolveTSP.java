@@ -34,8 +34,8 @@ public class SolveTSP { //this class is used for solving TSPs
 	double sqrtTerm = Math.sqrt(1 + 8*n);
 	// Calculate x
 	x = (1 + sqrtTerm) / 2;
-	//test this
-	System.out.println("x = " + x);
+	System.out.println("calculateCitiesAmount:"); //used for testing
+	System.out.println("x = " + x); //45 element 1D array should print x = 10
 	return (int) x;
 	  }
 
@@ -71,6 +71,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	}
 	  
 	  public List<List<Integer>> acceptanceVisited(List<List<Integer>> permutations) {
+		//TODO test and possible revamp
 	    List<List<Integer>> valid = new ArrayList<>();
 	    for(List<Integer> perm : permutations) {
 	      if(new HashSet<>(perm).size() == perm.size()) {
@@ -84,11 +85,13 @@ public class SolveTSP { //this class is used for solving TSPs
 	  public List<List<Integer>> acceptancePossible(List<List<Integer>> permutations, double[] distances) {
 	    // this method should check if each tour is possible (no 0 weight routes)
 		// not functional yet
+		  //TODO implement & change
 		return permutations; //TO CHANGE
 	  }
 
 	  public List<Integer> getOptimalTour(List<List<Integer>> possibleTours, double[] distances) {
-	    
+	    //this method finds the tour with lowest weight
+		//TODO test this method
 	    double minDist = Double.MAX_VALUE;
 	    List<Integer> optimalTour = null;
 	    for(List<Integer> tour : possibleTours) {
@@ -104,6 +107,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  
 	  public static void tourPrinter(List<Integer> optimalTour)
 	  {//used to print a tour. E.g. 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
+		  //TODO also print the total cost/weight of this solution
 		  System.out.println("Optimal Tour:");
 		  // Loop through each city in the optimal tour
 		  for(int i = 0; i < optimalTour.size(); i++) {
