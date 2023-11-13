@@ -17,7 +17,7 @@ public class SolveTSP { //this class is used for solving TSPs
     //but must be done before the possible check as the return to start must be possible
     List<List<Integer>> possibleTours = acceptancePossible(validPerms, distances);
     List<Integer> optimalTour = getOptimalTour(possibleTours, distances);
-    
+    tourPrinter(optimalTour); //to print the optimal tour
     // optimalTour contains best solution
   }
 
@@ -101,5 +101,17 @@ public class SolveTSP { //this class is used for solving TSPs
 	    }
 	    return optimalTour;
 	  }
-
+	  
+	  public static void tourPrinter(List<Integer> optimalTour)
+	  {//used to print a tour. E.g. 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
+		  System.out.println("Optimal Tour:");
+		  // Loop through each city in the optimal tour
+		  for(int i = 0; i < optimalTour.size(); i++) {
+		    System.out.print(optimalTour.get(i)); // Print current city number 
+		    if(i != optimalTour.size() - 1) { // If not the last city, print connector
+		      System.out.print(" -> ");
+		    }
+		  }
+		  System.out.println();
+	  }
 }

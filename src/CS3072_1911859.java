@@ -14,8 +14,8 @@ public class CS3072_1911859 {
 		//int j = 1000; //will test 1000 iterations
 		//total runtime should be approximately proportional to i.j
 		
-		test_2D();
-		
+		//test_2D();
+		SolveTSP solver = new SolveTSP(new_TSP());
 	}
 
 	public static void test_new_TSP()
