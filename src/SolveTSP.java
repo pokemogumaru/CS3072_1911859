@@ -8,8 +8,9 @@ public class SolveTSP { //this class is used for solving TSPs
   public SolveTSP(double[] distances) {
     this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
-    generateInitialSolution(numCities); //generate an initial solution based on the number of cities
-    
+    List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
+    tourPrinter(initialSolution);
+    int initialCost = 0; //to change to use a method to generate this
     
     
     //List<List<Integer>> permutations = generatePermutations(numCities);
@@ -56,6 +57,50 @@ public class SolveTSP { //this class is used for solving TSPs
 	  return cities;
 	}
 
+  public static double[][] convert_1D_to_2D(double[] array_1D)
+	{
+		// Get size of 1D array
+		  int n = array_1D.length;
+		  if (n < 1)
+		  {
+			  // should never be less than 1 element, giving a 2x2 matrix
+			  double[][] array_2D = new double[1][1];
+			  System.out.println("less than 1 unique element, likely an error.");
+			  return array_2D;
+			  
+		  }
+		  //get size of width / height (called x)
+		  double x;
+		// Calculate square root term 
+		double sqrtTerm = Math.sqrt(1 + 8*n);
+		// Calculate x
+		x = (1 + sqrtTerm) / 2;
+		//test this
+		System.out.println("x = " + x);
+		
+		// Create 2D array with x by x size
+		double[][] array_2D = new double[(int) x][(int) x]; //new 2D distance matrix
+		int a = 0; //used to track position in the 1D array
+		double b = 0; //using this to track array_1D values as we use less reads
+		for(int i = 0; i < x-2; i++) { //x-2 because we count from 0 and we ignore 1st 0 value which would be from a city to the same city
+			  for(int j = i+1; j < x; j++) {
+				b = array_1D[a];
+			    array_2D[i][j] = b; //populate 2D values
+			    array_2D[j][i] = b;
+			    a++; //increment a
+			    
+			  }
+			}
+		return array_2D;
+	}
+  
+  public static int generateInitialCost(List<Integer> cities)
+  {
+	  //step 1 - make 2D representation
+	  //step 2 - loop through cities array and find total cost of travel by using lookup method
+	  
+	  return 0; //to change
+  }
   
   
   
@@ -99,7 +144,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  public static void tourPrinter(List<Integer> optimalTour)
 	  {//used to print a tour. E.g. 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 		  //TODO also print the total cost/weight of this solution
-		  System.out.println("Optimal Tour:");
+		  System.out.println("Tour:");
 		  // Loop through each city in the optimal tour
 		  for(int i = 0; i < optimalTour.size(); i++) {
 		    System.out.print(optimalTour.get(i)); // Print current city number 
