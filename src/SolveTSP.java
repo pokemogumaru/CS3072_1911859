@@ -7,17 +7,21 @@ public class SolveTSP { //this class is used for solving TSPs
   private double[] distances;
   public SolveTSP(double[] distances) {
     this.distances = distances;
-    int numCities = calculateCitiesAmount(distances);
-    List<List<Integer>> permutations = generatePermutations(numCities);
-    List<List<Integer>> validPerms = acceptanceVisited(permutations); 
+    int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
+    generateInitialSolution(numCities); //generate an initial solution based on the number of cities
+    
+    
+    
+    //List<List<Integer>> permutations = generatePermutations(numCities);
+    //List<List<Integer>> validPerms = acceptanceVisited(permutations); 
   //TODO: add a middle step here where we add an element to each ArrayList
     //this element will be copied from the 1st element from the list
     //as this will mean we return to the start
     //this must be done after we check each city is visited once
     //but must be done before the possible check as the return to start must be possible
-    List<List<Integer>> possibleTours = acceptancePossible(validPerms, distances);
-    List<Integer> optimalTour = getOptimalTour(possibleTours, distances);
-    tourPrinter(optimalTour); //to print the optimal tour
+    //List<List<Integer>> possibleTours = acceptancePossible(validPerms, distances);
+    //List<Integer> optimalTour = getOptimalTour(possibleTours, distances);
+    //tourPrinter(optimalTour); //to print the optimal tour
     // optimalTour contains best solution
   }
 
@@ -39,39 +43,26 @@ public class SolveTSP { //this class is used for solving TSPs
 	return (int) x;
 	  }
 
-  public List<List<Integer>> generatePermutations(int numCities) {
-	  // this has 10 cities hard coded, needs to change
-	  //TODO: use numCities to generate the cities arrayList
-	  List<Integer> cities = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-	  
-	  List<List<Integer>> permutations = new ArrayList<>();
-
-	  generatePermHelper(cities, new ArrayList<>(), permutations);
-	  
-	  return permutations;
-
+  public List<Integer> generateInitialSolution(int numCities) {
+	  // generates an initial solution based on the number of cities
+	  //Note that this solution may not be possible since we don't check it against 0 value distances
+	  //Also note that we will have each city once. This is important as we will perform random swaps later.
+	  //Knowing each city is visited once means we meet this acceptance criteria for this and all future solutions
+	  List<Integer> cities = new ArrayList<>();
+	  for(int i = 1; i <= numCities; i++) {
+	    cities.add(i); //basic loop to give us a starting solution
+	  }
+	  System.out.println("Cities list: " + cities); //used for testing method. Probably comment out later.
+	  return cities;
 	}
 
-	void generatePermHelper(List<Integer> remainingCities, List<Integer> currPerm, List<List<Integer>> permutations) {
-// this method is used by generatePermutations
-	  if (remainingCities.isEmpty()) {
-	    permutations.add(currPerm);
-	    return;
-	  }
-	  for (Integer city : remainingCities) {
-	    List<Integer> remaining = new ArrayList<>(remainingCities);
-	    remaining.remove(city);
-
-	    List<Integer> newPerm = new ArrayList<>(currPerm);
-	    newPerm.add(city);
-
-	    generatePermHelper(remaining, newPerm, permutations);
-	    //done by recursion for efficiency
-	  }
-	}
-	  
+  
+  
+  
+  
 	  public List<List<Integer>> acceptanceVisited(List<List<Integer>> permutations) {
 		//TODO test and possible revamp
+		  //Will remove since initial solution includes each city once
 	    List<List<Integer>> valid = new ArrayList<>();
 	    for(List<Integer> perm : permutations) {
 	      if(new HashSet<>(perm).size() == perm.size()) {
