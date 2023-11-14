@@ -10,7 +10,7 @@ public class SolveTSP { //this class is used for solving TSPs
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
     List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
     tourPrinter(initialSolution);
-    int initialCost = 0; //to change to use a method to generate this
+    int initialCost = generateTourCost(initialSolution, distances);
     
     
     //List<List<Integer>> permutations = generatePermutations(numCities);
@@ -94,19 +94,68 @@ public class SolveTSP { //this class is used for solving TSPs
 		return array_2D;
 	}
   
-  public static int generateTourCost(List<Integer> solution, Double[] distances){
+  public static int generateTourCost(List<Integer> solution, double[] distances){
 	  //A method to generate the total cost of a TSP solution.
 	  //Takes in:
 	  //solution, an arrayList of integers representing the cities to visit in order
 	  //distances, the 1D array of distance values
-	  
-	  //step 1 - make 2D representation of the TSP. 1D distances > 2D distances
-	  
+	  //step 1 - make 2D representation of the TSP distances. 1D distances > 2D distances
+	  double[][] TSP_2D = convert_1D_to_2D(distances);
+	  //print_2D(TSP_2D); //if we want to test the 2D representation
 	  //step 2 - loop through cities array and find total cost of travel by using lookup method on 2D distances
+	  
+	  //TODO I don't think we need a loop for this since we have the tour to/from values to use for indexes
 	  
 	  //step 3 - return  total cost
 	  return 0; //to change
   }
+  
+  public static void print_2D(double[][] TSP_2D)
+  {//used to test a 2D array in a nicely formatted way
+	  int iPlusOne = 0;
+	  int jPlusOne = 0;
+	  //using PlusOne variables to display 1 to 10 rather than 0 to 9
+	  //better way to do this but using this for now.
+	// Loop through each row (outer loop)
+	  for(int i = 0; i < TSP_2D.length; i++) {
+
+	    // Loop through each column (inner loop) 
+	    for(int j = 0; j < TSP_2D[i].length; j++) {
+	      iPlusOne = i +1; //we count from 1 so add 1 to x and y
+	      jPlusOne = j +1;
+	      // Print value and position    
+	      System.out.println("Value at x=" + iPlusOne + ", y=" + jPlusOne + ": " + TSP_2D[i][j]);
+	      
+	    }
+	  }
+  }
+  
+  public static int[] lookup_2D_from_1D_position(int a, int n) {
+	  //used to get the position of a value in the 2D array from the 1D index (for TSPs)
+	  //a is 1D index. n is number of cities
+	  //O(N) squared algorithm
+	  int x = 0;
+	  int y = 0;
+	  for(int i = 1; i <= n; i++) {
+	    for(int j = i + 1; j <= n; j++) {
+	      
+	      if(a == 0) { //then stop, we have found the position we were looking for
+	        x = i;
+	        y = j;
+	        break;
+	      }
+	      else { //keep looking!
+	        a--;
+	      }
+	    }
+	  }
+	  int[] solution = new int[2]; //used to return two values
+	  solution[0] = x;
+	  solution[1] = y;
+	  return solution;
+
+	}
+  
   
   
   
