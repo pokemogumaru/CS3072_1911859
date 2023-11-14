@@ -94,11 +94,17 @@ public class SolveTSP { //this class is used for solving TSPs
 		return array_2D;
 	}
   
-  public static int generateInitialCost(List<Integer> cities)
-  {
-	  //step 1 - make 2D representation
-	  //step 2 - loop through cities array and find total cost of travel by using lookup method
+  public static int generateTourCost(List<Integer> solution, Double[] distances){
+	  //A method to generate the total cost of a TSP solution.
+	  //Takes in:
+	  //solution, an arrayList of integers representing the cities to visit in order
+	  //distances, the 1D array of distance values
 	  
+	  //step 1 - make 2D representation of the TSP. 1D distances > 2D distances
+	  
+	  //step 2 - loop through cities array and find total cost of travel by using lookup method on 2D distances
+	  
+	  //step 3 - return  total cost
 	  return 0; //to change
   }
   
