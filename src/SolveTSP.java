@@ -10,7 +10,7 @@ public class SolveTSP { //this class is used for solving TSPs
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
     List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
     tourPrinter(initialSolution);
-    int initialCost = generateTourCost(initialSolution, distances);
+    double initialCost = generateTourCost(initialSolution, distances);
     
     
     //List<List<Integer>> permutations = generatePermutations(numCities);
@@ -26,7 +26,7 @@ public class SolveTSP { //this class is used for solving TSPs
     // optimalTour contains best solution
   }
 
-  public int calculateCitiesAmount(double[] distances) {
+  public static int calculateCitiesAmount(double[] distances) {
 	// Get size of 1D array
 	  int n = distances.length;
 	  if (n < 1)
@@ -94,20 +94,45 @@ public class SolveTSP { //this class is used for solving TSPs
 		return array_2D;
 	}
   
-  public static int generateTourCost(List<Integer> solution, double[] distances){
+  public static double generateTourCost(List<Integer> solution, double[] distances){
 	  //A method to generate the total cost of a TSP solution.
 	  //Takes in:
 	  //solution, an arrayList of integers representing the cities to visit in order
-	  //distances, the 1D array of distance values
+	  //distances, the 1D array of distance values (the TSP we are trying to solve)
 	  //step 1 - make 2D representation of the TSP distances. 1D distances > 2D distances
 	  double[][] TSP_2D = convert_1D_to_2D(distances);
-	  //print_2D(TSP_2D); //if we want to test the 2D representation
-	  //step 2 - loop through cities array and find total cost of travel by using lookup method on 2D distances
+	  print_2D(TSP_2D); //if we want to test the 2D representation
 	  
-	  //TODO I don't think we need a loop for this since we have the tour to/from values to use for indexes
-	  
-	  //step 3 - return  total cost
-	  return 0; //to change
+	  //step 2 - calculate number of cities
+	 int cities = calculateCitiesAmount(distances);
+	  //step 3 - loop through cities array and find total cost of travel. Include cost of returning to start
+	 double totalCost = 0.0;
+	 double cost;
+	 for(int i = 0; i < cities -1 ; i++) {
+	   int from = solution.get(i) -1;
+	   System.out.println("from = " + (from+1));
+	   int to = from + 1;
+	   System.out.println("to = " + (to+1));
+	   cost = TSP_2D[from][to];
+	   System.out.println("cost " + (i+1) + " = " + cost);
+	   if(cost == 0.0) {
+	     System.out.println("warning, 0 value found");
+	   }
+	   totalCost += cost;
+	   System.out.println("total cost = " + totalCost);
+	 }
+	 // Return to start city 
+	 System.out.println("returning to start");
+	 int start = solution.get(0);
+	 System.out.println("start = " + start);
+	 int end = solution.get(cities-1);
+	 System.out.println("end = " + end);
+	 cost = TSP_2D[end-1][start-1];
+	 System.out.println("cost = " + cost);
+	 totalCost += cost;
+	 System.out.println("total cost = " + totalCost);
+	//step 4 - return  total cost
+	 return totalCost; // for example 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 the cost 5.0 is correct!
   }
   
   public static void print_2D(double[][] TSP_2D)
