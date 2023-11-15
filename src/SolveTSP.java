@@ -127,9 +127,9 @@ public class SolveTSP { //this class is used for solving TSPs
 	 System.out.println("start = " + start);
 	 int end = solution.get(cities-1);
 	 System.out.println("end = " + end);
-	 cost = TSP_2D[end-1][start-1];
+	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
 	 System.out.println("cost = " + cost);
-	 totalCost += cost;
+	 totalCost += cost; //this will be final cost for this solution
 	 System.out.println("total cost = " + totalCost);
 	//step 4 - return  total cost
 	 return totalCost; // for example 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 the cost 5.0 is correct!
