@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random; // used for swapping random values
+
 
 public class SolveTSP { //this class is used for solving TSPs
   private double[] distances;
@@ -12,6 +14,8 @@ public class SolveTSP { //this class is used for solving TSPs
     tourPrinter(initialSolution); //prints our initial solution for testing
     //double initialCost = generateTourCost(initialSolution, distances); //the cost of our initial solution
     //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
+    int iterations = 1000;
+    List<Integer> hcSolution = hillClimberSolver(numCities, initialSolution, iterations, distances);
     
     
     //List<List<Integer>> permutations = generatePermutations(numCities);
@@ -182,7 +186,108 @@ public class SolveTSP { //this class is used for solving TSPs
 
 	}
   
+  public static boolean hasZeroValue(List<Integer> solution, double[] distances){
+	  //A method to check if there are 0 values, similar structure to generateTourCost.
+	  //Takes in:
+	  //solution, an arrayList of integers representing the cities to visit in order
+	  //distances, the 1D array of distance values (the TSP we are trying to solve)
+	  //step 1 - make 2D representation of the TSP distances. 1D distances > 2D distances
+	  double[][] TSP_2D = convert_1D_to_2D(distances);
+	  //print_2D(TSP_2D); //if we want to test the 2D representation
+	  
+	  //step 2 - calculate number of cities
+	 int cities = calculateCitiesAmount(distances);
+	  //step 3 - loop through cities array and find total cost of travel. Include cost of returning to start
+	 //double totalCost = 0.0;
+	 double cost;
+	 for(int i = 0; i < cities -1 ; i++) {
+	   int from = solution.get(i) -1;
+	   //System.out.println("from = " + (from+1));
+	   int to = from + 1;
+	   //System.out.println("to = " + (to+1));
+	   cost = TSP_2D[from][to];
+	   //System.out.println("cost " + (i+1) + " = " + cost);
+	   if(cost == 0.0) {
+	     System.out.println("hasZeroValue has found a zero value, returning true");
+	     return true; //at this point we know there is at least one 0.0 value
+	   }
+	   //totalCost += cost;
+	   //System.out.println("total cost = " + totalCost);
+	 }
+	 // Return to start city 
+	 //System.out.println("returning to start");
+	 int start = solution.get(0);
+	 //System.out.println("start = " + start);
+	 int end = solution.get(cities-1);
+	 //System.out.println("end = " + end);
+	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
+	 if (cost == 0.0)
+	 {
+		 System.out.println("hasZeroValue has found a zero value, returning true");
+	     return true; //at this point we know there is at least one 0.0 value
+	 }
+	 //System.out.println("cost = " + cost);
+	 //totalCost += cost; //this will be final cost for this solution
+	 //System.out.println("total cost = " + totalCost);
+	//step 4 - return  total cost
+	 System.out.println("hasZeroValue has found NO zero values, returning false");
+	 return false; // if we make it here then no zero values
+  }
   
+  public static List<Integer> hillClimberSolver(int numCities, List<Integer> initialSolution, int iterations, double[] distances) {
+
+	  List<Integer> solution = new ArrayList<>(initialSolution);
+	  
+	  double cost = 999.9;
+	  
+	  for(int i = 0; i < iterations; i++) {
+	  System.out.println("hillClimberSolver: iterations = " + iterations);
+	    List<Integer> newSolution = new ArrayList<>(solution);
+	    
+	    // Swap two random cities
+	    Random random1 = new Random(numCities); //should be between 0 and numCities
+	    System.out.println("Random1 = " + random1);
+	    int indexA = random1.nextInt(newSolution.size());
+	    Random random2 = new Random(numCities);
+	    System.out.println("Random2 = " + random2);
+	    int indexB = random2.nextInt(newSolution.size());
+	    
+	    int temp = newSolution.get(indexA);
+	    newSolution.set(indexA, newSolution.get(indexB));
+	    newSolution.set(indexB, temp);
+
+	    boolean condition1 = false;
+	    boolean condition2 = false;
+	      
+	    double newCost = generateTourCost(newSolution, distances);
+	    
+	    if(newCost < cost) {
+	      condition1 = true;
+	    }
+	    
+	    if(!hasZeroValue(newSolution, distances)) {
+	      condition2 = true; 
+	    }
+	    
+	    if(condition1 && condition2) {
+	      solution = newSolution;
+	      cost = newCost;
+	    }
+	    
+	  }
+	  
+	  if(cost == 999.9) {
+	    System.out.println("No valid solution found");
+	  }
+	  else {
+	    System.out.println("Best cost: " + cost);
+	  }
+	  
+	  // Return to start city
+	  solution.add(solution.get(0));
+	  
+	  return solution;
+	}
   
   
   
