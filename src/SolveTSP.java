@@ -9,8 +9,9 @@ public class SolveTSP { //this class is used for solving TSPs
     this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
     List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
-    tourPrinter(initialSolution);
-    double initialCost = generateTourCost(initialSolution, distances);
+    tourPrinter(initialSolution); //prints our initial solution for testing
+    //double initialCost = generateTourCost(initialSolution, distances); //the cost of our initial solution
+    //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
     
     
     //List<List<Integer>> permutations = generatePermutations(numCities);
