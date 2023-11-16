@@ -17,9 +17,9 @@ public class SolveTSP { //this class is used for solving TSPs
     tourPrinter(initialSolution); //prints our initial solution for testing
     //double initialCost = generateTourCost(initialSolution, distances); //the cost of our initial solution
     //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
-    int iterations = 1000;
+    int iterations = 10;
     List<Integer> hcSolution = hillClimberSolver(numCities, initialSolution, iterations, distances);
-    hasZeroValue(initialSolution,distances);
+    //hasZeroValue(initialSolution,distances);
     
     
     
@@ -231,7 +231,8 @@ public class SolveTSP { //this class is used for solving TSPs
   }
   
   public static List<Integer> hillClimberSolver(int numCities, List<Integer> initialSolution, int iterations, double[] distances) {
-
+	  //A method to solve TSPs using a basic hill climber
+	  //takes in number of cities, start solution, number of iterations, distances (TSP)
 	  ArrayList<Integer> solution = new ArrayList<>(initialSolution);
 	  
 	  double cost = 999.9;//make double.max
@@ -241,12 +242,13 @@ public class SolveTSP { //this class is used for solving TSPs
 	    ArrayList<Integer> newSolution = new ArrayList<>(solution);
 	    
 	    // Swap two random cities
-	    Random random1 = new Random(numCities); //should be between 0 and numCities
-	    System.out.println("Random1 = " + random1);
-	    int indexA = random1.nextInt(newSolution.size());
-	    Random random2 = new Random(numCities);
-	    System.out.println("Random2 = " + random2);
-	    int indexB = random2.nextInt(newSolution.size());
+	    Random random = new Random(); //should be between 0 and numCities
+	    System.out.println("Random1 = " + random);
+	    int indexA = random.nextInt(numCities);
+	    System.out.println("indexA = " + indexA);
+	    System.out.println("Random2 = " + random);
+	    int indexB = random.nextInt(numCities);
+	    System.out.println("indexB = " + indexB);
 	    
 	    int temp = newSolution.get(indexA);
 	    newSolution.set(indexA, newSolution.get(indexB));
@@ -261,10 +263,9 @@ public class SolveTSP { //this class is used for solving TSPs
 	      condition1 = true;
 	    }
 	    
-	    if(!hasZeroValue(newSolution, distances)) {
-	      condition2 = true; 
-	    }
-	    
+	    //if(!hasZeroValue(newSolution, distances)) {condition2 = true;}
+	    //commenting out above line as this should always be true if all cities are connected.
+	    condition2 = true;
 	    if(condition1 && condition2) {
 	      solution = (ArrayList<Integer>) newSolution.clone();
 	      cost = newCost;
