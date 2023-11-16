@@ -86,11 +86,12 @@ returns a 1-D array of type double
 		double[][] array_2D = new double[(int) x][(int) x]; //new 2D distance matrix
 		int a = 0; //used to track position in the 1D array
 		double b = 0; //using this to track array_1D values as we use less reads
-		for(int i = 0; i < x-2; i++) { //x-2 because we count from 0 and we ignore 1st 0 value which would be from a city to the same city
+		for(int i = 0; i < x -1; i++) { //x-1 because we ignore 1st 0 value which would be from a city to the same city
 			  for(int j = i+1; j < x; j++) {
 				b = array_1D[a];
 			    array_2D[i][j] = b; //populate 2D values
 			    array_2D[j][i] = b;
+				//System.out.println("b = " + b + ", array_2D[i][j] = " + array_2D[i][j] + ", array_2D[j][i] = " + array_2D[j][i] + ", a = " + a + ", i = " + i + ", j = " + j);
 			    a++; //increment a
 			    
 			  }
