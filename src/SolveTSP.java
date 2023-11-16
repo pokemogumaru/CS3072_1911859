@@ -17,10 +17,15 @@ public class SolveTSP { //this class is used for solving TSPs
     tourPrinter(initialSolution); //prints our initial solution for testing
     //double initialCost = generateTourCost(initialSolution, distances); //the cost of our initial solution
     //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
-    int iterations = 30;
+    int iterations = 3;
     List<Integer> hcSolution = hillClimberSolver(numCities, initialSolution, iterations, distances);
     //hasZeroValue(initialSolution,distances);
-    
+    System.out.println("Best tour after hill climber:");
+    tourPrinter(hcSolution);
+    //debug:
+    System.out.println("debug, cost of 10 -> 9 -> 7 -> 5 -> 6 -> 2 -> 4 -> 1 -> 3 -> 8 -> 10:");
+    ArrayList<Integer> shouldBe2point4 = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 6, 7, 8, 9, 2, 10));
+    System.out.println(generateTourCost(shouldBe2point4,distances));
     
     
     //tourPrinter(optimalTour); //to print the optimal tour
@@ -110,7 +115,9 @@ public class SolveTSP { //this class is used for solving TSPs
 	 double cost;
 	 for(int i = 0; i < cities -1 ; i++) {
 	   int from = solution.get(i) - 1;
+	   System.out.println("solution.get(i) - 1 = " + (solution.get(i) -1));
 	   int to = solution.get(i+1) -1;
+	   System.out.println("solution.get(i+1) - 1 = " + (solution.get(i+1) -1));
 	   cost = TSP_2D[from][to];
 	   System.out.println("from city = " + (from+1) + " to city = " + (to+1)+ " cost " + (i+1) + " = " + cost);
 	   if(cost == 0.0) {
