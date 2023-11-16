@@ -16,6 +16,7 @@ public class CS3072_1911859 {
 		
 		//test_2D();
 		SolveTSP solver = new SolveTSP(new_TSP());
+		
 	}
 
 	public static void test_new_TSP()

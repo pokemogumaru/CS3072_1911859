@@ -277,7 +277,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  }
 	  
 	  if(cost == 999.9) {
-	    System.out.println("No valid solution found");
+	    System.out.println("No valid solution found that beat the initial solution");
 	  }
 	  else {
 	    System.out.println("Best cost: " + cost);
@@ -288,6 +288,8 @@ public class SolveTSP { //this class is used for solving TSPs
 	  
 	  return solution;
 	}
+  
+  
   
   
   
