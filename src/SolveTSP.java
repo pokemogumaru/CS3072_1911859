@@ -10,12 +10,17 @@ public class SolveTSP { //this class is used for solving TSPs
   public SolveTSP(double[] distances) {
     this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
-    List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
+    //List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
+    //the above line fails due to the initial solution having (3 I believe) zero values that means the random swaps don't generate valid solutions
+    ArrayList<Integer> initialSolution = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 6, 7, 8, 9, 2, 10));
+    //the above uses a custom initial solution that is valid so we don't encounter the previous problem
     tourPrinter(initialSolution); //prints our initial solution for testing
     //double initialCost = generateTourCost(initialSolution, distances); //the cost of our initial solution
     //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
     int iterations = 1000;
     List<Integer> hcSolution = hillClimberSolver(numCities, initialSolution, iterations, distances);
+    hasZeroValue(initialSolution,distances);
+    
     
     
     //List<List<Integer>> permutations = generatePermutations(numCities);
