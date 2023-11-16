@@ -213,7 +213,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	   cost = TSP_2D[from][to];
 	   //System.out.println("cost " + (i+1) + " = " + cost);
 	   if(cost == 0.0) {
-	     System.out.println("hasZeroValue has found a zero value, returning true");
+	     System.out.println("hasZeroValue has found a zero value, returning true. i = " + i);
 	     return true; //at this point we know there is at least one 0.0 value
 	   }
 	   //totalCost += cost;
@@ -228,7 +228,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
 	 if (cost == 0.0)
 	 {
-		 System.out.println("hasZeroValue has found a zero value, returning true");
+		 System.out.println("hasZeroValue has found a zero value, returning true. Found when returning to start");
 	     return true; //at this point we know there is at least one 0.0 value
 	 }
 	 //System.out.println("cost = " + cost);
