@@ -101,7 +101,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  //distances, the 1D array of distance values (the TSP we are trying to solve)
 	  //step 1 - make 2D representation of the TSP distances. 1D distances > 2D distances
 	  double[][] TSP_2D = convert_1D_to_2D(distances);
-	  print_2D(TSP_2D); //if we want to test the 2D representation
+	  //print_2D(TSP_2D); //if we want to test the 2D representation
 	  
 	  //step 2 - calculate number of cities
 	 int cities = calculateCitiesAmount(distances);
@@ -238,7 +238,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  double cost = 999.9;//make double.max
 	  
 	  for(int i = 0; i < iterations; i++) {
-	  System.out.println("hillClimberSolver: iterations = " + iterations);
+	  System.out.println("hillClimberSolver: i = " + iterations);
 	    ArrayList<Integer> newSolution = new ArrayList<>(solution);
 	    
 	    // Swap two random cities
