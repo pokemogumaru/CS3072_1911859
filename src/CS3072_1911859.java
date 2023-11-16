@@ -15,7 +15,8 @@ public class CS3072_1911859 {
 		//total runtime should be approximately proportional to i.j
 		
 		//test_2D();
-		SolveTSP solver = new SolveTSP(new_TSP());
+		
+		//SolveTSP solver = new SolveTSP(new_TSP());
 		
 	}
 
@@ -33,21 +34,21 @@ public class CS3072_1911859 {
 	public static double[] new_TSP() {
 		//this method generates a new TSP
 		/*
-		 * generates a 45 element array of numbers ranging from 0.0 to 1.0 , e.g. 0.7
-These numbers should be in order and repeating once 1 is reached. so this would be 0.0 , 0.1 , ... , 0.9 , 1.0 , 0.0 , 0.1 etc
+		 * generates a 45 element array of numbers ranging from 0.1 to 1.0 , e.g. 0.7
+These numbers should be in order and repeating once 1 is reached. so this would be 0.1 , ... , 0.9 , 1.0 , 0.1 etc
 returns a 1-D array of type double
 0.0 indicates it is not possible to travel from one city to another
 		 */
 		  double[] arr = new double[45];
-		  double value = 0.0; // Start with 0.0
+		  double value = 0.1; // Start with 0.1
 
 		  for(int i = 0; i < arr.length; i++) {
 
 		    arr[i] = value; 
 
-		    // Check if previous value was 1.0, reset to 0.0 if so
+		    // Check if previous value was 1.0, reset to 0.1 if so
 		    if(value >= 1.0) {
-		      value = 0.0; 
+		      value = 0.1; 
 		    }
 		    else {
 		      value += 0.1; // Add 0.1 otherwise 
