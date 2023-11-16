@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class CS3072_1911859 {
 
 	public static void main(String[] args) {
+		//System.out.println("Start of Program");
 		//to test new_TSP:
 		//test_new_TSP();
 		//sets i - the number of iterations the TSP modifier will run

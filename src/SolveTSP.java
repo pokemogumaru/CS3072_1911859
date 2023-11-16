@@ -23,17 +23,7 @@ public class SolveTSP { //this class is used for solving TSPs
     
     
     
-    //List<List<Integer>> permutations = generatePermutations(numCities);
-    //List<List<Integer>> validPerms = acceptanceVisited(permutations); 
-  //TODO: add a middle step here where we add an element to each ArrayList
-    //this element will be copied from the 1st element from the list
-    //as this will mean we return to the start
-    //this must be done after we check each city is visited once
-    //but must be done before the possible check as the return to start must be possible
-    //List<List<Integer>> possibleTours = acceptancePossible(validPerms, distances);
-    //List<Integer> optimalTour = getOptimalTour(possibleTours, distances);
     //tourPrinter(optimalTour); //to print the optimal tour
-    // optimalTour contains best solution
   }
 
   public static int calculateCitiesAmount(double[] distances) {
@@ -213,7 +203,8 @@ public class SolveTSP { //this class is used for solving TSPs
 	   cost = TSP_2D[from][to];
 	   //System.out.println("cost " + (i+1) + " = " + cost);
 	   if(cost == 0.0) {
-	     System.out.println("hasZeroValue has found a zero value, returning true. i = " + i);
+		 System.out.println("hasZeroValue: i = " + i + ". from = " + from + ". to = " + to + ". cost = " + cost);
+	     System.out.println("hasZeroValue has found a zero value, returning true.");
 	     return true; //at this point we know there is at least one 0.0 value
 	   }
 	   //totalCost += cost;
@@ -298,41 +289,6 @@ public class SolveTSP { //this class is used for solving TSPs
   
   
   
-	  public List<List<Integer>> acceptanceVisited(List<List<Integer>> permutations) {
-		//TODO test and possible revamp
-		  //Will remove since initial solution includes each city once
-	    List<List<Integer>> valid = new ArrayList<>();
-	    for(List<Integer> perm : permutations) {
-	      if(new HashSet<>(perm).size() == perm.size()) {
-	    	  //hash set should be O(1)
-	        valid.add(perm);
-	      }
-	    }
-	    return valid;
-	  }
-
-	  public List<List<Integer>> acceptancePossible(List<List<Integer>> permutations, double[] distances) {
-	    // this method should check if each tour is possible (no 0 weight routes)
-		// not functional yet
-		  //TODO implement & change
-		return permutations; //TO CHANGE
-	  }
-
-	  public List<Integer> getOptimalTour(List<List<Integer>> possibleTours, double[] distances) {
-	    //this method finds the tour with lowest weight
-		//TODO test this method
-	    double minDist = Double.MAX_VALUE;
-	    List<Integer> optimalTour = null;
-	    for(List<Integer> tour : possibleTours) {
-	      double tourDist = 0;
-	      // Calculate tour distance
-	      if(tourDist < minDist) {
-	        minDist = tourDist;
-	        optimalTour = tour;
-	      }
-	    }
-	    return optimalTour;
-	  }
 	  
 	  public static void tourPrinter(List<Integer> optimalTour)
 	  {//used to print a tour. E.g. 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
