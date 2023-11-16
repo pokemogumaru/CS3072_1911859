@@ -109,12 +109,10 @@ public class SolveTSP { //this class is used for solving TSPs
 	 double totalCost = 0.0;
 	 double cost;
 	 for(int i = 0; i < cities -1 ; i++) {
-	   int from = solution.get(i) -1;
-	   System.out.println("from = " + (from+1));
-	   int to = from + 1;
-	   System.out.println("to = " + (to+1));
+	   int from = solution.get(i) - 1;
+	   int to = solution.get(i+1) -1;
 	   cost = TSP_2D[from][to];
-	   System.out.println("cost " + (i+1) + " = " + cost);
+	   System.out.println("from city = " + (from+1) + " to city = " + (to+1)+ " cost " + (i+1) + " = " + cost);
 	   if(cost == 0.0) {
 	     System.out.println("warning, 0 value found");
 	   }
@@ -235,7 +233,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  //takes in number of cities, start solution, number of iterations, distances (TSP)
 	  ArrayList<Integer> solution = new ArrayList<>(initialSolution);
 	  
-	  double cost = 999.9;//make double.max
+	  double cost = Double.MAX_VALUE;// max value so we accept any new solution
 	  
 	  for(int i = 0; i < iterations; i++) {
 	  System.out.println("hillClimberSolver: i = " + iterations);
@@ -243,12 +241,11 @@ public class SolveTSP { //this class is used for solving TSPs
 	    
 	    // Swap two random cities
 	    Random random = new Random(); //should be between 0 and numCities
-	    System.out.println("Random1 = " + random);
+	    //System.out.println("Random1 = " + random); //just gives object reference. Not very useful. E.g. java.util.Random@4671e53b
 	    int indexA = random.nextInt(numCities);
-	    System.out.println("indexA = " + indexA);
-	    System.out.println("Random2 = " + random);
+	    System.out.println("chosen at random: indexA = " + indexA);
 	    int indexB = random.nextInt(numCities);
-	    System.out.println("indexB = " + indexB);
+	    System.out.println("chosen at random: indexB = " + indexB);
 	    
 	    int temp = newSolution.get(indexA);
 	    newSolution.set(indexA, newSolution.get(indexB));
@@ -277,9 +274,10 @@ public class SolveTSP { //this class is used for solving TSPs
 	    System.out.println("No valid solution found that beat the initial solution");
 	  }
 	  else {
-	    System.out.println("Best cost: " + cost);
+		String outBestCost = ("Best cost: "+ cost);
+	    System.out.println(outBestCost);
 	  }
-	  
+	  System.out.println("Hil Climber Finished!");
 	  // Return to start city
 	  solution.add(solution.get(0));
 	  
@@ -304,4 +302,5 @@ public class SolveTSP { //this class is used for solving TSPs
 		  }
 		  System.out.println();
 	  }
+	  
 }
