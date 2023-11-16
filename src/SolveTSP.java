@@ -241,13 +241,13 @@ public class SolveTSP { //this class is used for solving TSPs
   
   public static List<Integer> hillClimberSolver(int numCities, List<Integer> initialSolution, int iterations, double[] distances) {
 
-	  List<Integer> solution = new ArrayList<>(initialSolution);
+	  ArrayList<Integer> solution = new ArrayList<>(initialSolution);
 	  
-	  double cost = 999.9;
+	  double cost = 999.9;//make double.max
 	  
 	  for(int i = 0; i < iterations; i++) {
 	  System.out.println("hillClimberSolver: iterations = " + iterations);
-	    List<Integer> newSolution = new ArrayList<>(solution);
+	    ArrayList<Integer> newSolution = new ArrayList<>(solution);
 	    
 	    // Swap two random cities
 	    Random random1 = new Random(numCities); //should be between 0 and numCities
@@ -275,7 +275,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	    }
 	    
 	    if(condition1 && condition2) {
-	      solution = newSolution;
+	      solution = (ArrayList<Integer>) newSolution.clone();
 	      cost = newCost;
 	    }
 	    
