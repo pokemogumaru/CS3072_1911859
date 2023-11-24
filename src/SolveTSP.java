@@ -321,21 +321,15 @@ public class SolveTSP { //this class is used for solving TSPs
 	  }
 	  
 	  if(cost == 999.9) {
-	    String cost999 = "No valid solution found that beat the initial solution";
+	    String cost999 = "No valid solution found that beat the initial solution"; basicLog.addLineTXT(cost999); fullLog.addLineTXT(cost999);
 		System.out.println(cost999);
-		basicLog.addLineTXT(cost999);
-		fullLog.addLineTXT(cost999);
 	  }
 	  else {
-		String outBestCost = ("Best cost: "+ cost);
+		String outBestCost = ("Best cost: "+ cost); basicLog.addLineTXT(outBestCost); fullLog.addLineTXT(outBestCost);
 		System.out.println(outBestCost);
-		basicLog.addLineTXT(outBestCost);
-		fullLog.addLineTXT(outBestCost);
 	  }
-	  String finished = "Hil Climber Finished!";
+	  String finished = "Hil Climber Finished!"; basicLog.addLineTXT(finished); fullLog.addLineTXT(finished);
 	  System.out.println(finished);
-		basicLog.addLineTXT(finished);
-		fullLog.addLineTXT(finished);
 	  // Return to start city
 	  solution.add(solution.get(0));
 	  
