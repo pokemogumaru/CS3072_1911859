@@ -10,13 +10,13 @@ import java.time.format.DateTimeFormatter;
 
 public class SolveTSP { //this class is used for solving TSPs
   private double[] distances;
-  private FileWriterUtil basicLog;
+  private static FileWriterUtil basicLog;
   public SolveTSP(double[] distances) throws IOException {
 	//START OF PROGRAM OPEN FILES
 	//will have these files: basic, full, hillClimberFitness
 	//planning to use filename format: SolveTSP-(loggingType)-dateTime
 	// Create file writer instance
-	  basicLog = new FileWriterUtil(dateTime() + " basicLog.txt", "txt"); basicLog.start();
+	  basicLog = new FileWriterUtil(dateTime() + " basicLog.txt", "txt"); basicLog.start(); //create basic log instance and start using the file
 	  
     this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
@@ -42,10 +42,10 @@ public class SolveTSP { //this class is used for solving TSPs
     
     //tourPrinter(optimalTour); //to print the optimal tour
     //END OF PROGRAM CLOSE FILES
-    basicLog.close();
+    basicLog.close(); //stop using the file for basic log
   }
 
-  public static int calculateCitiesAmount(double[] distances) {
+  public static int calculateCitiesAmount(double[] distances) throws IOException {
 	// Get size of 1D array
 	  int n = distances.length;
 	  if (n < 1)
@@ -114,7 +114,7 @@ public class SolveTSP { //this class is used for solving TSPs
 		return array_2D;
 	}
   
-  public static double generateTourCost(List<Integer> solution, double[] distances){
+  public static double generateTourCost(List<Integer> solution, double[] distances) throws IOException{
 	  //A method to generate the total cost of a TSP solution.
 	  //Takes in:
 	  //solution, an arrayList of integers representing the cities to visit in order
@@ -201,7 +201,7 @@ public class SolveTSP { //this class is used for solving TSPs
 
 	}
   
-  public static boolean hasZeroValue(List<Integer> solution, double[] distances){
+  public static boolean hasZeroValue(List<Integer> solution, double[] distances) throws IOException{
 	  //We shouldn't need this given every city is connected to every other city in TSP.
 	  //A method to check if there are 0 values, similar structure to generateTourCost.
 	  //Takes in:
@@ -251,7 +251,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	 return false; // if we make it here then no zero values
   }
   
-  public static List<Integer> hillClimberSolver(int numCities, List<Integer> initialSolution, int iterations, double[] distances) {
+  public static List<Integer> hillClimberSolver(int numCities, List<Integer> initialSolution, int iterations, double[] distances) throws IOException {
 	  //A method to solve TSPs using a basic hill climber
 	  //takes in number of cities, start solution, number of iterations, distances (TSP)
 	  ArrayList<Integer> solution = new ArrayList<>(initialSolution);
