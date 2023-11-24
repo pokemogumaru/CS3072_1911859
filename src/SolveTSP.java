@@ -62,11 +62,10 @@ public class SolveTSP { //this class is used for solving TSPs
 	// Calculate square root term 
 	double sqrtTerm = Math.sqrt(1 + 8*n);
 	// Calculate x
-	x = (1 + sqrtTerm) / 2;
-	System.out.println("calculateCitiesAmount:"); //used for testing
-	System.out.println("x = " + x); //45 element 1D array should print x = 10
+	x = (1 + sqrtTerm) / 2;	
+	String calculateCitiesXValue = ("calculateCitiesAmount: " + "x = " + x); fullLog.addLineTXT(calculateCitiesXValue);
+	//System.out.println(calculateCitiesXValue); //don't really need this unless testing, 45 element 1D array should print x = 10
 	return (int) x;
-	
 	  }
 
   public List<Integer> generateInitialSolution(int numCities) {
@@ -82,7 +81,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  return cities;
 	}
 
-  public static double[][] convert_1D_to_2D(double[] array_1D)
+  public static double[][] convert_1D_to_2D(double[] array_1D) throws IOException
 	{
 		// Get size of 1D array
 		  int n = array_1D.length;
@@ -90,7 +89,7 @@ public class SolveTSP { //this class is used for solving TSPs
 		  {
 			  // should never be less than 1 element, giving a 2x2 matrix
 			  double[][] array_2D = new double[1][1];
-			  System.out.println("less than 1 unique element, likely an error.");
+			  System.out.println("convert_1D_to_2D: less than 1 unique element, likely an error.");
 			  return array_2D;
 			  
 		  }
@@ -101,7 +100,8 @@ public class SolveTSP { //this class is used for solving TSPs
 		// Calculate x
 		x = (1 + sqrtTerm) / 2;
 		//test this
-		System.out.println("x = " + x);
+		String xValue = ("convert_1D_to_2D: x = " + x); fullLog.addLineTXT(xValue);
+		//System.out.println(xValue);
 		
 		// Create 2D array with x by x size
 		double[][] array_2D = new double[(int) x][(int) x]; //new 2D distance matrix
@@ -263,9 +263,8 @@ public class SolveTSP { //this class is used for solving TSPs
 	 //totalCost += cost; //this will be final cost for this solution
 	 //System.out.println("total cost = " + totalCost);
 	//step 4 - return  total cost
-	 String noZeroValues = "hasZeroValue has found NO zero values, returning false" ;
+	 String noZeroValues = "hasZeroValue has found NO zero values, returning false" ; basicLog.addLineTXT(noZeroValues); fullLog.addLineTXT(noZeroValues);
 	 System.out.println(noZeroValues);
-	 basicLog.addLineTXT(noZeroValues);
 	 return false; // if we make it here then no zero values
   }
   
