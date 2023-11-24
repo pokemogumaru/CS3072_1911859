@@ -262,20 +262,23 @@ public class SolveTSP { //this class is used for solving TSPs
 	  ArrayList<Integer> solution = new ArrayList<>(initialSolution);
 	  
 	  double cost = Double.MAX_VALUE;// max value so we accept any new solution
-	  System.out.println("Starting hill climber solver loop");
+	  String start = "Starting hill climber solver loop";
+	  System.out.println(start);
+	  basicLog.addLineTXT(start);
+	  fullLog.addLineTXT(start);
+	  
 	  for(int i = 0; i < iterations; i++) {
 	  System.out.println("hillClimberSolver: i = " + i);
 	    ArrayList<Integer> newSolution = new ArrayList<>(solution);
 	    
 	    // Swap two random cities
 	    Random random = new Random(); //should be between 0 and numCities
-	    //System.out.println("Random1 = " + random); //just gives object reference. Not very useful. E.g. java.util.Random@4671e53b
 	    int indexA = random.nextInt(numCities);
 	    System.out.println("chosen at random: indexA = " + indexA);
 	    boolean same = true;
 	    int indexB = random.nextInt(numCities);
 	    while (same)
-	    {
+	    { //no point swapping a value with itself...
 	    	indexB = random.nextInt(numCities);
 	    	if (indexB != indexA)
 	    	{
@@ -309,13 +312,21 @@ public class SolveTSP { //this class is used for solving TSPs
 	  }
 	  
 	  if(cost == 999.9) {
-	    System.out.println("No valid solution found that beat the initial solution");
+	    String cost999 = "No valid solution found that beat the initial solution";
+		System.out.println(cost999);
+		basicLog.addLineTXT(cost999);
+		fullLog.addLineTXT(cost999);
 	  }
 	  else {
 		String outBestCost = ("Best cost: "+ cost);
-	    System.out.println(outBestCost);
+		System.out.println(outBestCost);
+		basicLog.addLineTXT(outBestCost);
+		fullLog.addLineTXT(outBestCost);
 	  }
-	  System.out.println("Hil Climber Finished!");
+	  String finished = "Hil Climber Finished!";
+	  System.out.println(finished);
+		basicLog.addLineTXT(finished);
+		fullLog.addLineTXT(finished);
 	  // Return to start city
 	  solution.add(solution.get(0));
 	  
