@@ -10,12 +10,14 @@ import java.time.format.DateTimeFormatter;
 
 public class SolveTSP { //this class is used for solving TSPs
   private double[] distances;
-  public SolveTSP(double[] distances) {
+  private FileWriterUtil basicLog;
+  public SolveTSP(double[] distances) throws IOException {
 	//START OF PROGRAM OPEN FILES
 	//will have these files: basic, full, hillClimberFitness
 	//planning to use filename format: SolveTSP-(loggingType)-dateTime
 	// Create file writer instance
-	// Create file writer instance
+	  basicLog = new FileWriterUtil(dateTime() + " basicLog.txt", "txt"); basicLog.start();
+	  
     this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
     //List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
@@ -40,7 +42,7 @@ public class SolveTSP { //this class is used for solving TSPs
     
     //tourPrinter(optimalTour); //to print the optimal tour
     //END OF PROGRAM CLOSE FILES
-    
+    basicLog.close();
   }
 
   public static int calculateCitiesAmount(double[] distances) {
@@ -59,6 +61,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	System.out.println("calculateCitiesAmount:"); //used for testing
 	System.out.println("x = " + x); //45 element 1D array should print x = 10
 	return (int) x;
+	
 	  }
 
   public List<Integer> generateInitialSolution(int numCities) {
@@ -306,9 +309,6 @@ public class SolveTSP { //this class is used for solving TSPs
   
   
   
-  
-  
-	  
 	  public static void tourPrinter(List<Integer> optimalTour)
 	  {//used to print a tour. E.g. 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 		  //TODO also print the total cost/weight of this solution
@@ -323,5 +323,12 @@ public class SolveTSP { //this class is used for solving TSPs
 		  System.out.println();
 	  }
 	  
+	  public static String dateTime()
+	  { //returns dateTime as string, useful for naming files.
+		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"); //should be accurate enough to avoid filename conflicts and tell us when we made the logs.
+		  LocalDateTime now = LocalDateTime.now();
+		  String dateTime = now.format(formatter);
+		  return dateTime;
+	  }
 	  
 }

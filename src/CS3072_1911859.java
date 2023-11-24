@@ -1,11 +1,12 @@
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CS3072_1911859 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		//System.out.println("Start of Program");
 		//to test new_TSP:
 		//test_new_TSP();
