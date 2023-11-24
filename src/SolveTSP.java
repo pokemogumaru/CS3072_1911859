@@ -22,6 +22,7 @@ public class SolveTSP { //this class is used for solving TSPs
     //hasZeroValue(initialSolution,distances);
     System.out.println("Best tour after hill climber:");
     tourPrinter(hcSolution);
+    System.out.println("Best total cost (including return to start): " + generateTourCost(hcSolution, distances));
     //debug:
     /*
     System.out.println("debug, cost of 10 -> 9 -> 7 -> 5 -> 6 -> 2 -> 4 -> 1 -> 3 -> 8 -> 10:");
@@ -117,27 +118,27 @@ public class SolveTSP { //this class is used for solving TSPs
 	 double cost;
 	 for(int i = 0; i < cities -1 ; i++) {
 	   int from = solution.get(i) - 1;
-	   System.out.println("solution.get(i) - 1 = " + (solution.get(i) -1));
+	   //System.out.println("solution.get(i) - 1 = " + (solution.get(i) -1));
 	   int to = solution.get(i+1) -1;
-	   System.out.println("solution.get(i+1) - 1 = " + (solution.get(i+1) -1));
+	   //System.out.println("solution.get(i+1) - 1 = " + (solution.get(i+1) -1));
 	   cost = TSP_2D[from][to];
-	   System.out.println("from city = " + (from+1) + " to city = " + (to+1)+ " cost " + (i+1) + " = " + cost);
+	   //System.out.println("from city = " + (from+1) + " to city = " + (to+1)+ " cost " + (i+1) + " = " + cost);
 	   if(cost == 0.0) {
-	     System.out.println("warning, 0 value found");
+	     System.out.println("warning, 0 value found"); //should never happen
 	   }
 	   totalCost += cost;
-	   System.out.println("total cost = " + totalCost);
+	   //System.out.println("total cost before returning to start = " + totalCost);
 	 }
 	 // Return to start city 
-	 System.out.println("returning to start");
+	 //System.out.println("returning to start");
 	 int start = solution.get(0);
-	 System.out.println("start = " + start);
+	 //System.out.println("start = " + start);
 	 int end = solution.get(cities-1);
-	 System.out.println("end = " + end);
+	 //System.out.println("end = " + end);
 	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
-	 System.out.println("cost = " + cost);
+	 //System.out.println("cost = " + cost);
 	 totalCost += cost; //this will be final cost for this solution
-	 System.out.println("total cost = " + totalCost);
+	 //System.out.println("total cost after returning to start = " + totalCost);
 	//step 4 - return  total cost
 	 return totalCost; // for example 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 the cost 5.0 is correct!
   }
@@ -189,6 +190,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	}
   
   public static boolean hasZeroValue(List<Integer> solution, double[] distances){
+	  //We shouldn't need this given every city is connected to every other city in TSP.
 	  //A method to check if there are 0 values, similar structure to generateTourCost.
 	  //Takes in:
 	  //solution, an arrayList of integers representing the cities to visit in order
@@ -245,7 +247,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  double cost = Double.MAX_VALUE;// max value so we accept any new solution
 	  System.out.println("Starting hill climber solver loop");
 	  for(int i = 0; i < iterations; i++) {
-	  System.out.println("hillClimberSolver: i = " + iterations);
+	  System.out.println("hillClimberSolver: i = " + i);
 	    ArrayList<Integer> newSolution = new ArrayList<>(solution);
 	    
 	    // Swap two random cities
