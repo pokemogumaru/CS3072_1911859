@@ -21,7 +21,8 @@ public class SolveTSP { //this class is used for solving TSPs
 	basicLog = new FileWriterUtil(dateTime() + " SolveTSP basicLog.txt", "txt"); basicLog.start(); //create basic log instance and start using the file
 	fullLog = new FileWriterUtil(dateTime() + " SolveTSP fullLog.txt", "txt"); fullLog.start(); //create fullLog instance and start using the file
 	hillClimberFitnessLog = new FileWriterUtil(dateTime() + " SolveTSP hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start(); //create hillClimberFitnessLog instance and start using the file
-    this.distances = distances;
+    
+	this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
     //List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
     //the above line fails due to the initial solution having (3 I believe) zero values that means the random swaps don't generate valid solutions
@@ -30,7 +31,7 @@ public class SolveTSP { //this class is used for solving TSPs
     tourPrinter(initialSolution); //prints our initial solution for testing
     //double initialCost = generateTourCost(initialSolution, distances); //the cost of our initial solution
     //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
-    int iterations = 300;
+    int iterations = 30000;
     List<Integer> hcSolution = hillClimberSolver(numCities, initialSolution, iterations, distances);
     //hasZeroValue(initialSolution,distances);
     System.out.println("Best tour after hill climber:");
@@ -42,6 +43,7 @@ public class SolveTSP { //this class is used for solving TSPs
     ArrayList<Integer> shouldBe2point4 = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 6, 7, 8, 9, 2, 10));
     System.out.println(generateTourCost(shouldBe2point4,distances));
     */
+    
     
     //tourPrinter(optimalTour); //to print the optimal tour
     //END OF PROGRAM CLOSE FILES
@@ -58,11 +60,9 @@ public class SolveTSP { //this class is used for solving TSPs
 		  System.out.println("less than 1 unique element, likely an error.");
 		  return 0;
 	  }
-	  double x; //get size of width / height (called x)
-	// Calculate square root term 
-	double sqrtTerm = Math.sqrt(1 + 8*n);
-	// Calculate x
-	x = (1 + sqrtTerm) / 2;	
+	double x; //get size of width / height (called x)
+	double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term 
+	x = (1 + sqrtTerm) / 2;	// Calculate x
 	String calculateCitiesXValue = ("calculateCitiesAmount: " + "x = " + x); fullLog.addLineTXT(calculateCitiesXValue);
 	//System.out.println(calculateCitiesXValue); //don't really need this unless testing, 45 element 1D array should print x = 10
 	return (int) x;
@@ -139,7 +139,8 @@ public class SolveTSP { //this class is used for solving TSPs
 	   int to = solution.get(i+1) -1;
 	   //System.out.println("solution.get(i+1) - 1 = " + (solution.get(i+1) -1));
 	   cost = TSP_2D[from][to];
-	   //System.out.println("from city = " + (from+1) + " to city = " + (to+1)+ " cost " + (i+1) + " = " + cost);
+	   String fromCityToCityCost = ("from city = " + (from+1) + " to city = " + (to+1)+ " cost " + (i+1) + " = " + cost); //for debugging or testing
+	   fullLog.addLineTXT(fromCityToCityCost); //generates a lot of text, use only when needed
 	   if(cost == 0.0) {
 	     String warning0 = ("generateTourCost: warning, 0 value found! i = " + i); //should never happen
 	     System.out.println(warning0);
@@ -153,15 +154,11 @@ public class SolveTSP { //this class is used for solving TSPs
 	 String returning = "returning to start"; fullLog.addLineTXT(returning); //useful for full log
 	 //System.out.println(returning); //not really worth printing
 	 int start = solution.get(0);
-	 String startString = ("start = " + start);
-	 fullLog.addLineTXT(startString);
-	 //System.out.println(startString);
 	 int end = solution.get(cities-1);
-	 String endString = ("end = " + end);
-	 fullLog.addLineTXT(endString);
-	 //System.out.println(endString);
 	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
-	 //System.out.println("cost = " + cost);
+	 String startEndCostString = ("start = " + start + " , end = " + end + " , cost = " + cost);
+	 fullLog.addLineTXT(startEndCostString);
+	 //System.out.println(startString);
 	 totalCost += cost; //this will be final cost for this solution
 	 String totalCostString = ("total cost after returning to start = " + totalCost);
 	 basicLog.addLineTXT(totalCostString);
@@ -312,11 +309,14 @@ public class SolveTSP { //this class is used for solving TSPs
 	    //if(!hasZeroValue(newSolution, distances)) {condition2 = true;}
 	    //commenting out above line as this should always be true if all cities are connected.
 	    condition2 = true;
-	    if(condition1 && condition2) {
+	    if(condition1 && condition2) { //update solution and cost
 	      solution = (ArrayList<Integer>) newSolution.clone();
 	      cost = newCost;
 	    }
-	    
+	    //record current best cost:
+	    String currentBestCost = ("Current best cost = " + cost); basicLog.addLineTXT(currentBestCost); fullLog.addLineTXT(currentBestCost); //in text loggers
+	    hillClimberFitnessLog.addColumnCSV(String.valueOf(cost)); 
+	    hillClimberFitnessLog.addRowCSV(String.valueOf(i));
 	  }
 	  
 	  if(cost == 999.9) {
@@ -327,11 +327,9 @@ public class SolveTSP { //this class is used for solving TSPs
 		String outBestCost = ("Best cost: "+ cost); basicLog.addLineTXT(outBestCost); fullLog.addLineTXT(outBestCost);
 		System.out.println(outBestCost);
 	  }
-	  String finished = "Hil Climber Finished!"; basicLog.addLineTXT(finished); fullLog.addLineTXT(finished);
+	  String finished = ("Hil Climber Finished after " +iterations + " iterations!"); basicLog.addLineTXT(finished); fullLog.addLineTXT(finished);
 	  System.out.println(finished);
-	  // Return to start city
-	  solution.add(solution.get(0));
-	  
+	  solution.add(solution.get(0)); // Return to start city
 	  return solution;
 	}
   
@@ -339,7 +337,6 @@ public class SolveTSP { //this class is used for solving TSPs
   
 	  public static void tourPrinter(List<Integer> optimalTour)
 	  {//used to print a tour. E.g. 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
-		  //TODO also print the total cost/weight of this solution
 		  System.out.println("Tour:");
 		  // Loop through each city in the optimal tour
 		  for(int i = 0; i < optimalTour.size(); i++) {
