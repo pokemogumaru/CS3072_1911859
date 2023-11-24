@@ -272,7 +272,17 @@ public class SolveTSP { //this class is used for solving TSPs
 	    //System.out.println("Random1 = " + random); //just gives object reference. Not very useful. E.g. java.util.Random@4671e53b
 	    int indexA = random.nextInt(numCities);
 	    System.out.println("chosen at random: indexA = " + indexA);
+	    boolean same = true;
 	    int indexB = random.nextInt(numCities);
+	    while (same)
+	    {
+	    	indexB = random.nextInt(numCities);
+	    	if (indexB != indexA)
+	    	{
+	    		same = false;
+	    	}
+	    }
+	    
 	    System.out.println("chosen at random: indexB = " + indexB);
 	    
 	    int temp = newSolution.get(indexA);
