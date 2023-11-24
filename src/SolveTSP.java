@@ -18,9 +18,9 @@ public class SolveTSP { //this class is used for solving TSPs
 	//will have these files: basic, full, hillClimberFitness
 	//planning to use filename format: SolveTSP-(loggingType)-dateTime
 	// Create file writer instance
-	basicLog = new FileWriterUtil(dateTime() + " basicLog.txt", "txt"); basicLog.start(); //create basic log instance and start using the file
-	fullLog = new FileWriterUtil(dateTime() + " fullLog.txt", "txt"); fullLog.start(); //create fullLog instance and start using the file
-	hillClimberFitnessLog = new FileWriterUtil(dateTime() + " hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start(); //create hillClimberFitnessLog instance and start using the file
+	basicLog = new FileWriterUtil(dateTime() + " SolveTSP basicLog.txt", "txt"); basicLog.start(); //create basic log instance and start using the file
+	fullLog = new FileWriterUtil(dateTime() + " SolveTSP fullLog.txt", "txt"); fullLog.start(); //create fullLog instance and start using the file
+	hillClimberFitnessLog = new FileWriterUtil(dateTime() + " SolveTSP hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start(); //create hillClimberFitnessLog instance and start using the file
     this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
     //List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
@@ -141,7 +141,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	   cost = TSP_2D[from][to];
 	   //System.out.println("from city = " + (from+1) + " to city = " + (to+1)+ " cost " + (i+1) + " = " + cost);
 	   if(cost == 0.0) {
-	     String warning0 = "generateTourCost: warning, 0 value found"; //should never happen
+	     String warning0 = ("generateTourCost: warning, 0 value found! i = " + i); //should never happen
 	     System.out.println(warning0);
 	     basicLog.addLineTXT(warning0);
 		fullLog.addLineTXT(warning0);
@@ -276,13 +276,14 @@ public class SolveTSP { //this class is used for solving TSPs
 	  String start = "Starting hill climber solver loop"; basicLog.addLineTXT(start); fullLog.addLineTXT(start);
 	  System.out.println(start);
 	  for(int i = 0; i < iterations; i++) {
-	  System.out.println("hillClimberSolver: i = " + i);
-	    ArrayList<Integer> newSolution = new ArrayList<>(solution);
+	  String HCLoggerI = ("hillClimberSolver: i = " + i); basicLog.addLineTXT(HCLoggerI); fullLog.addLineTXT(HCLoggerI);
+	    ArrayList<Integer> newSolution = new ArrayList<>(solution); 
 	    
 	    // Swap two random cities
 	    Random random = new Random(); //should be between 0 and numCities
 	    int indexA = random.nextInt(numCities);
-	    System.out.println("chosen at random: indexA = " + indexA);
+	    String indexALogger = ("chosen at random: indexA = " + indexA); fullLog.addLineTXT(indexALogger);
+	    
 	    boolean same = true;
 	    int indexB = random.nextInt(numCities);
 	    while (same)
@@ -294,8 +295,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	    	}
 	    }
 	    
-	    System.out.println("chosen at random: indexB = " + indexB);
-	    
+	    String indexBLogger = ("chosen at random: indexB = " + indexB); fullLog.addLineTXT(indexBLogger);
 	    int temp = newSolution.get(indexA);
 	    newSolution.set(indexA, newSolution.get(indexB));
 	    newSolution.set(indexB, temp);
