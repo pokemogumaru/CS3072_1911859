@@ -11,13 +11,16 @@ import java.time.format.DateTimeFormatter;
 public class SolveTSP { //this class is used for solving TSPs
   private double[] distances;
   private static FileWriterUtil basicLog;
+  private static FileWriterUtil fullLog;
+  private static FileWriterUtil hillClimberFitnessLog;
   public SolveTSP(double[] distances) throws IOException {
 	//START OF PROGRAM OPEN FILES
 	//will have these files: basic, full, hillClimberFitness
 	//planning to use filename format: SolveTSP-(loggingType)-dateTime
 	// Create file writer instance
-	  basicLog = new FileWriterUtil(dateTime() + " basicLog.txt", "txt"); basicLog.start(); //create basic log instance and start using the file
-	  
+	basicLog = new FileWriterUtil(dateTime() + " basicLog.txt", "txt"); basicLog.start(); //create basic log instance and start using the file
+	fullLog = new FileWriterUtil(dateTime() + " fullLog.txt", "txt"); fullLog.start(); //create fullLog instance and start using the file
+	hillClimberFitnessLog = new FileWriterUtil(dateTime() + " hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start(); //create hillClimberFitnessLog instance and start using the file
     this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
     //List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
@@ -43,6 +46,8 @@ public class SolveTSP { //this class is used for solving TSPs
     //tourPrinter(optimalTour); //to print the optimal tour
     //END OF PROGRAM CLOSE FILES
     basicLog.close(); //stop using the file for basic log
+    fullLog.close(); //stop using the file for basic log
+    hillClimberFitnessLog.close(); //stop using the file for basic log
   }
 
   public static int calculateCitiesAmount(double[] distances) throws IOException {
