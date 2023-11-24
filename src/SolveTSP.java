@@ -8,6 +8,9 @@ import java.util.Random; // used for swapping random values
 public class SolveTSP { //this class is used for solving TSPs
   private double[] distances;
   public SolveTSP(double[] distances) {
+	//START OF PROGRAM OPEN FILES
+	//will have these files: basic, full, hillClimberFitness
+	//planning to use filename format: SolveTSP-(loggingType)-dateTime
     this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
     //List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
@@ -30,8 +33,8 @@ public class SolveTSP { //this class is used for solving TSPs
     System.out.println(generateTourCost(shouldBe2point4,distances));
     */
     
-    
     //tourPrinter(optimalTour); //to print the optimal tour
+    //END OF PROGRAM CLOSE FILES
   }
 
   public static int calculateCitiesAmount(double[] distances) {
