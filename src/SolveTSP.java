@@ -17,7 +17,7 @@ public class SolveTSP { //this class is used for solving TSPs
     tourPrinter(initialSolution); //prints our initial solution for testing
     //double initialCost = generateTourCost(initialSolution, distances); //the cost of our initial solution
     //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
-    int iterations = 3000;
+    int iterations = 30;
     List<Integer> hcSolution = hillClimberSolver(numCities, initialSolution, iterations, distances);
     //hasZeroValue(initialSolution,distances);
     System.out.println("Best tour after hill climber:");
@@ -243,7 +243,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  ArrayList<Integer> solution = new ArrayList<>(initialSolution);
 	  
 	  double cost = Double.MAX_VALUE;// max value so we accept any new solution
-	  
+	  System.out.println("Starting hill climber solver loop");
 	  for(int i = 0; i < iterations; i++) {
 	  System.out.println("hillClimberSolver: i = " + iterations);
 	    ArrayList<Integer> newSolution = new ArrayList<>(solution);
