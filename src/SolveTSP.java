@@ -17,15 +17,17 @@ public class SolveTSP { //this class is used for solving TSPs
     tourPrinter(initialSolution); //prints our initial solution for testing
     //double initialCost = generateTourCost(initialSolution, distances); //the cost of our initial solution
     //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
-    int iterations = 3;
+    int iterations = 300;
     List<Integer> hcSolution = hillClimberSolver(numCities, initialSolution, iterations, distances);
     //hasZeroValue(initialSolution,distances);
     System.out.println("Best tour after hill climber:");
     tourPrinter(hcSolution);
     //debug:
+    /*
     System.out.println("debug, cost of 10 -> 9 -> 7 -> 5 -> 6 -> 2 -> 4 -> 1 -> 3 -> 8 -> 10:");
     ArrayList<Integer> shouldBe2point4 = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 6, 7, 8, 9, 2, 10));
     System.out.println(generateTourCost(shouldBe2point4,distances));
+    */
     
     
     //tourPrinter(optimalTour); //to print the optimal tour
