@@ -15,6 +15,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	//will have these files: basic, full, hillClimberFitness
 	//planning to use filename format: SolveTSP-(loggingType)-dateTime
 	// Create file writer instance
+	// Create file writer instance
     this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
     //List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
