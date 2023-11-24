@@ -30,7 +30,7 @@ public class SolveTSP { //this class is used for solving TSPs
     tourPrinter(initialSolution); //prints our initial solution for testing
     //double initialCost = generateTourCost(initialSolution, distances); //the cost of our initial solution
     //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
-    int iterations = 30;
+    int iterations = 300;
     List<Integer> hcSolution = hillClimberSolver(numCities, initialSolution, iterations, distances);
     //hasZeroValue(initialSolution,distances);
     System.out.println("Best tour after hill climber:");
@@ -141,21 +141,32 @@ public class SolveTSP { //this class is used for solving TSPs
 	   cost = TSP_2D[from][to];
 	   //System.out.println("from city = " + (from+1) + " to city = " + (to+1)+ " cost " + (i+1) + " = " + cost);
 	   if(cost == 0.0) {
-	     System.out.println("warning, 0 value found"); //should never happen
+	     String warning0 = "generateTourCost: warning, 0 value found"; //should never happen
+	     System.out.println(warning0);
+	     basicLog.addLineTXT(warning0);
+		fullLog.addLineTXT(warning0);
 	   }
 	   totalCost += cost;
 	   //System.out.println("total cost before returning to start = " + totalCost);
 	 }
 	 // Return to start city 
-	 //System.out.println("returning to start");
+	 String returning = "returning to start"; fullLog.addLineTXT(returning); //useful for full log
+	 //System.out.println(returning); //not really worth printing
 	 int start = solution.get(0);
-	 //System.out.println("start = " + start);
+	 String startString = ("start = " + start);
+	 fullLog.addLineTXT(startString);
+	 //System.out.println(startString);
 	 int end = solution.get(cities-1);
-	 //System.out.println("end = " + end);
+	 String endString = ("end = " + end);
+	 fullLog.addLineTXT(endString);
+	 //System.out.println(endString);
 	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
 	 //System.out.println("cost = " + cost);
 	 totalCost += cost; //this will be final cost for this solution
-	 //System.out.println("total cost after returning to start = " + totalCost);
+	 String totalCostString = ("total cost after returning to start = " + totalCost);
+	 basicLog.addLineTXT(totalCostString);
+	fullLog.addLineTXT(totalCostString);
+	//System.out.println(totalCostString);
 	//step 4 - return  total cost
 	 return totalCost; // for example 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 the cost 5.0 is correct!
   }
@@ -252,7 +263,9 @@ public class SolveTSP { //this class is used for solving TSPs
 	 //totalCost += cost; //this will be final cost for this solution
 	 //System.out.println("total cost = " + totalCost);
 	//step 4 - return  total cost
-	 System.out.println("hasZeroValue has found NO zero values, returning false");
+	 String noZeroValues = "hasZeroValue has found NO zero values, returning false" ;
+	 System.out.println(noZeroValues);
+	 basicLog.addLineTXT(noZeroValues);
 	 return false; // if we make it here then no zero values
   }
   
@@ -260,13 +273,9 @@ public class SolveTSP { //this class is used for solving TSPs
 	  //A method to solve TSPs using a basic hill climber
 	  //takes in number of cities, start solution, number of iterations, distances (TSP)
 	  ArrayList<Integer> solution = new ArrayList<>(initialSolution);
-	  
 	  double cost = Double.MAX_VALUE;// max value so we accept any new solution
-	  String start = "Starting hill climber solver loop";
+	  String start = "Starting hill climber solver loop"; basicLog.addLineTXT(start); fullLog.addLineTXT(start);
 	  System.out.println(start);
-	  basicLog.addLineTXT(start);
-	  fullLog.addLineTXT(start);
-	  
 	  for(int i = 0; i < iterations; i++) {
 	  System.out.println("hillClimberSolver: i = " + i);
 	    ArrayList<Integer> newSolution = new ArrayList<>(solution);
