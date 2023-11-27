@@ -1,13 +1,15 @@
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CS3072_1911859 {
-
-	public static void main(String[] args) throws IOException {
-		//System.out.println("Start of Program");
+	private static FileWriterUtil csvLogger;
+	public static void main(String[] args) throws Exception {
+		//Start File Loggers:
+        csvLogger = new FileWriterUtil(dateTime() + "2D_output.csv", "csv"); // Create CSV file logger 
+        csvLogger.start(); // Start writing to file  
+		
 		//to test new_TSP:
 		//test_new_TSP();
 		//sets i - the number of iterations the TSP modifier will run
@@ -18,7 +20,15 @@ public class CS3072_1911859 {
 		
 		//test_2D();
 		
-		SolveTSP solver = new SolveTSP(new_TSP());
+		//SolveTSP solver = new SolveTSP(new_TSP()); //to run the hill climber to solve a TSP
+        
+        
+		double[][] array2D = convert_1D_to_2D(new_TSP());
+		 // Generate CSV 
+        generate_CSV_from_2D(array2D);
+        
+        // Close writer 
+        csvLogger.close();
 	}
 
 	public static void test_new_TSP()
@@ -134,44 +144,33 @@ returns a 1-D array of type double
 
 	}
 	public static void generate_CSV_from_2D(double[][] matrix) throws Exception {
-		//This method attempts to generate a CSV for the 2D array
-		  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+		//TODO implement using file logger
+		
+		for(int y = 0; y < matrix.length; y++) {
+
+	        //csvLogger.addColumnCSV(String.valueOf(y)); 
+	        
+	        for(int x = 0; x < matrix[y].length; x++){
+
+	            //csvLogger.addColumnCSV(String.valueOf(x));  
+
+	            csvLogger.addRowCSV(String.valueOf(matrix[y][x])) ;
+
+	        }
+	        
+	        csvLogger.addColumnCSV("");
+
+	    }
+
+	}
+	
+	public static String dateTime()
+	  { //returns dateTime as string, useful for naming files.
+		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"); //should be accurate enough to avoid filename conflicts and tell us when we made the logs.
 		  LocalDateTime now = LocalDateTime.now();
-		  String filename = "2D_output_" + dtf.format(now) + ".csv";
-		  //Making the file names contain the date time so they are unique and easy to find
-		  PrintWriter writer = new PrintWriter("C:\\Users\\james\\Documents\\School\\Uni\\Year 3\\CS3072 FYP\\Misc\\test_output_data\\" + filename);
-		  // Loop through rows
-		// Outer loop for rows (y coordinate)
-		  System.out.println("matrix.length = " + matrix.length);
-		  
-
-		  for(int y = 0; y < matrix.length; y++) {
-			//System.out.println("matrix[y].length = " + matrix[y].length);
-		    // Inner loop for columns (x coordinate)
-		    for(int x = 0; x < matrix[y].length; x++){
-
-		      // Print x,y,value on one line
-		      writer.print(x + "," + y + "," + matrix[y][x]);
-
-		   // Add comma if not last column
-		      if(x != matrix[y].length - 1) {
-		        writer.print(","); 
-		      }
-
-		    }
-		    
-		 // Add newline after each row
-		    writer.println(); 
-
-		  }
-
-			  // Join String array   
-			  //String csvLine = String.join(",", csvRow);
-			  //writer.println(csvLine);  
-		  
-		  writer.close();
-		  
-		}
+		  String dateTime = now.format(formatter);
+		  return dateTime;
+	  }
 	
 	}
 
