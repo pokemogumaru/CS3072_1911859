@@ -7,7 +7,7 @@ public class CS3072_1911859 {
 	private static FileWriterUtil csvLogger;
 	public static void main(String[] args) throws Exception {
 		//Start File Loggers:
-        csvLogger = new FileWriterUtil(dateTime() + "2D_output.csv", "csv"); // Create CSV file logger 
+        csvLogger = new FileWriterUtil(dateTime() + " 2D_output.csv", "csv"); // Create CSV file logger 
         csvLogger.start(); // Start writing to file  
 		
 		//to test new_TSP:
