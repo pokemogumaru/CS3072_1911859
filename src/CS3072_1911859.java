@@ -5,11 +5,14 @@ import java.time.format.DateTimeFormatter;
 
 public class CS3072_1911859 {
 	private static FileWriterUtil csvLogger;
+	private static FileWriterUtil txtLogger;
 	public static void main(String[] args) throws Exception {
 		//Start File Loggers:
-        csvLogger = new FileWriterUtil(dateTime() + " 2D_output.csv", "csv"); // Create CSV file logger 
+        csvLogger = new FileWriterUtil(dateTime() + " TSP_2D_export.csv", "csv"); // Create CSV file logger 
         csvLogger.start(); // Start writing to file  
-		
+        txtLogger = new FileWriterUtil(dateTime() + " TSP_2D_export.txt", "txt");
+		txtLogger.start();
+        
 		//to test new_TSP:
 		//test_new_TSP();
 		//sets i - the number of iterations the TSP modifier will run
@@ -26,9 +29,12 @@ public class CS3072_1911859 {
 		double[][] array2D = convert_1D_to_2D(new_TSP());
 		 // Generate CSV 
         generate_CSV_from_2D(array2D);
+        //export TXT
+        export_TXT_from_2D(array2D);
         
         // Close writer 
         csvLogger.close();
+        txtLogger.close();
 	}
 
 	public static void test_new_TSP()
@@ -161,6 +167,24 @@ returns a 1-D array of type double
 
 	    }
 
+	}
+	
+	public static void export_TXT_from_2D(double[][] matrix) throws Exception {
+
+	    for(int y = 0; y < matrix.length; y++) {
+	        
+	        for(int x = 0; x < matrix[y].length; x++){
+
+	            // Print value followed by 1 space
+	            txtLogger.printTXT(matrix[y][x] + " ");  
+
+	        }
+
+	        // Extra newline after each row
+	        txtLogger.addLineTXT("");
+	        
+	    }
+	    
 	}
 	
 	public static String dateTime()

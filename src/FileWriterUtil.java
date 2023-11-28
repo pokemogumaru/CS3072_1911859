@@ -23,6 +23,10 @@ public class FileWriterUtil {
         writer.write(text); //add text to txt file
         writer.newLine(); //So next time we add the next on new line
     }
+    
+    public void printTXT(String text) throws IOException { //the same thing as addLineTXT but on the same line...
+        writer.write(text); //add text to txt file
+    }
 
     public void close() throws IOException  { //finish by closing file
         writer.close();
