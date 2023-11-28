@@ -144,7 +144,6 @@ returns a 1-D array of type double
 
 	}
 	public static void generate_CSV_from_2D(double[][] matrix) throws Exception {
-		//TODO implement using file logger
 		
 		for(int y = 0; y < matrix.length; y++) {
 
