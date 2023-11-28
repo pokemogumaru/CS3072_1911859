@@ -175,8 +175,8 @@ returns a 1-D array of type double
 	        
 	        for(int x = 0; x < matrix[y].length; x++){
 
-	            // Print value followed by 1 space
-	            txtLogger.printTXT(matrix[y][x] + " ");  
+	            // Print value followed by 2 spaces
+	            txtLogger.printTXT(matrix[y][x] + "  ");  
 
 	        }
 
