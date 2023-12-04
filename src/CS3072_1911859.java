@@ -8,11 +8,13 @@ public class CS3072_1911859 {
 	private static FileWriterUtil txtLogger;
 	public static void main(String[] args) throws Exception {
 		//Start File Loggers:
+		/*
         csvLogger = new FileWriterUtil(dateTime() + " TSP_2D_export.csv", "csv"); // Create CSV file logger 
         csvLogger.start(); // Start writing to file  
         txtLogger = new FileWriterUtil(dateTime() + " TSP_2D_export.txt", "txt");
 		txtLogger.start();
-        
+        */
+		
 		//to test new_TSP:
 		//test_new_TSP();
 		//sets i - the number of iterations the TSP modifier will run
@@ -23,9 +25,10 @@ public class CS3072_1911859 {
 		
 		//test_2D();
 		
-		//SolveTSP solver = new SolveTSP(new_TSP()); //to run the hill climber to solve a TSP
+		SolveTSP solver = new SolveTSP(new_TSP()); //to run the hill climber to solve a TSP
+		
         
-        
+        /*
 		double[][] array2D = convert_1D_to_2D(new_TSP());
 		 // Generate CSV 
         generate_CSV_from_2D(array2D);
@@ -35,6 +38,7 @@ public class CS3072_1911859 {
         // Close writer 
         csvLogger.close();
         txtLogger.close();
+        */
 	}
 
 	public static void test_new_TSP()

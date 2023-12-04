@@ -13,6 +13,7 @@ public class SolveTSP { //this class is used for solving TSPs
   private static FileWriterUtil basicLog;
   private static FileWriterUtil fullLog;
   private static FileWriterUtil hillClimberFitnessLog;
+  private static FileWriterUtil fitnessRepeatsLog;
   public SolveTSP(double[] distances) throws IOException {
 	//START OF PROGRAM OPEN FILES
 	//will have these files: basic, full, hillClimberFitness
@@ -21,7 +22,8 @@ public class SolveTSP { //this class is used for solving TSPs
 	basicLog = new FileWriterUtil(dateTime() + " SolveTSP basicLog.txt", "txt"); basicLog.start(); //create basic log instance and start using the file
 	fullLog = new FileWriterUtil(dateTime() + " SolveTSP fullLog.txt", "txt"); fullLog.start(); //create fullLog instance and start using the file
 	hillClimberFitnessLog = new FileWriterUtil(dateTime() + " SolveTSP hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start(); //create hillClimberFitnessLog instance and start using the file
-    
+	fitnessRepeatsLog = new FileWriterUtil(dateTime() + " SolveTSP fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start(); //used to track fitness at end of each iteration so we can see best fitness trend for repeats
+	
 	this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
     //List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
@@ -31,12 +33,24 @@ public class SolveTSP { //this class is used for solving TSPs
     tourPrinter(initialSolution); //prints our initial solution for testing
     //double initialCost = generateTourCost(initialSolution, distances); //the cost of our initial solution
     //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
-    int iterations = 30000;
-    List<Integer> hcSolution = hillClimberSolver(numCities, initialSolution, iterations, distances);
-    //hasZeroValue(initialSolution,distances);
-    System.out.println("Best tour after hill climber:");
-    tourPrinter(hcSolution);
-    System.out.println("Best total cost (including return to start): " + generateTourCost(hcSolution, distances));
+    int iterations = 3000; //used for hill climber
+    List<Integer> hcSolution = null; //defining hcSolution before loop
+    int repeats = 100; //used to repeat hill climber testing
+    double generateTourCost = 0; //defining this outside of loop so that we can calculate cost once rather than twice
+    for (int i = 1; i <= repeats; i++)
+    {
+    	//System.out.println("loop start"); //used for debug
+    	hcSolution = hillClimberSolver(numCities, initialSolution, iterations, distances);
+        //hasZeroValue(initialSolution,distances);
+        System.out.println("Best tour after hill climber:");
+        tourPrinter(hcSolution);
+        generateTourCost = generateTourCost(hcSolution, distances);
+        System.out.println("Best total cost (including return to start): " + generateTourCost);
+        fitnessRepeatsLog.addColumnCSV(String.valueOf(generateTourCost)); 
+        fitnessRepeatsLog.addRowCSV(String.valueOf(i));
+    }
+    
+   
     //debug:
     /*
     System.out.println("debug, cost of 10 -> 9 -> 7 -> 5 -> 6 -> 2 -> 4 -> 1 -> 3 -> 8 -> 10:");
@@ -48,8 +62,9 @@ public class SolveTSP { //this class is used for solving TSPs
     //tourPrinter(optimalTour); //to print the optimal tour
     //END OF PROGRAM CLOSE FILES
     basicLog.close(); //stop using the file for basic log
-    fullLog.close(); //stop using the file for basic log
-    hillClimberFitnessLog.close(); //stop using the file for basic log
+    fullLog.close(); //stop using the file for log
+    hillClimberFitnessLog.close(); //stop using the file for log
+    fitnessRepeatsLog.close(); //stop using the file for log
   }
 
   public static int calculateCitiesAmount(double[] distances) throws IOException {
