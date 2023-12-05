@@ -9,7 +9,7 @@ public class FileWriterUtil {
     private boolean isCsv;
     
     public FileWriterUtil(String filename, String filetype) throws IOException {
-    	String FOLDER_PATH = "C:\\Users\\james\\Documents\\School\\Uni\\Year 3\\CS3072 FYP\\Misc\\test_output_data2";
+    	String FOLDER_PATH = "C:\\Users\\james\\Documents\\TSP_FYP_data";
     	this.filename = FOLDER_PATH + "\\" + filename;
         this.isCsv = filetype.equalsIgnoreCase("csv");
         start();
