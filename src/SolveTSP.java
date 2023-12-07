@@ -34,7 +34,7 @@ public class SolveTSP { //this class is used for solving TSPs
     //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
     int iterations = 3000; //used for hill climber
     List<Integer> hcSolution = null; //defining hcSolution before loop
-    int repeats = 100000; //used to repeat hill climber testing
+    int repeats = 1000; //used to repeat hill climber testing
     double generateTourCost = 0; //defining this outside of loop so that we can calculate cost once rather than twice
     for (int i = 1; i <= repeats; i++)
     {
