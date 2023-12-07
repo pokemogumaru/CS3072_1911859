@@ -26,30 +26,29 @@ public class SolveTSP { //this class is used for solving TSPs
 	
 	this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
-    //List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
-    //the above line fails due to the initial solution having (3 I believe) zero values that means the random swaps don't generate valid solutions
-    ArrayList<Integer> initialSolution = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 6, 7, 8, 9, 2, 10));
-    //the above uses a custom initial solution that is valid so we don't encounter the previous problem
+    List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
+    //ArrayList<Integer> initialSolution = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 6, 7, 8, 9, 2, 10));
+    //the above uses a custom initial solution that is valid, no longer needed
     tourPrinter(initialSolution); //prints our initial solution for testing
     //double initialCost = generateTourCost(initialSolution, distances); //the cost of our initial solution
     //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
     int iterations = 3000; //used for hill climber
     List<Integer> hcSolution = null; //defining hcSolution before loop
-    int repeats = 100; //used to repeat hill climber testing
+    int repeats = 100000; //used to repeat hill climber testing
     double generateTourCost = 0; //defining this outside of loop so that we can calculate cost once rather than twice
     for (int i = 1; i <= repeats; i++)
     {
     	//System.out.println("loop start"); //used for debug
     	hcSolution = hillClimberSolver(numCities, initialSolution, iterations, distances);
         //hasZeroValue(initialSolution,distances);
-        System.out.println("Best tour after hill climber:");
-        tourPrinter(hcSolution);
+        //System.out.println("Best tour after hill climber:");
+        //tourPrinter(hcSolution);
         generateTourCost = generateTourCost(hcSolution, distances);
-        System.out.println("Best total cost (including return to start): " + generateTourCost);
+        //System.out.println("Best total cost (including return to start): " + generateTourCost);
         fitnessRepeatsLog.addColumnCSV(String.valueOf(generateTourCost)); 
         fitnessRepeatsLog.addRowCSV(String.valueOf(i));
     }
-    
+    System.out.println("End of repeats");
    
     //debug:
     /*
@@ -286,7 +285,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  ArrayList<Integer> solution = new ArrayList<>(initialSolution);
 	  double cost = Double.MAX_VALUE;// max value so we accept any new solution
 	  String start = "Starting hill climber solver loop"; basicLog.addLineTXT(start); fullLog.addLineTXT(start);
-	  System.out.println(start);
+	  //System.out.println(start);
 	  for(int i = 0; i < iterations; i++) {
 	  String HCLoggerI = ("hillClimberSolver: i = " + i); basicLog.addLineTXT(HCLoggerI); fullLog.addLineTXT(HCLoggerI);
 	    ArrayList<Integer> newSolution = new ArrayList<>(solution); 
@@ -340,10 +339,10 @@ public class SolveTSP { //this class is used for solving TSPs
 	  }
 	  else {
 		String outBestCost = ("Best cost: "+ cost); basicLog.addLineTXT(outBestCost); fullLog.addLineTXT(outBestCost);
-		System.out.println(outBestCost);
+		//System.out.println(outBestCost);
 	  }
 	  String finished = ("Hil Climber Finished after " +iterations + " iterations!"); basicLog.addLineTXT(finished); fullLog.addLineTXT(finished);
-	  System.out.println(finished);
+	  //System.out.println(finished);
 	  solution.add(solution.get(0)); // Return to start city
 	  return solution;
 	}
