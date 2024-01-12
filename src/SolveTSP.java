@@ -14,7 +14,6 @@ public class SolveTSP { //this class is used for solving TSPs
   private static FileWriterUtil fullLog;
   private static FileWriterUtil hillClimberFitnessLog;
   private static FileWriterUtil fitnessRepeatsLog;
-  private static FileWriterUtil fitness1stlast;
   public SolveTSP(double[] distances) throws IOException {
 	//START OF PROGRAM OPEN FILES
 	//will have these files: basic, full, hillClimberFitness
@@ -24,9 +23,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	fullLog = new FileWriterUtil(dateTime() + " SolveTSP fullLog.txt", "txt"); fullLog.start(); //create fullLog instance and start using the file
 	hillClimberFitnessLog = new FileWriterUtil(dateTime() + " SolveTSP hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start(); //create hillClimberFitnessLog instance and start using the file
 	fitnessRepeatsLog = new FileWriterUtil(dateTime() + " SolveTSP fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start(); //used to track fitness at end of each iteration so we can see best fitness trend for repeats
-	
-	fitness1stlast = new FileWriterUtil(dateTime() + " SolveTSP fitness-1st-last.csv", "csv"); fitness1stlast.start();
-	//tmp using this for a mini experiment
 	
 	this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
@@ -68,7 +64,6 @@ public class SolveTSP { //this class is used for solving TSPs
     fullLog.close(); //stop using the file for log
     hillClimberFitnessLog.close(); //stop using the file for log
     fitnessRepeatsLog.close(); //stop using the file for log
-    fitness1stlast.close();
   }
 
   public static int calculateCitiesAmount(double[] distances) throws IOException {
@@ -292,16 +287,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	  String start = "Starting hill climber solver loop"; basicLog.addLineTXT(start); fullLog.addLineTXT(start);
 	  //System.out.println(start);
 	  for(int i = 0; i < iterations; i++) {
-		  if (i == 1) //this is temporary used for comparing start and end fitness
-		  {
-			  fitness1stlast.addColumnCSV(String.valueOf(cost));
-		  }
-		  if (i == iterations -1)
-		  {
-			  fitness1stlast.addRowCSV(String.valueOf(cost));
-			  //fitness1stlast.addColumnCSV("");
-			  
-		  }
 	  String HCLoggerI = ("hillClimberSolver: i = " + i); basicLog.addLineTXT(HCLoggerI); fullLog.addLineTXT(HCLoggerI);
 	    ArrayList<Integer> newSolution = new ArrayList<>(solution); 
 	    
