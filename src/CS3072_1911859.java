@@ -245,7 +245,7 @@ returns a 1-D array of type double
 		  MST mst = new MST(distances);
 		   
 		  // Convert to int graph
-		  int[][] graph = convertToIntGraph(distances);  
+		  int[][] graph = convertToIntGraph(distances);  //prints x = 10.0
 
 		  // Call primMST
 		  mst.primMST(graph); 
