@@ -75,7 +75,7 @@ public class MST {
     key[0] = 0;
    
     parent[0] = -1; // First node is always root of MST
-
+    System.out.println("made it to line 78");
     // The MST will have V vertices
     for (int count = 0; count < V - 1; count++) {
          
@@ -90,8 +90,10 @@ public class MST {
         // adjacent vertices of the picked vertex.
         // Consider only those vertices which are not
         // yet included in MST
+        System.out.println("count = " + count + " u = " + u + " mstSet[u] = " + mstSet[u]);
         for (int v = 0; v < V; v++)
-
+        	
+        	
             // graph[u][v] is non zero only for adjacent
             // vertices of m mstSet[v] is false for
             // vertices not yet included in MST Update
@@ -103,8 +105,8 @@ public class MST {
                 key[v] = graph[u][v];
             }
     }
-
     // Print the constructed MST
+    System.out.println("made it to line 108");
     printMST(parent, graph);
   }
 
