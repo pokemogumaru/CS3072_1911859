@@ -28,8 +28,9 @@ public class MST {
 	  x = (1 + sqrtTerm) / 2; // Calculate x
 	  String calculateCitiesXValue = ("calculateCitiesAmount: " + "x = " + x); //fullLog.addLineTXT(calculateCitiesXValue);
 	  //System.out.println(calculateCitiesXValue); //don't really need this unless testing, 45 element 1D array should print x = 10
-	  
-    int V = SolveTSP.calculateCitiesAmount(distances);
+	
+    int V = (int) x;
+    //int V = SolveTSP.calculateCitiesAmount(distances);
     return V;
   }
 
