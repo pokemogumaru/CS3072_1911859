@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,10 +31,7 @@ public class CS3072_1911859 {
 		
 		
 		//To get the MST of a graph:
-		double[] distances = new_TSP();
-		MST mst = new MST(distances); 
-		double[][] graph = convert_1D_to_2D(distances);
-		mst.primMST(graph);
+		test_MST();
 		
         
         /*
@@ -126,6 +124,36 @@ returns a 1-D array of type double
 			}
 		return array_2D;
 	}
+	
+	public static int[][] convertToIntGraph(double[] array_1D)
+	{//The same thing as method above for ints
+		// Get size of 1D array
+		  int n = array_1D.length;
+		  if (n < 1)
+		  {// should never be less than 1 element, giving a 2x2 matrix
+			  int[][] array_2D = new int[1][1];
+			  System.out.println("less than 1 unique element, likely an error."); return array_2D;
+		  }
+		double x; //get size of width / height (called x)
+		double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term 
+		x = (1 + sqrtTerm) / 2; // Calculate x
+		System.out.println("x = " + x);	//test this
+		// Create 2D array with x by x size
+		int[][] array_2D = new int[(int) x][(int) x]; //new 2D distance matrix
+		int a = 0; //used to track position in the 1D array
+		int b = 0; //using this to track array_1D values as we use less reads
+		for(int i = 0; i < x -1; i++) { //x-1 because we ignore 1st 0 value which would be from a city to the same city
+			  for(int j = i+1; j < x; j++) {
+				b = (int)array_1D[a];
+			    array_2D[i][j] = b; //populate 2D values
+			    array_2D[j][i] = b;
+				//System.out.println("b = " + b + ", array_2D[i][j] = " + array_2D[i][j] + ", array_2D[j][i] = " + array_2D[j][i] + ", a = " + a + ", i = " + i + ", j = " + j);
+			    a++; //increment a
+			  }
+			}
+		return array_2D;
+	}
+	
 	public static void test_2D()
 	{
 		//this method tests the initial TSP generator by counting values and showing each value
@@ -206,6 +234,27 @@ returns a 1-D array of type double
 		  String dateTime = now.format(formatter);
 		  return dateTime;
 	  }
+	
+	public static void test_MST() throws IOException {
+
+		  double[] distances = new_TSP(); 
+		  
+		  // Scale distances  
+		  for(double d : distances) {
+		    d *= 1000;  
+		  }
+		   
+		  MST mst = new MST(distances);
+		   
+		  // Convert to int graph
+		  int[][] graph = convertToIntGraph(distances);  
+
+		  // Call primMST
+		  mst.primMST(graph); 
+
+		}
+
+		
 	
 	}
 

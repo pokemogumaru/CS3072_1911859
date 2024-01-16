@@ -38,9 +38,10 @@ public class MST {
   void printMST(int parent[], int graph[][])
   {
       System.out.println("Edge \tWeight");
-      for (int i = 1; i < V; i++)
-          System.out.println(parent[i] + " - " + i + "\t"
-                             + graph[i][parent[i]]);
+      for(int i = 1; i < V; i++) {
+    	    double weight = graph[i][parent[i]] / 1000.0; 
+    	    System.out.println(parent[i] + " - " + i + "\t" + weight); 
+    	  }
   }
 
 //A utility function to find the vertex with minimum
