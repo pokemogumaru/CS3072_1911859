@@ -64,7 +64,6 @@ public class MST {
     int key[] = new int[V];
     Boolean mstSet[] = new Boolean[V];
     
-    // Rest of method...
  // Initialize all keys as INFINITE
     for (int i = 0; i < V; i++) {
         key[i] = Integer.MAX_VALUE;
@@ -72,12 +71,10 @@ public class MST {
     }
 
     // Always include first 1st vertex in MST.
-    // Make key 0 so that this vertex is
-    // picked as first vertex
+    // Make key 0 so that this vertex is picked as first vertex
     key[0] = 0;
    
-    // First node is always root of MST
-    parent[0] = -1;
+    parent[0] = -1; // First node is always root of MST
 
     // The MST will have V vertices
     for (int count = 0; count < V - 1; count++) {
