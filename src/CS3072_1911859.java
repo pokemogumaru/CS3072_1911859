@@ -25,7 +25,15 @@ public class CS3072_1911859 {
 		
 		//test_2D();
 		
-		SolveTSP solver = new SolveTSP(new_TSP()); //to run the hill climber to solve a TSP
+		//To run the TSP solver:
+		//SolveTSP solver = new SolveTSP(new_TSP()); //to run the hill climber to solve a TSP
+		
+		
+		//To get the MST of a graph:
+		double[] distances = new_TSP();
+		MST mst = new MST(distances); 
+		double[][] graph = convert_1D_to_2D(distances);
+		mst.primMST(graph);
 		
         
         /*
