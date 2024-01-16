@@ -15,22 +15,19 @@ public class MST {
 
   private int calculateNumVertices(double[] distances) throws IOException {
     // Use existing method to get V:
-	// Get size of 1D array
-	  int n = distances.length;
+	  int n = distances.length; // Get size of 1D array
 	  if (n < 1)
 	  {// should never be less than 1 element, giving a 2x2 matrix
 	  System.out.println("less than 1 unique element, likely an error.");
 	  return 0;
 	  }
 	  double x; //get size of width / height (called x)
-
 	  double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term
 	  x = (1 + sqrtTerm) / 2; // Calculate x
 	  String calculateCitiesXValue = ("calculateCitiesAmount: " + "x = " + x); //fullLog.addLineTXT(calculateCitiesXValue);
 	  //System.out.println(calculateCitiesXValue); //don't really need this unless testing, 45 element 1D array should print x = 10
-	
     int V = (int) x;
-    //int V = SolveTSP.calculateCitiesAmount(distances);
+    //int V = SolveTSP.calculateCitiesAmount(distances); //legacy code, had problems
     return V;
   }
 
@@ -52,7 +49,6 @@ public class MST {
   {
       // Initialize min value
       int min = Integer.MAX_VALUE, min_index = -1;
-
       for (int v = 0; v < V; v++)
           if (mstSet[v] == false && key[v] < min) {
               min = key[v];

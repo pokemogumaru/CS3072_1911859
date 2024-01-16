@@ -240,7 +240,7 @@ returns a 1-D array of type double
 		  double[] distances = new_TSP(); 
 		  
 		  // Scale distances  
-		  //for(double d : distances) { d *= 1000; }
+		  for(double d : distances) { d *= 1000; }
 		   
 		  MST mst = new MST(distances);
 		   
