@@ -7,9 +7,9 @@ import java.util.Random; // used for swapping random values
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 public class SolveTSP { //this class is used for solving TSPs
   private double[] distances;
+  private double result = 0.0; //will be used to store the value of the result for other classes to access. If there are repeats, it will store the last result
  //change this to true or false depending on whether you want this logging, all other references to these logs will run or not run depending on these boolean values
   private static FileWriterUtil basicLog; private static boolean UsebasicLog = true;
   private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
@@ -48,7 +48,8 @@ public class SolveTSP { //this class is used for solving TSPs
         //System.out.println("Best total cost (including return to start): " + generateTourCost);
         if (UsefitnessRepeatsLog) {fitnessRepeatsLog.addColumnCSV(String.valueOf(generateTourCost)); fitnessRepeatsLog.addRowCSV(String.valueOf(i));}
     }
-    System.out.println("End of repeats");
+    //System.out.println("End of repeats");
+    result = generateTourCost;
    
     //debug:
     /*
@@ -306,7 +307,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	    boolean condition1 = false;
 	    boolean condition2 = false;
 	    double newCost = generateTourCost(newSolution, distances);
-	    
 	    if(newCost < cost) {
 	      condition1 = true;
 	    }
@@ -361,5 +361,5 @@ public class SolveTSP { //this class is used for solving TSPs
 	  public static void BasicLog_AddLineTXT(String input) throws IOException {if (UsebasicLog) {basicLog.addLineTXT(input);}}
 	  public static void HillClimberFitnessLog_addColumnCSV(String input) throws IOException {if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.addColumnCSV(input);}}
 	  public static void HillClimberFitnessLog_addRowCSV(String input) throws IOException {if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.addRowCSV(input);}}
-	  
+	  public double return_solution() {return result;} //Intended to provide the result to other classes that require it (outer hill climber)
 }
