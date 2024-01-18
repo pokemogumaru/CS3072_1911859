@@ -195,33 +195,21 @@ returns a 1-D array of type double
 	public static void generate_CSV_from_2D(double[][] matrix) throws Exception {
 		for(int y = 0; y < matrix.length; y++) {
 	        //csvLogger.addColumnCSV(String.valueOf(y)); 
-	        
 	        for(int x = 0; x < matrix[y].length; x++){
-
 	            //csvLogger.addColumnCSV(String.valueOf(x));  
-
 	            csvLogger.addRowCSV(String.valueOf(matrix[y][x])) ;
-
 	        }
-	        
 	        csvLogger.addColumnCSV("");
-
 	    }
-
 	}
 	
 	public static void export_TXT_from_2D(double[][] matrix) throws Exception {
 	    for(int y = 0; y < matrix.length; y++) {
-	        
 	        for(int x = 0; x < matrix[y].length; x++){
-	            // Print value followed by 2 spaces
-	            txtLogger.printTXT(matrix[y][x] + "  ");  
+	            txtLogger.printTXT(matrix[y][x] + "  ");  // Print value followed by 2 spaces
 	        }
-	        // Extra newline after each row
-	        txtLogger.addLineTXT("");
-	        
+	        txtLogger.addLineTXT(""); // Extra newline after each row
 	    }
-	    
 	}
 	
 	public static String dateTime()

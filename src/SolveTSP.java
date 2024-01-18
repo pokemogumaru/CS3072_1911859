@@ -305,15 +305,12 @@ public class SolveTSP { //this class is used for solving TSPs
 	    		same = false;
 	    	}
 	    }
-	    
 	    String indexBLogger = ("chosen at random: indexB = " + indexB); fullLog.addLineTXT(indexBLogger);
 	    int temp = newSolution.get(indexA);
 	    newSolution.set(indexA, newSolution.get(indexB));
 	    newSolution.set(indexB, temp);
-
 	    boolean condition1 = false;
 	    boolean condition2 = false;
-	      
 	    double newCost = generateTourCost(newSolution, distances);
 	    
 	    if(newCost < cost) {
