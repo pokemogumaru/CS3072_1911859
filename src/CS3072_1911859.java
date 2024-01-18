@@ -95,7 +95,7 @@ returns a 1-D array of type double
 		  {
 			  // should never be less than 1 element, giving a 2x2 matrix
 			  double[][] array_2D = new double[1][1];
-			  System.out.println("less than 1 unique element, likely an error.");
+			  System.out.println("convert_1D_to_2D(): less than 1 unique element, likely an error.");
 			  return array_2D;
 			  
 		  }
@@ -106,7 +106,7 @@ returns a 1-D array of type double
 		// Calculate x
 		x = (1 + sqrtTerm) / 2;
 		//test this
-		System.out.println("x = " + x);
+		System.out.println("convert_1D_to_2D(): x = " + x);
 		
 		// Create 2D array with x by x size
 		double[][] array_2D = new double[(int) x][(int) x]; //new 2D distance matrix
@@ -132,7 +132,7 @@ returns a 1-D array of type double
 		  if (n < 1)
 		  {// should never be less than 1 element, giving a 2x2 matrix
 			  int[][] array_2D = new int[1][1];
-			  System.out.println("less than 1 unique element, likely an error."); return array_2D;
+			  System.out.println("convertToIntGraph(): less than 1 unique element, likely an error."); return array_2D;
 		  }
 		double x; //get size of width / height (called x)
 		double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term 
@@ -164,7 +164,13 @@ returns a 1-D array of type double
 		  }
 		  System.out.println("end of TSP test");
 		  double[][] array2D = convert_1D_to_2D(array1D);
-		  int iPlusOne = 0;
+		  print_2D(array2D);
+		  
+	}
+	
+	public static void print_2D(double[][] array2D)
+	{
+		int iPlusOne = 0;
 		  int jPlusOne = 0;
 		  //using PlusOne variables to display 1 to 10 rather than 0 to 9
 		  //better way to do this but using this for now.
@@ -176,18 +182,19 @@ returns a 1-D array of type double
 		      iPlusOne = i +1;
 		      jPlusOne = j +1;
 		      // Print value and position    
-		      System.out.println("Value at x=" + iPlusOne + ", y=" + jPlusOne + ": " + array2D[i][j]);
+		      System.out.println("print_2D(): Value at x=" + iPlusOne + ", y=" + jPlusOne + ": " + array2D[i][j]);
 		      
 		    }
 		  }
-		//output to csv
+		//output to csv if we want to
+		  /*
 	      try {
 			generate_CSV_from_2D(array2D);
 		} catch (Exception e) {
 			System.out.println("csv failed");
 			e.printStackTrace();
 		}
-
+		*/
 	}
 	public static void generate_CSV_from_2D(double[][] matrix) throws Exception {
 		
@@ -238,21 +245,13 @@ returns a 1-D array of type double
 	public static void test_MST() throws IOException {
 
 		  double[] distances = new_TSP(); 
+		   
+		  double g[][] = convert_1D_to_2D(distances);
 		  
-		  // Scale distances  
-		  for(double d : distances) { d *= 1000; }
-		   
-		  MST mst = new MST(distances);
-		   
-		  // Convert to int graph
-		  int[][] graph = convertToIntGraph(distances);  //prints x = 10.0
+		  double mst[][] = MST.PrimsMST(g);
 
-		  // Call primMST
-		  mst.primMST(graph); 
-
+		  print_2D(mst);
 		}
 
-		
-	
 	}
 
