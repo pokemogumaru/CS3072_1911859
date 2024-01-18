@@ -47,8 +47,7 @@ public class CS3072_1911859 {
 	}
 
 	public static void test_new_TSP()
-	{
-		//this method tests the initial TSP generator by counting values and showing each value
+	{//this method tests the initial TSP generator by counting values and showing each value
 				double[] arr = new_TSP();
 				  System.out.println("Number of items: " + arr.length); //prints the number of values
 				  for(double value : arr) {
@@ -68,11 +67,8 @@ returns a 1-D array of type double
 		  double[] arr = new double[45];
 		  double value = 0.1; // Start with 0.1
 		  for(int i = 0; i < arr.length; i++) {
-
 		    arr[i] = value; 
-
-		    // Check if previous value was 1.0, reset to 0.1 if so
-		    if(value >= 1.0) {
+		    if(value >= 1.0) { // Check if previous value was 1.0, reset to 0.1 if so
 		      value = 0.1; 
 		    }
 		    else {
@@ -86,15 +82,12 @@ returns a 1-D array of type double
 	
 	public static double[][] convert_1D_to_2D(double[] array_1D)
 	{
-		// Get size of 1D array
-		  int n = array_1D.length;
+		  int n = array_1D.length; // Get size of 1D array
 		  if (n < 1)
-		  {
-			  // should never be less than 1 element, giving a 2x2 matrix
+		  {// should never be less than 1 element, giving a 2x2 matrix
 			  double[][] array_2D = new double[1][1];
 			  System.out.println("convert_1D_to_2D(): less than 1 unique element, likely an error.");
 			  return array_2D;
-			  
 		  }
 		  //get size of width / height (called x)
 		  double x;
@@ -104,7 +97,6 @@ returns a 1-D array of type double
 		x = (1 + sqrtTerm) / 2;
 		//test this
 		System.out.println("convert_1D_to_2D(): x = " + x);
-		
 		// Create 2D array with x by x size
 		double[][] array_2D = new double[(int) x][(int) x]; //new 2D distance matrix
 		int a = 0; //used to track position in the 1D array
@@ -124,8 +116,7 @@ returns a 1-D array of type double
 	
 	public static int[][] convertToIntGraph(double[] array_1D)
 	{//The same thing as method above for ints
-		// Get size of 1D array
-		  int n = array_1D.length;
+		  int n = array_1D.length; // Get size of 1D array
 		  if (n < 1)
 		  {// should never be less than 1 element, giving a 2x2 matrix
 			  int[][] array_2D = new int[1][1];
@@ -152,8 +143,7 @@ returns a 1-D array of type double
 	}
 	
 	public static void test_2D()
-	{
-		//this method tests the initial TSP generator by counting values and showing each value
+	{//this method tests the initial TSP generator by counting values and showing each value
 		double[] array1D = new_TSP();
 		  System.out.println("test_2D(): Number of items: " + array1D.length); //prints the number of values
 		  for(double value : array1D) {
@@ -172,7 +162,6 @@ returns a 1-D array of type double
 		  //better way to do this but using this for now.
 		// Loop through each row (outer loop)
 		  for(int i = 0; i < array2D.length; i++) {
-
 		    // Loop through each column (inner loop) 
 		    for(int j = 0; j < array2D[i].length; j++) {
 		      iPlusOne = i +1;
