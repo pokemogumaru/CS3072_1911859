@@ -24,11 +24,10 @@ public class CS3072_1911859 {
 		//int j = 1000; //will test 1000 iterations
 		//total runtime should be approximately proportional to i.j
 		
-		//test_2D();
+		test_2D();
 		
 		//To run the TSP solver:
 		//SolveTSP solver = new SolveTSP(new_TSP()); //to run the hill climber to solve a TSP
-		
 		
 		//To get the MST of a graph:
 		test_MST();
@@ -68,7 +67,6 @@ returns a 1-D array of type double
 		 */
 		  double[] arr = new double[45];
 		  double value = 0.1; // Start with 0.1
-
 		  for(int i = 0; i < arr.length; i++) {
 
 		    arr[i] = value; 
@@ -83,7 +81,6 @@ returns a 1-D array of type double
 		    }
 		    //System.out.println("debug, value = : " + value);
 		  }
-
 		  return arr;
 		}
 	
@@ -165,11 +162,10 @@ returns a 1-D array of type double
 		  System.out.println("test_2D(): end of TSP test");
 		  double[][] array2D = convert_1D_to_2D(array1D);
 		  print_2D(array2D);
-		  
 	}
 	
 	public static void print_2D(double[][] array2D)
-	{
+	{ // Prints the contents of 2D array to console
 		int iPlusOne = 0;
 		  int jPlusOne = 0;
 		  //using PlusOne variables to display 1 to 10 rather than 0 to 9
@@ -197,9 +193,7 @@ returns a 1-D array of type double
 		*/
 	}
 	public static void generate_CSV_from_2D(double[][] matrix) throws Exception {
-		
 		for(int y = 0; y < matrix.length; y++) {
-
 	        //csvLogger.addColumnCSV(String.valueOf(y)); 
 	        
 	        for(int x = 0; x < matrix[y].length; x++){
@@ -217,16 +211,12 @@ returns a 1-D array of type double
 	}
 	
 	public static void export_TXT_from_2D(double[][] matrix) throws Exception {
-
 	    for(int y = 0; y < matrix.length; y++) {
 	        
 	        for(int x = 0; x < matrix[y].length; x++){
-
 	            // Print value followed by 2 spaces
 	            txtLogger.printTXT(matrix[y][x] + "  ");  
-
 	        }
-
 	        // Extra newline after each row
 	        txtLogger.addLineTXT("");
 	        
@@ -242,15 +232,12 @@ returns a 1-D array of type double
 		  return dateTime;
 	  }
 	
-	public static void test_MST() throws IOException {
-
-		  double[] distances = new_TSP(); 
-		   
-		  double g[][] = convert_1D_to_2D(distances);
-		  
-		  double mst[][] = MST.PrimsMST(g);
-
-		  print_2D(mst);
+	public static void test_MST() throws IOException
+	{// Tests our MST graph of our new TSP
+		  double[] distances = new_TSP(); // make new TSP
+		  double g[][] = convert_1D_to_2D(distances); //store as 2D
+		  double mst[][] = MST.PrimsMST(g); //calculate MST
+		  print_2D(mst); //print the contents to console
 		}
 
 	}
