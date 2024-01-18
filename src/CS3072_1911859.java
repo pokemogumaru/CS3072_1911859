@@ -158,11 +158,11 @@ returns a 1-D array of type double
 	{
 		//this method tests the initial TSP generator by counting values and showing each value
 		double[] array1D = new_TSP();
-		  System.out.println("Number of items: " + array1D.length); //prints the number of values
+		  System.out.println("test_2D(): Number of items: " + array1D.length); //prints the number of values
 		  for(double value : array1D) {
 		    System.out.println(value); //prints each value as part of testing
 		  }
-		  System.out.println("end of TSP test");
+		  System.out.println("test_2D(): end of TSP test");
 		  double[][] array2D = convert_1D_to_2D(array1D);
 		  print_2D(array2D);
 		  
