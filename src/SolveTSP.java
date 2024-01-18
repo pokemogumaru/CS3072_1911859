@@ -21,10 +21,10 @@ public class SolveTSP { //this class is used for solving TSPs
 	//will have these files: basic, full, hillClimberFitness
 	//planning to use filename format: SolveTSP-(loggingType)-dateTime
 	// Create file writer instance
-	if (UsebasicLog == true) {basicLog = new FileWriterUtil(dateTime() + " SolveTSP basicLog.txt", "txt"); basicLog.start();} //create basic log instance and start using the file
-	if (UseFullLog == true) {fullLog = new FileWriterUtil(dateTime() + " SolveTSP fullLog.txt", "txt"); fullLog.start();} //create fullLog instance and start using the file
-	if (UsehillClimberFitnessLogLog == true) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + " SolveTSP hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
-	if (UsefitnessRepeatsLog == true) {fitnessRepeatsLog = new FileWriterUtil(dateTime() + " SolveTSP fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start();}//used to track fitness at end of each iteration so we can see best fitness trend for repeats
+	if (UsebasicLog) {basicLog = new FileWriterUtil(dateTime() + " SolveTSP basicLog.txt", "txt"); basicLog.start();} //create basic log instance and start using the file
+	if (UseFullLog) {fullLog = new FileWriterUtil(dateTime() + " SolveTSP fullLog.txt", "txt"); fullLog.start();} //create fullLog instance and start using the file
+	if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + " SolveTSP hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
+	if (UsefitnessRepeatsLog) {fitnessRepeatsLog = new FileWriterUtil(dateTime() + " SolveTSP fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start();}//used to track fitness at end of each iteration so we can see best fitness trend for repeats
 	//End of initialising log files
 	
 	this.distances = distances;
@@ -46,8 +46,7 @@ public class SolveTSP { //this class is used for solving TSPs
         //tourPrinter(hcSolution);
         generateTourCost = generateTourCost(hcSolution, distances);
         //System.out.println("Best total cost (including return to start): " + generateTourCost);
-        fitnessRepeatsLog.addColumnCSV(String.valueOf(generateTourCost)); 
-        fitnessRepeatsLog.addRowCSV(String.valueOf(i));
+        if (UsefitnessRepeatsLog) {fitnessRepeatsLog.addColumnCSV(String.valueOf(generateTourCost)); fitnessRepeatsLog.addRowCSV(String.valueOf(i));}
     }
     System.out.println("End of repeats");
    
@@ -60,11 +59,11 @@ public class SolveTSP { //this class is used for solving TSPs
     
     
     //tourPrinter(optimalTour); //to print the optimal tour
-    //END OF PROGRAM CLOSE FILES
-    basicLog.close(); //stop using the file for basic log
-    fullLog.close(); //stop using the file for log
-    hillClimberFitnessLog.close(); //stop using the file for log
-    fitnessRepeatsLog.close(); //stop using the file for log
+    //END OF PROGRAM, CLOSE FILES:
+    if (UsebasicLog) {basicLog.close();} //stop using the file for basic log
+    if (UseFullLog) {fullLog.close();} //stop using the file for log
+    if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.close();} //stop using the file for log
+    if (UsefitnessRepeatsLog) {fitnessRepeatsLog.close();} //stop using the file for log
   }
 
   public static int calculateCitiesAmount(double[] distances) throws IOException {
@@ -78,7 +77,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	double x; //get size of width / height (called x)
 	double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term 
 	x = (1 + sqrtTerm) / 2;	// Calculate x
-	String calculateCitiesXValue = ("calculateCitiesAmount: " + "x = " + x); fullLog.addLineTXT(calculateCitiesXValue);
+	String calculateCitiesXValue = ("calculateCitiesAmount: " + "x = " + x); FullLog_AddLineTXT(calculateCitiesXValue);
 	//System.out.println(calculateCitiesXValue); //don't really need this unless testing, 45 element 1D array should print x = 10
 	return (int) x;
 	  }
@@ -115,7 +114,7 @@ public class SolveTSP { //this class is used for solving TSPs
 		// Calculate x
 		x = (1 + sqrtTerm) / 2;
 		//test this
-		String xValue = ("convert_1D_to_2D: x = " + x); fullLog.addLineTXT(xValue);
+		String xValue = ("convert_1D_to_2D: x = " + x); FullLog_AddLineTXT(xValue);
 		//System.out.println(xValue);
 		
 		// Create 2D array with x by x size
@@ -155,29 +154,29 @@ public class SolveTSP { //this class is used for solving TSPs
 	   //System.out.println("solution.get(i+1) - 1 = " + (solution.get(i+1) -1));
 	   cost = TSP_2D[from][to];
 	   String fromCityToCityCost = ("from city = " + (from+1) + " to city = " + (to+1)+ " cost " + (i+1) + " = " + cost); //for debugging or testing
-	   fullLog.addLineTXT(fromCityToCityCost); //generates a lot of text, use only when needed
+	   FullLog_AddLineTXT(fromCityToCityCost); //generates a lot of text, use only when needed
 	   if(cost == 0.0) {
 	     String warning0 = ("generateTourCost: warning, 0 value found! i = " + i); //should never happen
 	     System.out.println(warning0);
-	     basicLog.addLineTXT(warning0);
-		fullLog.addLineTXT(warning0);
+	     BasicLog_AddLineTXT(warning0);
+	     FullLog_AddLineTXT(warning0);
 	   }
 	   totalCost += cost;
 	   //System.out.println("total cost before returning to start = " + totalCost);
 	 }
 	 // Return to start city 
-	 String returning = "returning to start"; fullLog.addLineTXT(returning); //useful for full log
+	 String returning = "returning to start"; FullLog_AddLineTXT(returning); //useful for full log
 	 //System.out.println(returning); //not really worth printing
 	 int start = solution.get(0);
 	 int end = solution.get(cities-1);
 	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
 	 String startEndCostString = ("start = " + start + " , end = " + end + " , cost = " + cost);
-	 fullLog.addLineTXT(startEndCostString);
+	 FullLog_AddLineTXT(startEndCostString);
 	 //System.out.println(startString);
 	 totalCost += cost; //this will be final cost for this solution
 	 String totalCostString = ("total cost after returning to start = " + totalCost);
-	 basicLog.addLineTXT(totalCostString);
-	fullLog.addLineTXT(totalCostString);
+	 BasicLog_AddLineTXT(totalCostString);
+	 FullLog_AddLineTXT(totalCostString);
 	//System.out.println(totalCostString);
 	//step 4 - return  total cost
 	 return totalCost; // for example 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 the cost 5.0 is correct!
@@ -275,7 +274,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	 //totalCost += cost; //this will be final cost for this solution
 	 //System.out.println("total cost = " + totalCost);
 	//step 4 - return  total cost
-	 String noZeroValues = "hasZeroValue has found NO zero values, returning false" ; basicLog.addLineTXT(noZeroValues); fullLog.addLineTXT(noZeroValues);
+	 String noZeroValues = "hasZeroValue has found NO zero values, returning false" ; BasicLog_AddLineTXT(noZeroValues); FullLog_AddLineTXT(noZeroValues);
 	 System.out.println(noZeroValues);
 	 return false; // if we make it here then no zero values
   }
@@ -285,16 +284,16 @@ public class SolveTSP { //this class is used for solving TSPs
 	  //takes in number of cities, start solution, number of iterations, distances (TSP)
 	  ArrayList<Integer> solution = new ArrayList<>(initialSolution);
 	  double cost = Double.MAX_VALUE;// max value so we accept any new solution
-	  String start = "Starting hill climber solver loop"; basicLog.addLineTXT(start); fullLog.addLineTXT(start);
+	  String start = "Starting hill climber solver loop"; BasicLog_AddLineTXT(start); FullLog_AddLineTXT(start);
 	  //System.out.println(start);
 	  for(int i = 0; i < iterations; i++) {
-	  String HCLoggerI = ("hillClimberSolver: i = " + i); basicLog.addLineTXT(HCLoggerI); fullLog.addLineTXT(HCLoggerI);
+	  String HCLoggerI = ("hillClimberSolver: i = " + i); BasicLog_AddLineTXT(HCLoggerI); FullLog_AddLineTXT(HCLoggerI);
 	    ArrayList<Integer> newSolution = new ArrayList<>(solution); 
 	    
 	    // Swap two random cities
 	    Random random = new Random(); //should be between 0 and numCities
 	    int indexA = random.nextInt(numCities);
-	    String indexALogger = ("chosen at random: indexA = " + indexA); fullLog.addLineTXT(indexALogger);
+	    String indexALogger = ("chosen at random: indexA = " + indexA); FullLog_AddLineTXT(indexALogger);
 	    
 	    boolean same = true;
 	    int indexB = random.nextInt(numCities);
@@ -306,7 +305,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	    		same = false;
 	    	}
 	    }
-	    String indexBLogger = ("chosen at random: indexB = " + indexB); fullLog.addLineTXT(indexBLogger);
+	    String indexBLogger = ("chosen at random: indexB = " + indexB); FullLog_AddLineTXT(indexBLogger);
 	    int temp = newSolution.get(indexA);
 	    newSolution.set(indexA, newSolution.get(indexB));
 	    newSolution.set(indexB, temp);
@@ -326,20 +325,20 @@ public class SolveTSP { //this class is used for solving TSPs
 	      cost = newCost;
 	    }
 	    //record current best cost:
-	    String currentBestCost = ("Current best cost = " + cost); basicLog.addLineTXT(currentBestCost); fullLog.addLineTXT(currentBestCost); //in text loggers
-	    hillClimberFitnessLog.addColumnCSV(String.valueOf(cost)); 
-	    hillClimberFitnessLog.addRowCSV(String.valueOf(i));
+	    String currentBestCost = ("Current best cost = " + cost); BasicLog_AddLineTXT(currentBestCost); FullLog_AddLineTXT(currentBestCost); //in text loggers
+	    HillClimberFitnessLog_addColumnCSV(String.valueOf(cost)); 
+	    HillClimberFitnessLog_addRowCSV(String.valueOf(i));
 	  }
 	  
 	  if(cost == 999.9) {
-	    String cost999 = "No valid solution found that beat the initial solution"; basicLog.addLineTXT(cost999); fullLog.addLineTXT(cost999);
+	    String cost999 = "No valid solution found that beat the initial solution"; BasicLog_AddLineTXT(cost999); FullLog_AddLineTXT(cost999);
 		System.out.println(cost999);
 	  }
 	  else {
-		String outBestCost = ("Best cost: "+ cost); basicLog.addLineTXT(outBestCost); fullLog.addLineTXT(outBestCost);
+		String outBestCost = ("Best cost: "+ cost); BasicLog_AddLineTXT(outBestCost); FullLog_AddLineTXT(outBestCost);
 		//System.out.println(outBestCost);
 	  }
-	  String finished = ("Hil Climber Finished after " +iterations + " iterations!"); basicLog.addLineTXT(finished); fullLog.addLineTXT(finished);
+	  String finished = ("Hil Climber Finished after " +iterations + " iterations!"); BasicLog_AddLineTXT(finished); FullLog_AddLineTXT(finished);
 	  //System.out.println(finished);
 	  solution.add(solution.get(0)); // Return to start city
 	  return solution;
@@ -367,5 +366,10 @@ public class SolveTSP { //this class is used for solving TSPs
 		  String dateTime = now.format(formatter);
 		  return dateTime;
 	  }
+	  
+	  public static void FullLog_AddLineTXT(String input) throws IOException {if (UseFullLog) {fullLog.addLineTXT(input);}} //add to log if logging variable true
+	  public static void BasicLog_AddLineTXT(String input) throws IOException {if (UsebasicLog) {basicLog.addLineTXT(input);}}
+	  public static void HillClimberFitnessLog_addColumnCSV(String input) throws IOException {if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.addColumnCSV(input);}}
+	  public static void HillClimberFitnessLog_addRowCSV(String input) throws IOException {if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.addRowCSV(input);}}
 	  
 }
