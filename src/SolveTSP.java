@@ -289,12 +289,10 @@ public class SolveTSP { //this class is used for solving TSPs
 	  for(int i = 0; i < iterations; i++) {
 	  String HCLoggerI = ("hillClimberSolver: i = " + i); BasicLog_AddLineTXT(HCLoggerI); FullLog_AddLineTXT(HCLoggerI);
 	    ArrayList<Integer> newSolution = new ArrayList<>(solution); 
-	    
 	    // Swap two random cities
 	    Random random = new Random(); //should be between 0 and numCities
 	    int indexA = random.nextInt(numCities);
 	    String indexALogger = ("chosen at random: indexA = " + indexA); FullLog_AddLineTXT(indexALogger);
-	    
 	    boolean same = true;
 	    int indexB = random.nextInt(numCities);
 	    while (same)
@@ -316,7 +314,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	    if(newCost < cost) {
 	      condition1 = true;
 	    }
-	    
 	    //if(!hasZeroValue(newSolution, distances)) {condition2 = true;}
 	    //commenting out above line as this should always be true if all cities are connected.
 	    condition2 = true;
@@ -329,7 +326,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	    HillClimberFitnessLog_addColumnCSV(String.valueOf(cost)); 
 	    HillClimberFitnessLog_addRowCSV(String.valueOf(i));
 	  }
-	  
 	  if(cost == 999.9) {
 	    String cost999 = "No valid solution found that beat the initial solution"; BasicLog_AddLineTXT(cost999); FullLog_AddLineTXT(cost999);
 		System.out.println(cost999);
@@ -343,8 +339,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	  solution.add(solution.get(0)); // Return to start city
 	  return solution;
 	}
-  
-  
   
 	  public static void tourPrinter(List<Integer> optimalTour)
 	  {//used to print a tour. E.g. 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
