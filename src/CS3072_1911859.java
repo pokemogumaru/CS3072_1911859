@@ -28,6 +28,7 @@ public class CS3072_1911859 {
 		
 		//To run the TSP solver:
 		SolveTSP solver = new SolveTSP(new_TSP()); //to run the hill climber to solve a TSP
+		//System.out.println("CS3072_1911859: main: solver.return_solution() = " + solver.return_solution()); //Prints the total weight of solution to console
 		
 		//test_MST(); //To test our MST of a TSP
 		
