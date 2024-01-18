@@ -65,4 +65,24 @@ public class MST
 		}
 		return(res);
 	}
+	
+	public static double total_2D(double[][] array2D)
+	{ //A method that returns the sum of all values in a 2D double graph. I have added this method into this class.
+		double total = 0.0; //track total
+		for(int i = 0; i < array2D.length; i++) {
+		    for(int j = 0; j < array2D[i].length; j++) {
+		      total = array2D[i][j] + total;
+		    }
+		  }
+		return total;
+	}
+	
+	public static double MST_total(double[][] graph)
+	{ //A method that returns the sum of weights in a 2D double graph. Uses the total_2D method. I have added this method into this class.
+		double mst[][] = PrimsMST(graph); //calculate MST
+		double total = total_2D(mst); //use the existing method to do this
+		total = total / 2; //since we don't want to count values twice
+		return total;
+	}
+	
 }

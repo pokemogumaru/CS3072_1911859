@@ -214,7 +214,26 @@ returns a 1-D array of type double
 		  double g[][] = convert_1D_to_2D(distances); //store as 2D
 		  double mst[][] = MST.PrimsMST(g); //calculate MST
 		  print_2D(mst); //print the contents to console
+		  System.out.println("test_MST(): MST_total(mst) = " + MST_total(mst)); //Print the value to console
 		}
+	
+	public static double total_2D(double[][] array2D)
+	{ //A method that returns the sum of all values in a 2D double graph
+		double total = 0.0; //track total
+		for(int i = 0; i < array2D.length; i++) {
+		    for(int j = 0; j < array2D[i].length; j++) {
+		      total = array2D[i][j] + total;
+		    }
+		  }
+		return total;
+	}
+	
+	public static double MST_total(double[][] graph)
+	{ //A method that returns the sum of weights in a 2D double graph. Uses the total_2D method.
+		double total = total_2D(graph); //use the existing method to do this
+		total = total / 2; //since we don't want to count values twice
+		return total;
+	}
 
 	}
 
