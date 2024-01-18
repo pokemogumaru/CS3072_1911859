@@ -17,9 +17,9 @@ public class SolveTSP { //this class is used for solving TSPs
   private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
   
   public SolveTSP(double[] distances) throws IOException {
-	//START OF PROGRAM, OPEN FILES
+	//START OF PROGRAM, OPEN FILES (if needed)
 	//will have these files: basic, full, hillClimberFitness.
-	//planning to use filename format: SolveTSP-(loggingType)-dateTime
+	//filename format: SolveTSP-(loggingType)-dateTime
 	// Create file writer instance
 	if (UsebasicLog) {basicLog = new FileWriterUtil(dateTime() + " SolveTSP basicLog.txt", "txt"); basicLog.start();} //create basic log instance and start using the file
 	if (UseFullLog) {fullLog = new FileWriterUtil(dateTime() + " SolveTSP fullLog.txt", "txt"); fullLog.start();} //create fullLog instance and start using the file
