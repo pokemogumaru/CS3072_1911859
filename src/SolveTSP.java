@@ -105,7 +105,6 @@ public class SolveTSP { //this class is used for solving TSPs
 			  double[][] array_2D = new double[1][1];
 			  System.out.println("convert_1D_to_2D: less than 1 unique element, likely an error.");
 			  return array_2D;
-			  
 		  }
 		  //get size of width / height (called x)
 		  double x;
@@ -127,7 +126,6 @@ public class SolveTSP { //this class is used for solving TSPs
 			    array_2D[i][j] = b; //populate 2D values
 			    array_2D[j][i] = b;
 			    a++; //increment a
-			    
 			  }
 			}
 		return array_2D;
