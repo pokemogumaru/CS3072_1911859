@@ -24,13 +24,12 @@ public class CS3072_1911859 {
 		//int j = 1000; //will test 1000 iterations
 		//total runtime should be approximately proportional to i.j
 		
-		test_2D();
+		test_2D(); //To test our 2D representation of 1D TSP
 		
 		//To run the TSP solver:
 		//SolveTSP solver = new SolveTSP(new_TSP()); //to run the hill climber to solve a TSP
 		
-		//To get the MST of a graph:
-		test_MST();
+		test_MST(); //To test our MST of a TSP
 		
         
         /*
