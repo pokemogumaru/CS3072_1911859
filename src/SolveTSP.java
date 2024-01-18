@@ -10,19 +10,22 @@ import java.time.format.DateTimeFormatter;
 
 public class SolveTSP { //this class is used for solving TSPs
   private double[] distances;
-  private static FileWriterUtil basicLog;
-  private static FileWriterUtil fullLog;
-  private static FileWriterUtil hillClimberFitnessLog;
-  private static FileWriterUtil fitnessRepeatsLog;
+ //change this to true or false depending on whether you want this logging, all other references to these logs will run or not run depending on these boolean values
+  private static FileWriterUtil basicLog; private static boolean UsebasicLog = true;
+  private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
+  private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
+  private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
+  
   public SolveTSP(double[] distances) throws IOException {
 	//START OF PROGRAM OPEN FILES
 	//will have these files: basic, full, hillClimberFitness
 	//planning to use filename format: SolveTSP-(loggingType)-dateTime
 	// Create file writer instance
-	basicLog = new FileWriterUtil(dateTime() + " SolveTSP basicLog.txt", "txt"); basicLog.start(); //create basic log instance and start using the file
-	fullLog = new FileWriterUtil(dateTime() + " SolveTSP fullLog.txt", "txt"); fullLog.start(); //create fullLog instance and start using the file
-	hillClimberFitnessLog = new FileWriterUtil(dateTime() + " SolveTSP hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start(); //create hillClimberFitnessLog instance and start using the file
-	fitnessRepeatsLog = new FileWriterUtil(dateTime() + " SolveTSP fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start(); //used to track fitness at end of each iteration so we can see best fitness trend for repeats
+	if (UsebasicLog == true) {basicLog = new FileWriterUtil(dateTime() + " SolveTSP basicLog.txt", "txt"); basicLog.start();} //create basic log instance and start using the file
+	if (UseFullLog == true) {fullLog = new FileWriterUtil(dateTime() + " SolveTSP fullLog.txt", "txt"); fullLog.start();} //create fullLog instance and start using the file
+	if (UsehillClimberFitnessLogLog == true) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + " SolveTSP hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
+	if (UsefitnessRepeatsLog == true) {fitnessRepeatsLog = new FileWriterUtil(dateTime() + " SolveTSP fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start();}//used to track fitness at end of each iteration so we can see best fitness trend for repeats
+	//End of initialising log files
 	
 	this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
