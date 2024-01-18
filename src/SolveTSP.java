@@ -139,7 +139,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	  //step 1 - make 2D representation of the TSP distances. 1D distances > 2D distances
 	  double[][] TSP_2D = convert_1D_to_2D(distances);
 	  //print_2D(TSP_2D); //if we want to test the 2D representation
-	  
 	  //step 2 - calculate number of cities
 	 int cities = calculateCitiesAmount(distances);
 	  //step 3 - loop through cities array and find total cost of travel. Include cost of returning to start
@@ -195,7 +194,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	      jPlusOne = j +1;
 	      // Print value and position    
 	      System.out.println("Value at x=" + iPlusOne + ", y=" + jPlusOne + ": " + TSP_2D[i][j]);
-	      
 	    }
 	  }
   }
