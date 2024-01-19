@@ -22,11 +22,12 @@ public class CS3072_1911859 {
 		//test_2D(); //To test our 2D representation of 1D TSP
 		
 		//To run the TSP solver:
-		SolveTSP solver = new SolveTSP(new_TSP()); //to run the hill climber to solve a TSP
+		//SolveTSP solver = new SolveTSP(new_TSP()); //to run the hill climber to solve a TSP
 		//System.out.println("CS3072_1911859: main: solver.return_solution() = " + solver.return_solution()); //Prints the total weight of solution to console
 		
 		//test_MST(); //To test our MST of a TSP
 		
+		MakeTSP maker = new MakeTSP(new_TSP(), true, 1);
         
         /*
 		double[][] array2D = convert_1D_to_2D(new_TSP());
@@ -84,12 +85,9 @@ returns a 1-D array of type double
 			  System.out.println("convert_1D_to_2D(): less than 1 unique element, likely an error.");
 			  return array_2D;
 		  }
-		  //get size of width / height (called x)
-		  double x;
-		// Calculate square root term 
-		double sqrtTerm = Math.sqrt(1 + 8*n);
-		// Calculate x
-		x = (1 + sqrtTerm) / 2;
+		double x; //get size of width / height (called x)
+		double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term 
+		x = (1 + sqrtTerm) / 2; // Calculate x
 		//test this
 		System.out.println("convert_1D_to_2D(): x = " + x);
 		// Create 2D array with x by x size
@@ -103,7 +101,6 @@ returns a 1-D array of type double
 			    array_2D[j][i] = b;
 				//System.out.println("b = " + b + ", array_2D[i][j] = " + array_2D[i][j] + ", array_2D[j][i] = " + array_2D[j][i] + ", a = " + a + ", i = " + i + ", j = " + j);
 			    a++; //increment a
-			    
 			  }
 			}
 		return array_2D;
