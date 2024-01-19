@@ -31,7 +31,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	this.distances = distances;
     int numCities = calculateCitiesAmount(distances); //calculate number of cities from the 1D array TSP
     List<Integer> initialSolution = generateInitialSolution(numCities); //generate an initial solution based on the number of cities
-    tourPrinter(initialSolution); //prints our initial solution for testing
+    //tourPrinter(initialSolution); //prints our initial solution for testing
     //double initialCost = generateTourCost(initialSolution, distances); //the cost of our initial solution
     //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
     int iterations = 1000; //used for hill climber
@@ -336,17 +336,22 @@ public class SolveTSP { //this class is used for solving TSPs
 	  return solution;
 	}
   
-	  public static void tourPrinter(List<Integer> optimalTour)
+	  public static void tourPrinter(List<Integer> optimalTour) throws IOException
 	  {//used to print a tour. E.g. 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
+		  String out = "";
 		  System.out.println("Tour:");
+		  FullLog_AddLineTXT("Tour:");
 		  // Loop through each city in the optimal tour
 		  for(int i = 0; i < optimalTour.size(); i++) {
 		    System.out.print(optimalTour.get(i)); // Print current city number 
+		    out += optimalTour.get(i);
 		    if(i != optimalTour.size() - 1) { // If not the last city, print connector
 		      System.out.print(" -> ");
+		      out += " -> ";
 		    }
 		  }
 		  System.out.println();
+		  FullLog_AddLineTXT(out);
 	  }
 	  
 	  public static String dateTime()

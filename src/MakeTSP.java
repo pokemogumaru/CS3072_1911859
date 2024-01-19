@@ -25,9 +25,9 @@ public class MakeTSP {
 			System.out.println("Doing repeat number " + i);
 			HillClimbMakeTSP(distances, DifficultTrueEasyFalse, iterations);
 	    }
-		System.out.println("Finished doing (" + repeats + ") repeats");
+		String finished_repeats = ("Finished doing (" + repeats + ") repeats");BasicLog_AddLineTXT(finished_repeats); FullLog_AddLineTXT(finished_repeats);
 		timer.stop();String result = timer.getTotal();
-	    BasicLog_AddLineTXT("The SolveTSP method took: " + result); FullLog_AddLineTXT("The SolveTSP method took: " + result); //add to text loggers, have to do this before closing files
+	    String result1 = ("The SolveTSP method took: " + result);BasicLog_AddLineTXT(result1); FullLog_AddLineTXT(result1); //add to text loggers, have to do this before closing files
 		//Close files:
 		if (UsebasicLog) {basicLog.close();} //stop using the file for basic log
 	    if (UseFullLog) {fullLog.close();} //stop using the file for log
@@ -41,7 +41,7 @@ public class MakeTSP {
 		SolveTSP solver = new SolveTSP(distances); //to run the hill climber to solve a TSP
 		double TSP_value = roundTo1dp(solver.return_solution()); //2 get current TSP total cost
 		double MSTdivTSP = MST_value / TSP_value; //3 calculate current value. Higher value means easy TSP to solve, lower end value means hard TSP so solve.Not rounding this to 1 dp as longer decimals can be expected here
-		System.out.println("MakeTSP: HillClimbMakeTSP(): MST_value = " + MST_value + " TSP_value = " + TSP_value + " MSTdivTSP = " + MSTdivTSP);
+		String start = ("MakeTSP: HillClimbMakeTSP(): MST_value = " + MST_value + " TSP_value = " + TSP_value + " MSTdivTSP = " + MSTdivTSP);BasicLog_AddLineTXT(start); FullLog_AddLineTXT(start);
 		int changes = 0; //track how many changes we kept
 		for (int i = 1; i <= iterations; i++)
 	    {
@@ -56,7 +56,7 @@ public class MakeTSP {
 			solver = new SolveTSP(distances); //to run the hill climber to solve a TSP
 			double new_TSP_value = roundTo1dp(solver.return_solution());
 			double new_MSTdivTSP = new_MST_value / new_TSP_value;
-			System.out.println("temp MST: " + new_MST_value + " temp TSP cost: " + new_TSP_value + " temp MST/TSP value: " + new_MSTdivTSP);
+			String temp_str = ("temp MST: " + new_MST_value + " temp TSP cost: " + new_TSP_value + " temp MST/TSP value: " + new_MSTdivTSP);BasicLog_AddLineTXT(temp_str); FullLog_AddLineTXT(temp_str);
 			//6 compare old and new value and make change if needed
 			if ( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) )
 			{//We want harder TSPs and we found a harder TSP OR we want easier TSPs and we found a easier TSP
@@ -66,16 +66,18 @@ public class MakeTSP {
 				MSTdivTSP = new_MSTdivTSP; //Update this variable to climb the hill
 				System.out.println("( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) ) is true, made a change");
 				changes++;
+				String changesSoFar = ("changes made to TSP so far: " + changes); BasicLog_AddLineTXT(changesSoFar); FullLog_AddLineTXT(changesSoFar);
 			}
-			else {System.out.println("made no change");}
-			System.out.println("total changes made to TSP: " + changes);
+			else {String noChange = ("made no change");FullLog_AddLineTXT(noChange);String changesSoFar = ("changes made to TSP so far: " + changes); FullLog_AddLineTXT(changesSoFar);}
 	    }
 		//7 print final distances[], MST, TSP cost and MST/TSP value
 		//MST_value = roundTo1dp(GetMST(distances)); //no longer needed
 		//solver = new SolveTSP(distances); //to run the hill climber to solve a TSP //see comment below
 		//TSP_value = roundTo1dp(solver.return_solution()); // no longer doing this here as the solution can vary
 		//MSTdivTSP = MST_value / TSP_value; //Not rounding this to 1 dp as longer decimals can be expected here
-		System.out.println("final MST: " + MST_value + " final TSP cost: " + TSP_value + " final MST/TSP value: " + MSTdivTSP);
+		String totalChanges = ("total made to TSP: " + changes); BasicLog_AddLineTXT(totalChanges); FullLog_AddLineTXT(totalChanges);
+		String end = ("final MST: " + MST_value + " final TSP cost: " + TSP_value + " final MST/TSP value: " + MSTdivTSP); BasicLog_AddLineTXT(end); FullLog_AddLineTXT(end);
+		System.out.println(end);
 	}
 	
 	public static double GetMST(double[] distances)
