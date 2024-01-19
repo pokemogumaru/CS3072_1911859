@@ -1,18 +1,38 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class MakeTSP {
 //This class will be used to generate / modify TSPs to minimise / maximise their difficulty
 //input: iterations (int), maximise_difficulty (boolean), TSP[] (double)
 //should make small change to any non 0 value in the 1D tsp or both values in 2D version
+	private static FileWriterUtil basicLog; private static boolean UsebasicLog = true;
+	private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
+	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
+	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
 	public MakeTSP(double[] distances, boolean DifficultTrueEasyFalse, int iterations, int repeats) throws IOException
 	{
+		Timer timer = new Timer(); timer.start(); //make timer instance and start timing. Doing this before opening files.
+		//Open files:
+		if (UsebasicLog) {basicLog = new FileWriterUtil(dateTime() + " MakeTSP basicLog.txt", "txt"); basicLog.start();} //create basic log instance and start using the file
+		if (UseFullLog) {fullLog = new FileWriterUtil(dateTime() + " MakeTSP fullLog.txt", "txt"); fullLog.start();} //create fullLog instance and start using the file
+		if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + " MakeTSP hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
+		if (UsefitnessRepeatsLog) {fitnessRepeatsLog = new FileWriterUtil(dateTime() + " MakeTSP fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start();}//used to track fitness at end of each iteration so we can see best fitness trend for repeats
+		//End of initialising log files
 		for (int i = 1; i <= repeats; i++)
 	    {
 			System.out.println("Doing repeat number " + i);
 			HillClimbMakeTSP(distances, DifficultTrueEasyFalse, iterations);
 	    }
 		System.out.println("Finished doing (" + repeats + ") repeats");
+		timer.stop();String result = timer.getTotal();
+	    BasicLog_AddLineTXT("The SolveTSP method took: " + result); FullLog_AddLineTXT("The SolveTSP method took: " + result); //add to text loggers, have to do this before closing files
+		//Close files:
+		if (UsebasicLog) {basicLog.close();} //stop using the file for basic log
+	    if (UseFullLog) {fullLog.close();} //stop using the file for log
+	    if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.close();} //stop using the file for log
+	    if (UsefitnessRepeatsLog) {fitnessRepeatsLog.close();} //stop using the file for log
 	}
 	
 	public static void HillClimbMakeTSP(double[] distances, boolean MaxOrMin, int iterations) throws IOException
@@ -114,7 +134,7 @@ public class MakeTSP {
 		return array_2D;
 	}
 	
-	public static double[] mutate(double[] array)
+	public static double[] mutate(double[] array) throws IOException
 	{//randomly mutate a value in a 1D double array within a range
 		  int index = new Random().nextInt(array.length); // Get random index
 		  boolean valid = false;
@@ -122,17 +142,29 @@ public class MakeTSP {
 		  while (!valid)
 		  {
 			  newValue = roundTo1dp((double)((new Random().nextInt(10)) * 0.1)); // Generate random value between 0.1 to 1.0 in 0.1 increments
-			  if (newValue > 0.0 && newValue < 1.1)
+			  if ( (newValue > 0.0 && newValue < 1.1) && (newValue != array[index]))
 			  {//doing this for now to catch bad values
 				  valid = true;
 			  }
-			  else	{System.out.println("mutate(): Caught bad value. Will generate another value."); }
+			  else	{String mutate_bad_val = ("mutate(): Caught bad value. Will generate another value.");FullLog_AddLineTXT(mutate_bad_val); }
 		  }
-		  System.out.println("mutate(): Swapping position: " + index + " current value: " + array[index] + " to new value: " + newValue);
+		  String mutate_out = ("mutate(): Swapping position: " + index + " current value: " + array[index] + " to new value: " + newValue); FullLog_AddLineTXT(mutate_out);
 		  array[index] = newValue; // Mutate value at index
 		  return array; //return this
 		}
 	
 	public static double roundTo1dp(double num){long rounded = Math.round(num * 10); return (double)rounded / 10;} // Multiply by 10 and round to long. Divide by 10 to get back to 1 dp
 	
+	public static String dateTime()
+	  { //returns dateTime as string, useful for naming files.
+		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"); //should be accurate enough to avoid filename conflicts and tell us when we made the logs.
+		  LocalDateTime now = LocalDateTime.now();
+		  String dateTime = now.format(formatter);
+		  return dateTime;
+	  }
+	
+	public static void FullLog_AddLineTXT(String input) throws IOException {if (UseFullLog) {fullLog.addLineTXT(input);}} //add to log if logging variable true
+	  public static void BasicLog_AddLineTXT(String input) throws IOException {if (UsebasicLog) {basicLog.addLineTXT(input);}}
+	  public static void HillClimberFitnessLog_addColumnCSV(String input) throws IOException {if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.addColumnCSV(input);}}
+	  public static void HillClimberFitnessLog_addRowCSV(String input) throws IOException {if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.addRowCSV(input);}}
 }
