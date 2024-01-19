@@ -6,27 +6,20 @@ public class MakeTSP {
 //input: iterations (int), maximise_difficulty (boolean), TSP[] (double)
 //should make small change to any non 0 value in the 1D tsp or both values in 2D version
 	public MakeTSP(double[] distances, boolean DifficultTrueEasyFalse, int iterations) throws IOException
-	{
-		// do all the heavy lifting in seperate method, add file logging & timing after
-		// step 1 - for iterations do something (done)
-		//step 2 - within loop keep making small changes and compare current fitness to old fitness (likely some methods for this)
-		//step 3 - finish with final TSP, best solveTSP result and MST
+	{//The hill climber could be placed in a loop for repeats
 		HillClimbMakeTSP(distances, DifficultTrueEasyFalse, iterations);
 	}
 	
 	public static void HillClimbMakeTSP(double[] distances, boolean MaxOrMin, int iterations) throws IOException
 	{
-		//1 get current MST
-		double MST_value = roundTo1dp(GetMST(distances));
+		double MST_value = roundTo1dp(GetMST(distances)); //1 get current MST
 		System.out.println("MakeTSP: HillClimbMakeTSP(): MST_value = " + MST_value);
-		//2 get current TSP total cost
 		SolveTSP solver = new SolveTSP(distances); //to run the hill climber to solve a TSP
-		double TSP_value = roundTo1dp(solver.return_solution());
+		double TSP_value = roundTo1dp(solver.return_solution()); //2 get current TSP total cost
 		System.out.println("MakeTSP: HillClimbMakeTSP: TSP_value = " + TSP_value); //Prints the total weight of solution to console
-		//3 calculate current value. Higher end value means easy TSP to solve, lower end value means hard TSP so solve
-		double MSTdivTSP = MST_value / TSP_value; //Not rounding this to 1 dp as longer decimals can be expected here
+		double MSTdivTSP = MST_value / TSP_value; //3 calculate current value. Higher value means easy TSP to solve, lower end value means hard TSP so solve.Not rounding this to 1 dp as longer decimals can be expected here
 		System.out.println("MakeTSP: HillClimbMakeTSP(): MSTdivTSP = " + MSTdivTSP);
-		int changes = 0;
+		int changes = 0; //track how many changes we kept
 		for (int i = 1; i <= iterations; i++)
 	    {
 			//4 make small change to distances[]
@@ -42,22 +35,13 @@ public class MakeTSP {
 			double new_MSTdivTSP = new_MST_value / new_TSP_value;
 			System.out.println("temp MST: " + new_MST_value + " temp TSP cost: " + new_TSP_value + " temp MST/TSP value: " + new_MSTdivTSP);
 			//6 compare old and new value and make change if needed
-			if ( (MaxOrMin) && (new_MSTdivTSP < MSTdivTSP))
+			if ( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) )
 			{//We want harder TSPs and we found a harder TSP
 				distances = new_distances; //Update this variable to climb the hill
 				TSP_value = new_TSP_value;
 				MST_value = new_MST_value;
 				MSTdivTSP = new_MSTdivTSP; //Update this variable to climb the hill
-				System.out.println("(MaxOrMin) && (new_MSTdivTSP < new_MSTdivTSP) is true, made a change");
-				changes++;
-			}
-			else if ( (!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP))
-			{//We want easier TSPs and we found a easier TSP
-				distances = new_distances; //Update this variable to climb the hill
-				TSP_value = new_TSP_value;
-				MST_value = new_MST_value;
-				MSTdivTSP = new_MSTdivTSP; //Update this variable to climb the hill
-				System.out.println("(!MaxOrMin) && (new_MSTdivTSP > new_MSTdivTSP) is true, made a change");
+				System.out.println("( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) ) is true, made a change");
 				changes++;
 			}
 			else {
