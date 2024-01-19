@@ -85,7 +85,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	return (int) x;
 	  }
 
-  public List<Integer> generateInitialSolution(int numCities) {
+  public List<Integer> generateInitialSolution(int numCities) throws IOException {
 	  // generates an initial solution based on the number of cities
 	  //Note that this solution may not be possible since we don't check it against 0 value distances
 	  //Also note that we will have each city once. This is important as we will perform random swaps later.
@@ -94,7 +94,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  for(int i = 1; i <= numCities; i++) {
 	    cities.add(i); //basic loop to give us a starting solution
 	  }
-	  System.out.println("Cities list: " + cities); //used for testing method. Probably comment out later.
+	  FullLog_AddLineTXT("SolveTSP: generateInitialSolution(): Cities list: " + cities); //used for testing method. Just keeping in full log
 	  return cities;
 	}
 
