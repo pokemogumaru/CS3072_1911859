@@ -36,7 +36,7 @@ public class MakeTSP {
 			System.out.println("temp MST: " + new_MST_value + " temp TSP cost: " + new_TSP_value + " temp MST/TSP value: " + new_MSTdivTSP);
 			//6 compare old and new value and make change if needed
 			if ( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) )
-			{//We want harder TSPs and we found a harder TSP
+			{//We want harder TSPs and we found a harder TSP OR we want easier TSPs and we found a easier TSP
 				distances = new_distances; //Update this variable to climb the hill
 				TSP_value = new_TSP_value;
 				MST_value = new_MST_value;
