@@ -26,6 +26,7 @@ public class MakeTSP {
 		//3 calculate current value. Higher end value means easy TSP to solve, lower end value means hard TSP so solve
 		double MSTdivTSP = MST_value / TSP_value; //Not rounding this to 1 dp as longer decimals can be expected here
 		System.out.println("MakeTSP: HillClimbMakeTSP(): MSTdivTSP = " + MSTdivTSP);
+		int changes = 0;
 		for (int i = 1; i <= iterations; i++)
 	    {
 			//4 make small change to distances[]
@@ -43,10 +44,35 @@ public class MakeTSP {
 			double new_MSTdivTSP = new_MST_value / new_TSP_value;
 			System.out.println("MakeTSP: HillClimbMakeTSP(): new_MSTdivTSP = " + new_MSTdivTSP);
 			//6 compare old and new value and make change if needed
-			
-			//7 print final distances[], MST, TSP cost and MST/TSP value
-			
+			if ( (MaxOrMin) && (new_MSTdivTSP < MSTdivTSP))
+			{//We want harder TSPs and we found a harder TSP
+				distances = new_distances; //Update this variable to climb the hill
+				TSP_value = new_TSP_value;
+				MST_value = new_MST_value;
+				MSTdivTSP = new_MSTdivTSP; //Update this variable to climb the hill
+				System.out.println("(MaxOrMin) && (new_MSTdivTSP < new_MSTdivTSP) is true, made a change");
+				changes++;
+			}
+			else if ( (!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP))
+			{//We want easier TSPs and we found a easier TSP
+				distances = new_distances; //Update this variable to climb the hill
+				TSP_value = new_TSP_value;
+				MST_value = new_MST_value;
+				MSTdivTSP = new_MSTdivTSP; //Update this variable to climb the hill
+				System.out.println("(!MaxOrMin) && (new_MSTdivTSP > new_MSTdivTSP) is true, made a change");
+				changes++;
+			}
+			else {
+				System.out.println("made no change");
+			}
+			System.out.println("total changes made to TSP: " + changes);
 	    }
+		//7 print final distances[], MST, TSP cost and MST/TSP value
+		//MST_value = roundTo1dp(GetMST(distances)); //no longer needed
+		//solver = new SolveTSP(distances); //to run the hill climber to solve a TSP //see comment below
+		//TSP_value = roundTo1dp(solver.return_solution()); // no longer doing this here as the solution can vary
+		//MSTdivTSP = MST_value / TSP_value; //Not rounding this to 1 dp as longer decimals can be expected here
+		System.out.println("final MST: " + MST_value + " final TSP cost: " + TSP_value + " final MST/TSP value: " + MSTdivTSP);
 	}
 	
 	public static double GetMST(double[] distances)
@@ -76,7 +102,7 @@ public class MakeTSP {
 	}
 	
 	public static double[][] convert_1D_to_2D(double[] array_1D)
-	{
+	{//borrowed from CS3072_1911859 class
 		  int n = array_1D.length; // Get size of 1D array
 		  if (n < 1)
 		  {// should never be less than 1 element, giving a 2x2 matrix
@@ -117,20 +143,13 @@ public class MakeTSP {
 			  {//doing this for now to catch bad values
 				  valid = true;
 			  }
-			  else
-			  {
-				  System.out.println("mutate(): Caught bad value. Will generate another value.");
-			  }
+			  else	{System.out.println("mutate(): Caught bad value. Will generate another value."); }
 		  }
 		  System.out.println("mutate(): Swapping position: " + index + " current value: " + array[index] + " to new value: " + newValue);
 		  array[index] = newValue; // Mutate value at index
 		  return array; //return this
 		}
 	
-	public static double roundTo1dp(double num){
-		  // Multiply by 10 and round to long
-		  long rounded = Math.round(num * 10); 
-		  // Divide by 10 to get back to 1 dp
-		  return (double)rounded / 10;
-		}
+	public static double roundTo1dp(double num){long rounded = Math.round(num * 10); return (double)rounded / 10;} // Multiply by 10 and round to long. Divide by 10 to get back to 1 dp
+	
 }
