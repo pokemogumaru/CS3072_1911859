@@ -5,9 +5,14 @@ public class MakeTSP {
 //This class will be used to generate / modify TSPs to minimise / maximise their difficulty
 //input: iterations (int), maximise_difficulty (boolean), TSP[] (double)
 //should make small change to any non 0 value in the 1D tsp or both values in 2D version
-	public MakeTSP(double[] distances, boolean DifficultTrueEasyFalse, int iterations) throws IOException
-	{//The hill climber could be placed in a loop for repeats
-		HillClimbMakeTSP(distances, DifficultTrueEasyFalse, iterations);
+	public MakeTSP(double[] distances, boolean DifficultTrueEasyFalse, int iterations, int repeats) throws IOException
+	{
+		for (int i = 1; i <= repeats; i++)
+	    {
+			System.out.println("Doing repeat number " + i);
+			HillClimbMakeTSP(distances, DifficultTrueEasyFalse, iterations);
+	    }
+		System.out.println("Finished doing (" + repeats + ") repeats");
 	}
 	
 	public static void HillClimbMakeTSP(double[] distances, boolean MaxOrMin, int iterations) throws IOException

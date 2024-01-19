@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class SolveTSP { //this class is used for solving TSPs
   private double[] distances;
   private double result = 0.0; //will be used to store the value of the result for other classes to access. If there are repeats, it will store the last result
- //change these to true or false depending on whether you want this logging, all other references to these logs will run or not run depending on these boolean values
+  //change these to true or false depending on whether you want this logging, all other references to these logs will run or not run depending on these boolean values
   private static FileWriterUtil basicLog; private static boolean UsebasicLog = false;
   private static FileWriterUtil fullLog; private static boolean UseFullLog = false;
   private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = false;
