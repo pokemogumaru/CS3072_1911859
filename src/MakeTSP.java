@@ -13,12 +13,10 @@ public class MakeTSP {
 	public static void HillClimbMakeTSP(double[] distances, boolean MaxOrMin, int iterations) throws IOException
 	{
 		double MST_value = roundTo1dp(GetMST(distances)); //1 get current MST
-		System.out.println("MakeTSP: HillClimbMakeTSP(): MST_value = " + MST_value);
 		SolveTSP solver = new SolveTSP(distances); //to run the hill climber to solve a TSP
 		double TSP_value = roundTo1dp(solver.return_solution()); //2 get current TSP total cost
-		System.out.println("MakeTSP: HillClimbMakeTSP: TSP_value = " + TSP_value); //Prints the total weight of solution to console
 		double MSTdivTSP = MST_value / TSP_value; //3 calculate current value. Higher value means easy TSP to solve, lower end value means hard TSP so solve.Not rounding this to 1 dp as longer decimals can be expected here
-		System.out.println("MakeTSP: HillClimbMakeTSP(): MSTdivTSP = " + MSTdivTSP);
+		System.out.println("MakeTSP: HillClimbMakeTSP(): MST_value = " + MST_value + " TSP_value = " + TSP_value + " MSTdivTSP = " + MSTdivTSP);
 		int changes = 0; //track how many changes we kept
 		for (int i = 1; i <= iterations; i++)
 	    {
