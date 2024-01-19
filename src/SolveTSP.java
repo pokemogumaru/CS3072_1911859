@@ -158,8 +158,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	   if(cost == 0.0) {
 	     String warning0 = ("generateTourCost: warning, 0 value found! i = " + i); //should never happen
 	     System.out.println(warning0);
-	     BasicLog_AddLineTXT(warning0);
-	     FullLog_AddLineTXT(warning0);
+	     BasicLog_AddLineTXT(warning0); FullLog_AddLineTXT(warning0);
 	   }
 	   totalCost += cost;
 	   //System.out.println("total cost before returning to start = " + totalCost);
@@ -175,8 +174,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	 //System.out.println(startString);
 	 totalCost += cost; //this will be final cost for this solution
 	 String totalCostString = ("total cost after returning to start = " + totalCost);
-	 BasicLog_AddLineTXT(totalCostString);
-	 FullLog_AddLineTXT(totalCostString);
+	 BasicLog_AddLineTXT(totalCostString); FullLog_AddLineTXT(totalCostString);
 	//System.out.println(totalCostString);
 	//step 4 - return  total cost
 	 return totalCost; // for example 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 the cost 5.0 is correct!
