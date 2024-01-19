@@ -37,12 +37,10 @@ public class MakeTSP {
 			//System.out.println("Number of items: " + new_distances.length); for(double value : new_distances){System.out.println(value);} //Debug: prints the number of values & prints each value
 			//5 reevaluate MST / TSP value
 			double new_MST_value = roundTo1dp(GetMST(new_distances));
-			System.out.println("MakeTSP: HillClimbMakeTSP(): new_MST_value = " + new_MST_value);
 			solver = new SolveTSP(distances); //to run the hill climber to solve a TSP
 			double new_TSP_value = roundTo1dp(solver.return_solution());
-			System.out.println("MakeTSP: HillClimbMakeTSP: new_TSP_value = " + new_TSP_value);
 			double new_MSTdivTSP = new_MST_value / new_TSP_value;
-			System.out.println("MakeTSP: HillClimbMakeTSP(): new_MSTdivTSP = " + new_MSTdivTSP);
+			System.out.println("temp MST: " + new_MST_value + " temp TSP cost: " + new_TSP_value + " temp MST/TSP value: " + new_MSTdivTSP);
 			//6 compare old and new value and make change if needed
 			if ( (MaxOrMin) && (new_MSTdivTSP < MSTdivTSP))
 			{//We want harder TSPs and we found a harder TSP
