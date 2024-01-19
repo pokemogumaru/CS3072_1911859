@@ -10,13 +10,14 @@ import java.time.format.DateTimeFormatter;
 public class SolveTSP { //this class is used for solving TSPs
   private double[] distances;
   private double result = 0.0; //will be used to store the value of the result for other classes to access. If there are repeats, it will store the last result
- //change this to true or false depending on whether you want this logging, all other references to these logs will run or not run depending on these boolean values
+ //change these to true or false depending on whether you want this logging, all other references to these logs will run or not run depending on these boolean values
   private static FileWriterUtil basicLog; private static boolean UsebasicLog = true;
   private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
   private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
   private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
   
   public SolveTSP(double[] distances) throws IOException {
+	Timer timer = new Timer(); timer.start(); //make timer instance and start timing. Doing this before opening files.
 	//START OF PROGRAM, OPEN FILES (if needed)
 	//will have these files: basic, full, hillClimberFitness.
 	//filename format: SolveTSP-(loggingType)-dateTime
@@ -33,7 +34,7 @@ public class SolveTSP { //this class is used for solving TSPs
     tourPrinter(initialSolution); //prints our initial solution for testing
     //double initialCost = generateTourCost(initialSolution, distances); //the cost of our initial solution
     //removed the above line as the initial solution is likely invalid and will appear the best due to 0 values
-    int iterations = 3000; //used for hill climber
+    int iterations = 300; //used for hill climber
     List<Integer> hcSolution = null; //defining hcSolution before loop
     int repeats = 1; //used to repeat hill climber testing
     double generateTourCost = 0; //defining this outside of loop so that we can calculate cost once rather than twice
@@ -58,7 +59,8 @@ public class SolveTSP { //this class is used for solving TSPs
     System.out.println(generateTourCost(shouldBe2point4,distances));
     */
     
-    
+    timer.stop();String result = timer.getTotal();
+    BasicLog_AddLineTXT("The SolveTSP method took: " + result); FullLog_AddLineTXT("The SolveTSP method took: " + result); //add to text loggers, have to do this before closing files
     //tourPrinter(optimalTour); //to print the optimal tour
     //END OF PROGRAM, CLOSE FILES:
     if (UsebasicLog) {basicLog.close();} //stop using the file for basic log
