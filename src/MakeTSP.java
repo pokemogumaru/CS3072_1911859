@@ -44,9 +44,7 @@ public class MakeTSP {
 				System.out.println("( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) ) is true, made a change");
 				changes++;
 			}
-			else {
-				System.out.println("made no change");
-			}
+			else {System.out.println("made no change");}
 			System.out.println("total changes made to TSP: " + changes);
 	    }
 		//7 print final distances[], MST, TSP cost and MST/TSP value
