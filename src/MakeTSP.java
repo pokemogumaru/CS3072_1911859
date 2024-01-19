@@ -15,15 +15,23 @@ public class MakeTSP {
 	{
 		//TODO Need starting fitness = MST / TSP:
 		//1 get MST
+		
 		//2 get TSP total cost
+		
 		//3 calculate value. Higher end value means easy TSP to solve, lower end value means hard TSP so solve
+		
 		//3.1 print the above
+		
 		for (int i = 1; i <= iterations; i++)
 	    {
 			//4 make small change to distances[]
+			
 			//5 reevaluate MST / TSP value
+			
 			//6 compare old and new value and make change if needed
+			
 			//7 print final distances[], MST, TSP cost and MST/TSP value
+			
 	    }
 	}
 }
