@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Random;
 
 public class MakeTSP {
@@ -20,6 +21,7 @@ public class MakeTSP {
 		if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + " MakeTSP hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
 		if (UsefitnessRepeatsLog) {fitnessRepeatsLog = new FileWriterUtil(dateTime() + " MakeTSP fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start();}//used to track fitness at end of each iteration so we can see best fitness trend for repeats
 		//End of initialising log files
+		String start_values = "MakeTSP: starting with DifficultTrueEasyFalse = " + DifficultTrueEasyFalse; BasicLog_AddLineTXT(start_values); FullLog_AddLineTXT(start_values);
 		for (int i = 1; i <= repeats; i++)
 	    {
 			System.out.println("Doing repeat number " + i);
@@ -67,8 +69,13 @@ public class MakeTSP {
 				System.out.println("( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) ) is true, made a change");
 				changes++;
 				String changesSoFar = ("changes made to TSP so far: " + changes); BasicLog_AddLineTXT(changesSoFar); FullLog_AddLineTXT(changesSoFar);
+				HillClimberFitnessLog_addColumnCSV(String.valueOf(changes)); //Doing this inside the if statement so we only record when there is a change made
+			    HillClimberFitnessLog_addRowCSV(String.valueOf(MST_value));
+			    HillClimberFitnessLog_addRowCSV(String.valueOf(TSP_value));
+			    HillClimberFitnessLog_addRowCSV(String.valueOf(MSTdivTSP));
 			}
 			else {String noChange = ("made no change");FullLog_AddLineTXT(noChange);String changesSoFar = ("changes made to TSP so far: " + changes); FullLog_AddLineTXT(changesSoFar);}
+			
 	    }
 		//7 print final distances[], MST, TSP cost and MST/TSP value
 		//MST_value = roundTo1dp(GetMST(distances)); //no longer needed
@@ -77,6 +84,7 @@ public class MakeTSP {
 		//MSTdivTSP = MST_value / TSP_value; //Not rounding this to 1 dp as longer decimals can be expected here
 		String totalChanges = ("total made to TSP: " + changes); BasicLog_AddLineTXT(totalChanges); FullLog_AddLineTXT(totalChanges);
 		String end = ("final MST: " + MST_value + " final TSP cost: " + TSP_value + " final MST/TSP value: " + MSTdivTSP); BasicLog_AddLineTXT(end); FullLog_AddLineTXT(end);
+		String finalDistances = "final distance array after: " + Arrays.toString(distances); BasicLog_AddLineTXT(finalDistances); FullLog_AddLineTXT(finalDistances);
 		System.out.println(end);
 	}
 	
