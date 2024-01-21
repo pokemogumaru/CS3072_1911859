@@ -27,8 +27,9 @@ public class CS3072_1911859 {
 		
 		//test_MST(); //To test our MST of a TSP
 		
-		MakeTSP maker = new MakeTSP(new_TSP(), true, 100000, 1); //To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run)
-		MakeTSP makerFalse = new MakeTSP(new_TSP(), false, 10000, 1); //trying the same thing but for easier TSPs
+		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
+		MakeTSP maker = new MakeTSP(new_TSP(), true, 100000, 1, 100000); 
+		MakeTSP makerFalse = new MakeTSP(new_TSP(), false, 100000, 1, 100000); //trying the same thing but for easier TSPs
 		
         /*
 		double[][] array2D = convert_1D_to_2D(new_TSP());

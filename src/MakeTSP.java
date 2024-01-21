@@ -12,7 +12,7 @@ public class MakeTSP {
 	private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
 	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
 	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
-	public MakeTSP(double[] distances, boolean DifficultTrueEasyFalse, int iterations, int repeats) throws IOException
+	public MakeTSP(double[] distances, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations) throws IOException
 	{
 		Timer timer = new Timer(); timer.start(); //make timer instance and start timing. Doing this before opening files.
 		//Open files:
@@ -21,11 +21,12 @@ public class MakeTSP {
 		if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + " MakeTSP hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
 		if (UsefitnessRepeatsLog) {fitnessRepeatsLog = new FileWriterUtil(dateTime() + " MakeTSP fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start();}//used to track fitness at end of each iteration so we can see best fitness trend for repeats
 		//End of initialising log files
-		String start_values = "MakeTSP: starting with DifficultTrueEasyFalse = " + DifficultTrueEasyFalse; BasicLog_AddLineTXT(start_values); FullLog_AddLineTXT(start_values);
+		String start_values = "MakeTSP: starting with DifficultTrueEasyFalse = " + DifficultTrueEasyFalse + " Outer iterations = " + iterations + " Inner iterations = " + SolveIterations;
+		BasicLog_AddLineTXT(start_values); FullLog_AddLineTXT(start_values);
 		for (int i = 1; i <= repeats; i++)
 	    {
 			System.out.println("Doing repeat number " + i);
-			HillClimbMakeTSP(distances, DifficultTrueEasyFalse, iterations);
+			HillClimbMakeTSP(distances, DifficultTrueEasyFalse, iterations, SolveIterations);
 	    }
 		String finished_repeats = ("Finished doing (" + repeats + ") repeats");BasicLog_AddLineTXT(finished_repeats); FullLog_AddLineTXT(finished_repeats);
 		timer.stop();String result = timer.getTotal();
@@ -37,10 +38,10 @@ public class MakeTSP {
 	    if (UsefitnessRepeatsLog) {fitnessRepeatsLog.close();} //stop using the file for log
 	}
 	
-	public static void HillClimbMakeTSP(double[] distances, boolean MaxOrMin, int iterations) throws IOException
+	public static void HillClimbMakeTSP(double[] distances, boolean MaxOrMin, int iterations, int SolveIterations) throws IOException
 	{
 		double MST_value = roundTo1dp(GetMST(distances)); //1 get current MST
-		SolveTSP solver = new SolveTSP(distances); //to run the hill climber to solve a TSP
+		SolveTSP solver = new SolveTSP(distances, SolveIterations); //to run the hill climber to solve a TSP
 		double TSP_value = roundTo1dp(solver.return_solution()); //2 get current TSP total cost
 		double MSTdivTSP = MST_value / TSP_value; //3 calculate current value. Higher value means easy TSP to solve, lower end value means hard TSP so solve.Not rounding this to 1 dp as longer decimals can be expected here
 		String start = ("MakeTSP: HillClimbMakeTSP(): MST_value = " + MST_value + " TSP_value = " + TSP_value + " MSTdivTSP = " + MSTdivTSP);BasicLog_AddLineTXT(start); FullLog_AddLineTXT(start);
@@ -55,7 +56,7 @@ public class MakeTSP {
 			//System.out.println("Number of items: " + new_distances.length); for(double value : new_distances){System.out.println(value);} //Debug: prints the number of values & prints each value
 			//5 reevaluate MST / TSP value
 			double new_MST_value = roundTo1dp(GetMST(new_distances));
-			solver = new SolveTSP(distances); //to run the hill climber to solve a TSP
+			solver = new SolveTSP(distances, SolveIterations); //to run the hill climber to solve a TSP
 			double new_TSP_value = roundTo1dp(solver.return_solution());
 			double new_MSTdivTSP = new_MST_value / new_TSP_value;
 			String temp_str = ("temp MST: " + new_MST_value + " temp TSP cost: " + new_TSP_value + " temp MST/TSP value: " + new_MSTdivTSP);BasicLog_AddLineTXT(temp_str); FullLog_AddLineTXT(temp_str);
