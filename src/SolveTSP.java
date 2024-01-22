@@ -111,13 +111,10 @@ public class SolveTSP { //this class is used for solving TSPs
 			  return array_2D;
 		  }
 		  //get size of width / height (called x)
-		  double x;
 		double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term 
-		x = (1 + sqrtTerm) / 2; // Calculate x
-		//test this
-		String xValue = ("convert_1D_to_2D: x = " + x); FullLog_AddLineTXT(xValue);
+		double x = (1 + sqrtTerm) / 2; // Calculate x
+		String xValue = ("convert_1D_to_2D: x = " + x); FullLog_AddLineTXT(xValue); //test this
 		//System.out.println(xValue);
-		
 		// Create 2D array with x by x size
 		double[][] array_2D = new double[(int) x][(int) x]; //new 2D distance matrix
 		int a = 0; //used to track position in the 1D array
