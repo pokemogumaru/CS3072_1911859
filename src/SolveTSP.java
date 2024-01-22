@@ -112,10 +112,8 @@ public class SolveTSP { //this class is used for solving TSPs
 		  }
 		  //get size of width / height (called x)
 		  double x;
-		// Calculate square root term 
-		double sqrtTerm = Math.sqrt(1 + 8*n);
-		// Calculate x
-		x = (1 + sqrtTerm) / 2;
+		double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term 
+		x = (1 + sqrtTerm) / 2; // Calculate x
 		//test this
 		String xValue = ("convert_1D_to_2D: x = " + x); FullLog_AddLineTXT(xValue);
 		//System.out.println(xValue);
