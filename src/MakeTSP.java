@@ -90,13 +90,7 @@ public class MakeTSP {
 		System.out.println(end);
 	}
 	
-	public static double GetMST(double[] distances)
-	{
-		double g[][] = convert_1D_to_2D(distances); //store as 2D
-		double mst[][] = MST.PrimsMST(g); //calculate MST
-		double answer = MST_total(mst);
-		return answer;
-	}
+	public static double GetMST(double[] distances){return (MST_total(MST.PrimsMST(convert_1D_to_2D(distances))));}
 	
 	public static double total_2D(double[][] array2D)
 	{ //A method that returns the sum of all values in a 2D double graph
@@ -109,12 +103,8 @@ public class MakeTSP {
 		return total;
 	}
 	
-	public static double MST_total(double[][] graph)
-	{ //A method that returns the sum of weights in a 2D double graph. Uses the total_2D method.
-		double total = total_2D(graph); //use the existing method to do this
-		total = total / 2; //since we don't want to count values twice
-		return total;
-	}
+	
+	public static double MST_total(double[][] graph){ return (total_2D(graph) / 2.0);} //A method that returns the sum of weights in a 2D double graph. 
 	
 	public static double[][] convert_1D_to_2D(double[] array_1D)
 	{//borrowed from CS3072_1911859 class
@@ -154,29 +144,22 @@ public class MakeTSP {
 		  while (!valid)
 		  {
 			  newValue = roundTo1dp((double)((new Random().nextInt(10)) * 0.1)); // Generate random value between 0.1 to 1.0 in 0.1 increments
-			  if ( (newValue > 0.0 && newValue < 1.1) && (newValue != array[index]))
-			  {//doing this for now to catch bad values
-				  valid = true;
-			  }
-			  else	{String mutate_bad_val = ("mutate(): Caught bad value. Will generate another value.");FullLog_AddLineTXT(mutate_bad_val); }
+			  if ( (newValue > 0.0 && newValue < 1.1) && (newValue != array[index])) {valid = true;}//doing this for now to catch bad values
+			  else {String mutate_bad_val = ("mutate(): Caught bad value. Will generate another value.");FullLog_AddLineTXT(mutate_bad_val); }
 		  }
 		  String mutate_out = ("mutate(): Swapping position: " + index + " current value: " + array[index] + " to new value: " + newValue); FullLog_AddLineTXT(mutate_out);
 		  array[index] = newValue; // Mutate value at index
 		  return array; //return this
 		}
 	
-	public static double roundTo1dp(double num){long rounded = Math.round(num * 10); return (double)rounded / 10;} // Multiply by 10 and round to long. Divide by 10 to get back to 1 dp
+	public static double roundTo1dp(double num){long rounded = Math.round(num * 10); return (double)rounded / 10;}
+	// Multiply by 10 and round to long. Divide by 10 to get back to 1 dp
 	
-	public static String dateTime()
-	  { //returns dateTime as string, useful for naming files.
-		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"); //should be accurate enough to avoid filename conflicts and tell us when we made the logs.
-		  LocalDateTime now = LocalDateTime.now();
-		  String dateTime = now.format(formatter);
-		  return dateTime;
-	  }
+	public static String dateTime(){ return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));}
+	//returns dateTime as string, useful for naming files. should be accurate enough to avoid filename conflicts.
 	
 	public static void FullLog_AddLineTXT(String input) throws IOException {if (UseFullLog) {fullLog.addLineTXT(input);}} //add to log if logging variable true
-	  public static void BasicLog_AddLineTXT(String input) throws IOException {if (UsebasicLog) {basicLog.addLineTXT(input);}}
-	  public static void HillClimberFitnessLog_addColumnCSV(String input) throws IOException {if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.addColumnCSV(input);}}
-	  public static void HillClimberFitnessLog_addRowCSV(String input) throws IOException {if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.addRowCSV(input);}}
+	public static void BasicLog_AddLineTXT(String input) throws IOException {if (UsebasicLog) {basicLog.addLineTXT(input);}}
+	public static void HillClimberFitnessLog_addColumnCSV(String input) throws IOException {if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.addColumnCSV(input);}}
+	public static void HillClimberFitnessLog_addRowCSV(String input) throws IOException {if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.addRowCSV(input);}}
 }

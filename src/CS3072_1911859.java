@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 public class CS3072_1911859 {
 	private static FileWriterUtil csvLogger;
@@ -28,8 +29,9 @@ public class CS3072_1911859 {
 		//test_MST(); //To test our MST of a TSP
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
-		MakeTSP maker = new MakeTSP(new_TSP(), true, 100000, 1, 100000); 
-		MakeTSP makerFalse = new MakeTSP(new_TSP(), false, 100000, 1, 100000); //trying the same thing but for easier TSPs
+		//MakeTSP maker = new MakeTSP(new_TSP(), true, 1000, 1, 1000); 
+		//MakeTSP makerFalse = new MakeTSP(new_TSP(), false, 1000, 1, 1000); //trying the same thing but for easier TSPs
+		
 		
         /*
 		double[][] array2D = convert_1D_to_2D(new_TSP());
@@ -222,6 +224,7 @@ returns a 1-D array of type double
 		  }
 		return total;
 	}
+	
 	
 	public static double MST_total(double[][] graph)
 	{ //A method that returns the sum of weights in a 2D double graph. Uses the total_2D method.
