@@ -73,7 +73,9 @@ public class SolveTSP { //this class is used for solving TSPs
 	  int n = distances.length;
 	  if (n < 1)
 	  {// should never be less than 1 element, giving a 2x2 matrix
-		  System.out.println("less than 1 unique element, likely an error.");
+		  String error = ("SolveTSP: calculateCitiesAmount(): less than 1 unique element, likely an error.");
+		  BasicLog_AddLineTXT(error); FullLog_AddLineTXT(error);
+		  System.out.println(error);
 		  return 0;
 	  }
 	double x; //get size of width / height (called x)

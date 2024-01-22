@@ -67,7 +67,8 @@ public class MakeTSP {
 				TSP_value = new_TSP_value;
 				MST_value = new_MST_value;
 				MSTdivTSP = new_MSTdivTSP; //Update this variable to climb the hill
-				System.out.println("( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) ) is true, made a change");
+				String madeChange = ("( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) ) is true, made a change");
+				BasicLog_AddLineTXT(madeChange); FullLog_AddLineTXT(madeChange);
 				changes++;
 				String changesSoFar = ("changes made to TSP so far: " + changes); BasicLog_AddLineTXT(changesSoFar); FullLog_AddLineTXT(changesSoFar);
 				HillClimberFitnessLog_addColumnCSV(String.valueOf(changes)); //Doing this inside the if statement so we only record when there is a change made
