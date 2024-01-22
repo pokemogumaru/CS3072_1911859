@@ -161,7 +161,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	 }
 	 // Return to start city 
 	 String returning = "returning to start"; FullLog_AddLineTXT(returning); //useful for full log
-	 //System.out.println(returning); //not really worth printing
+	 //System.out.println(returning); //debug only
 	 int start = solution.get(0);
 	 int end = solution.get(cities-1);
 	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
