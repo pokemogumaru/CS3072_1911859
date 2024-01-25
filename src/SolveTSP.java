@@ -290,10 +290,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	    while (same)
 	    { //no point swapping a value with itself...
 	    	indexB = random.nextInt(numCities);
-	    	if (indexB != indexA)
-	    	{
-	    		same = false;
-	    	}
+	    	if (indexB != indexA){same = false;}
 	    }
 	    String indexBLogger = ("chosen at random: indexB = " + indexB); FullLog_AddLineTXT(indexBLogger);
 	    int temp = newSolution.get(indexA);
@@ -302,9 +299,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	    boolean condition1 = false;
 	    boolean condition2 = false;
 	    double newCost = generateTourCost(newSolution, distances);
-	    if(newCost < cost) {
-	      condition1 = true;
-	    }
+	    if(newCost < cost) {condition1 = true;}
 	    //if(!hasZeroValue(newSolution, distances)) {condition2 = true;}
 	    //commenting out above line as this should always be true if all cities are connected.
 	    condition2 = true;
