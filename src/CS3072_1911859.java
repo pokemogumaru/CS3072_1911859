@@ -19,11 +19,11 @@ public class CS3072_1911859 {
         */
 		
 		//to test new_TSP_1dp_ascending (old method):
-		test_new_TSP();
+		//test_new_TSP();
 		
 		
 		
-		//test_2D(); //To test our 2D representation of 1D TSP
+		test_2D(); //To test our 2D representation of 1D TSP
 		
 		//To run the TSP solver:
 		//SolveTSP solver = new SolveTSP(new_TSP_1dp()); //to run the hill climber to solve a TSP
@@ -57,7 +57,9 @@ public class CS3072_1911859 {
 		//populates and returns an array of 45 random values between 0 and 1 of type double
 		  double[] arr = new double[45];
 		  Random rand = new Random();
-		  for(int i = 0; i < arr.length; i++) {arr[i] = rand.nextDouble(); }
+		  for(int i = 0; i < arr.length; i++) {
+			  arr[i] = rand.nextDouble(); 
+			  }
 		  return arr;
 		}
 	
@@ -152,7 +154,7 @@ returns a 1-D array of type double
 	
 	public static void test_2D()
 	{//this method tests the initial TSP generator by counting values and showing each value
-		double[] array1D = new_TSP_1dp_ascending();
+		double[] array1D = new_TSP();
 		  System.out.println("test_2D(): Number of items: " + array1D.length); //prints the number of values
 		  for(double value : array1D) {
 		    System.out.println(value); //prints each value as part of testing
