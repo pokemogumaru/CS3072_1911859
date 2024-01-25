@@ -20,7 +20,6 @@ public class FileWriterUtil {
     }
     
     public void addLineTXT(String text) throws IOException {
-    	//comment this out when doing large numbers of repeats
         writer.write(text); //add text to txt file
         writer.newLine(); //So next time we add the next on new line
     }
