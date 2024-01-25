@@ -59,7 +59,9 @@ public class SolveTSP { //this class is used for solving TSPs
     */
     
     timer.stop();String result = timer.getTotal();
-    BasicLog_AddLineTXT("The SolveTSP method took: " + result); FullLog_AddLineTXT("The SolveTSP method took: " + result); //add to text loggers, have to do this before closing files
+    if (UsebasicLog) {BasicLog_AddLineTXT("The SolveTSP method took: " + result);} if (UseFullLog) {FullLog_AddLineTXT("The SolveTSP method took: " + result);}
+    //add to text loggers, have to do this before closing files
+    
     //tourPrinter(optimalTour); //to print the optimal tour
     //END OF PROGRAM, CLOSE FILES:
     if (UsebasicLog) {basicLog.close();} //stop using the file for basic log
@@ -95,7 +97,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  for(int i = 1; i <= numCities; i++) {
 	    cities.add(i); //basic loop to give us a starting solution
 	  }
-	  FullLog_AddLineTXT("SolveTSP: generateInitialSolution(): Cities list: " + cities); //used for testing method. Just keeping in full log
+	  if (UseFullLog) {FullLog_AddLineTXT("SolveTSP: generateInitialSolution(): Cities list: " + cities);} //used for testing method. Just keeping in full log
 	  return cities;
 	}
 
@@ -273,7 +275,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  //takes in number of cities, start solution, number of iterations, distances (TSP)
 	  ArrayList<Integer> solution = new ArrayList<>(initialSolution);
 	  double cost = Double.MAX_VALUE;// max value so we accept any new solution
-	  String start = "Starting hill climber solver loop"; BasicLog_AddLineTXT(start); FullLog_AddLineTXT(start);
+	  if (UseFullLog || UsebasicLog) {String start = "Starting hill climber solver loop"; BasicLog_AddLineTXT(start); FullLog_AddLineTXT(start);}
 	  //System.out.println(start);
 	  for(int i = 0; i < iterations; i++) {
 		if (UseFullLog || UsebasicLog) {String HCLoggerI = ("hillClimberSolver: i = " + i); BasicLog_AddLineTXT(HCLoggerI); FullLog_AddLineTXT(HCLoggerI);}
