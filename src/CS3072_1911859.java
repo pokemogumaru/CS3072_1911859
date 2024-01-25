@@ -26,8 +26,8 @@ public class CS3072_1911859 {
 		//test_2D(); //To test our 2D representation of 1D TSP
 		
 		//To run the TSP solver:
-		SolveTSP solver = new SolveTSP(new_TSP(), 1000); //to run the hill climber to solve a TSP
-		System.out.println("CS3072_1911859: main: solver.return_solution() = " + solver.return_solution()); //Prints the total weight of solution to console
+		//SolveTSP solver = new SolveTSP(new_TSP(), 1000); //to run the hill climber to solve a TSP
+		//System.out.println("CS3072_1911859: main: solver.return_solution() = " + solver.return_solution()); //Prints the total weight of solution to console
 		
 		//test_MST(); //To test our MST of a TSP
 		
@@ -221,7 +221,7 @@ returns a 1-D array of type double
 	
 	public static void test_MST() throws IOException
 	{// Tests our MST graph of our new TSP
-		  double[] distances = new_TSP_1dp_ascending(); // make new TSP
+		  double[] distances = new_TSP(); // make new TSP
 		  double g[][] = convert_1D_to_2D(distances); //store as 2D
 		  double mst[][] = MST.PrimsMST(g); //calculate MST
 		  print_2D(mst); //print the contents to console
