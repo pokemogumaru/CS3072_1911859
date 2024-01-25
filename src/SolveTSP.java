@@ -279,12 +279,12 @@ public class SolveTSP { //this class is used for solving TSPs
 	  String start = "Starting hill climber solver loop"; BasicLog_AddLineTXT(start); FullLog_AddLineTXT(start);
 	  //System.out.println(start);
 	  for(int i = 0; i < iterations; i++) {
-	  String HCLoggerI = ("hillClimberSolver: i = " + i); BasicLog_AddLineTXT(HCLoggerI); FullLog_AddLineTXT(HCLoggerI);
+		if (UseFullLog || UsebasicLog) {String HCLoggerI = ("hillClimberSolver: i = " + i); BasicLog_AddLineTXT(HCLoggerI); FullLog_AddLineTXT(HCLoggerI);}
 	    ArrayList<Integer> newSolution = new ArrayList<>(solution); 
 	    // Swap two random cities
 	    Random random = new Random(); //should be between 0 and numCities
 	    int indexA = random.nextInt(numCities);
-	    String indexALogger = ("chosen at random: indexA = " + indexA); FullLog_AddLineTXT(indexALogger);
+	    if (UseFullLog) { String indexALogger = ("chosen at random: indexA = " + indexA); FullLog_AddLineTXT(indexALogger);} //checking if full log is true to save time in cases it's false
 	    boolean same = true;
 	    int indexB = random.nextInt(numCities);
 	    while (same)
@@ -292,7 +292,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	    	indexB = random.nextInt(numCities);
 	    	if (indexB != indexA){same = false;}
 	    }
-	    String indexBLogger = ("chosen at random: indexB = " + indexB); FullLog_AddLineTXT(indexBLogger);
+	    if (UseFullLog) { String indexBLogger = ("chosen at random: indexB = " + indexB); FullLog_AddLineTXT(indexBLogger); } //checking if full log is true to save time in cases it's false
 	    int temp = newSolution.get(indexA);
 	    newSolution.set(indexA, newSolution.get(indexB));
 	    newSolution.set(indexB, temp);
