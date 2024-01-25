@@ -313,12 +313,8 @@ public class SolveTSP { //this class is used for solving TSPs
 	    String cost999 = "No valid solution found that beat the initial solution"; BasicLog_AddLineTXT(cost999); FullLog_AddLineTXT(cost999);
 		System.out.println(cost999);
 	  }
-	  else {
-		String outBestCost = ("Best cost: "+ cost); BasicLog_AddLineTXT(outBestCost); FullLog_AddLineTXT(outBestCost);
-		//System.out.println(outBestCost);
-	  }
-	  String finished = ("Hil Climber Finished after " +iterations + " iterations!"); BasicLog_AddLineTXT(finished); FullLog_AddLineTXT(finished);
-	  //System.out.println(finished);
+	  else {if (UseFullLog || UsebasicLog) {String outBestCost = ("Best cost: "+ cost); BasicLog_AddLineTXT(outBestCost); FullLog_AddLineTXT(outBestCost);}}
+	  if (UseFullLog || UsebasicLog) {String finished = ("Hil Climber Finished after " +iterations + " iterations!"); BasicLog_AddLineTXT(finished); FullLog_AddLineTXT(finished);}
 	  solution.add(solution.get(0)); // Return to start city
 	  return solution;
 	}
