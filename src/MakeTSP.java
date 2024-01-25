@@ -39,11 +39,12 @@ public class MakeTSP {
 	
 	public static void HillClimbMakeTSP(double[] distances, boolean MaxOrMin, int iterations, int SolveIterations) throws IOException
 	{
-		double MST_value = roundTo1dp(GetMST(distances)); //1 get current MST
+		double MST_value = GetMST(distances); //1 get current MST
 		SolveTSP solver = new SolveTSP(distances, SolveIterations); //to run the hill climber to solve a TSP
-		double TSP_value = roundTo1dp(solver.return_solution()); //2 get current TSP total cost
+		double TSP_value = solver.return_solution(); //2 get current TSP total cost
 		double MSTdivTSP = MST_value / TSP_value; //3 calculate current value. Higher value means easy TSP to solve, lower end value means hard TSP so solve.Not rounding this to 1 dp as longer decimals can be expected here
-		String start = ("MakeTSP: HillClimbMakeTSP(): MST_value = " + MST_value + " TSP_value = " + TSP_value + " MSTdivTSP = " + MSTdivTSP);BasicLog_AddLineTXT(start); FullLog_AddLineTXT(start);
+		String start = ("MakeTSP: HillClimbMakeTSP(): starting MST_value = " + MST_value + " starting TSP_value = " + TSP_value + " starting MSTdivTSP = " + MSTdivTSP);
+		BasicLog_AddLineTXT(start); FullLog_AddLineTXT(start);
 		int changes = 0; //track how many changes we kept
 		for (int i = 1; i <= iterations; i++)
 	    {
@@ -54,9 +55,9 @@ public class MakeTSP {
 			double[] new_distances = mutate(distances);
 			//System.out.println("Number of items: " + new_distances.length); for(double value : new_distances){System.out.println(value);} //Debug: prints the number of values & prints each value
 			//5 reevaluate MST / TSP value
-			double new_MST_value = roundTo1dp(GetMST(new_distances));
+			double new_MST_value = GetMST(new_distances);
 			solver = new SolveTSP(distances, SolveIterations); //to run the hill climber to solve a TSP
-			double new_TSP_value = roundTo1dp(solver.return_solution());
+			double new_TSP_value = solver.return_solution();
 			double new_MSTdivTSP = new_MST_value / new_TSP_value;
 			String temp_str = ("temp MST: " + new_MST_value + " temp TSP cost: " + new_TSP_value + " temp MST/TSP value: " + new_MSTdivTSP);BasicLog_AddLineTXT(temp_str); FullLog_AddLineTXT(temp_str);
 			//6 compare old and new value and make change if needed
@@ -83,7 +84,7 @@ public class MakeTSP {
 		//solver = new SolveTSP(distances); //to run the hill climber to solve a TSP //see comment below
 		//TSP_value = roundTo1dp(solver.return_solution()); // no longer doing this here as the solution can vary
 		//MSTdivTSP = MST_value / TSP_value; //Not rounding this to 1 dp as longer decimals can be expected here
-		String totalChanges = ("total made to TSP: " + changes); BasicLog_AddLineTXT(totalChanges); FullLog_AddLineTXT(totalChanges);
+		String totalChanges = ("total changes made to TSP: " + changes); BasicLog_AddLineTXT(totalChanges); FullLog_AddLineTXT(totalChanges);
 		String end = ("final MST: " + MST_value + " final TSP cost: " + TSP_value + " final MST/TSP value: " + MSTdivTSP); BasicLog_AddLineTXT(end); FullLog_AddLineTXT(end);
 		String finalDistances = "final distance array after: " + Arrays.toString(distances); BasicLog_AddLineTXT(finalDistances); FullLog_AddLineTXT(finalDistances);
 		System.out.println(end);
@@ -142,8 +143,8 @@ public class MakeTSP {
 		  double newValue = 0;
 		  while (!valid)
 		  {
-			  newValue = roundTo1dp((double)((new Random().nextInt(10)) * 0.1)); // Generate random value between 0.1 to 1.0 in 0.1 increments
-			  if ( (newValue > 0.0 && newValue < 1.1) && (newValue != array[index])) {valid = true;}//doing this for now to catch bad values
+			  newValue = (double)((new Random().nextInt(10)) * 0.1); // Generate random value between 0.1 to 1.0 in 0.1 increments
+			  if ( (newValue > 0.0 && newValue < 1.0) && (newValue != array[index])) {valid = true;}//doing this for now to catch bad values
 			  else {String mutate_bad_val = ("mutate(): Caught bad value. Will generate another value.");FullLog_AddLineTXT(mutate_bad_val); }
 		  }
 		  String mutate_out = ("mutate(): Swapping position: " + index + " current value: " + array[index] + " to new value: " + newValue); FullLog_AddLineTXT(mutate_out);
