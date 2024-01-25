@@ -113,7 +113,7 @@ public class SolveTSP { //this class is used for solving TSPs
 		  //get size of width / height (called x)
 		double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term 
 		double x = (1 + sqrtTerm) / 2; // Calculate x
-		String xValue = ("convert_1D_to_2D: x = " + x); FullLog_AddLineTXT(xValue); //test this
+		if (UseFullLog) {String xValue = ("convert_1D_to_2D: x = " + x); FullLog_AddLineTXT(xValue);} //test this
 		//System.out.println(xValue);
 		// Create 2D array with x by x size
 		double[][] array_2D = new double[(int) x][(int) x]; //new 2D distance matrix
