@@ -149,8 +149,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	   int to = solution.get(i+1) -1;
 	   //System.out.println("solution.get(i+1) - 1 = " + (solution.get(i+1) -1));
 	   cost = TSP_2D[from][to];
-	   String fromCityToCityCost = ("from city = " + (from+1) + " to city = " + (to+1)+ " cost " + (i+1) + " = " + cost); //for debugging or testing
-	   FullLog_AddLineTXT(fromCityToCityCost); //generates a lot of text, use only when needed
+	   if (UseFullLog) {String fromCityToCityCost = ("from city = " + (from+1) + " to city = " + (to+1)+ " cost " + (i+1) + " = " + cost);FullLog_AddLineTXT(fromCityToCityCost);}
 	   if(cost == 0.0) {
 	     String warning0 = ("generateTourCost: warning, 0 value found! i = " + i); //should never happen
 	     System.out.println(warning0);
@@ -160,17 +159,15 @@ public class SolveTSP { //this class is used for solving TSPs
 	   //System.out.println("total cost before returning to start = " + totalCost);
 	 }
 	 // Return to start city 
-	 String returning = "returning to start"; FullLog_AddLineTXT(returning); //useful for full log
+	 if (UseFullLog) {String returning = "returning to start"; FullLog_AddLineTXT(returning);} //useful for full log
 	 //System.out.println(returning); //debug only
 	 int start = solution.get(0);
 	 int end = solution.get(cities-1);
 	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
-	 String startEndCostString = ("start = " + start + " , end = " + end + " , cost = " + cost);
-	 FullLog_AddLineTXT(startEndCostString);
+	 if (UseFullLog) {String startEndCostString = ("start = " + start + " , end = " + end + " , cost = " + cost); FullLog_AddLineTXT(startEndCostString);}
 	 //System.out.println(startString);
 	 totalCost += cost; //this will be final cost for this solution
-	 String totalCostString = ("total cost after returning to start = " + totalCost);
-	 BasicLog_AddLineTXT(totalCostString); FullLog_AddLineTXT(totalCostString);
+	 if (UseFullLog || UsebasicLog) {String totalCostString = ("total cost after returning to start = " + totalCost);BasicLog_AddLineTXT(totalCostString); FullLog_AddLineTXT(totalCostString);}
 	//System.out.println(totalCostString);
 	//step 4 - return  total cost
 	 return totalCost; // for example 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 the cost 5.0 is correct!
@@ -308,11 +305,11 @@ public class SolveTSP { //this class is used for solving TSPs
 	      cost = newCost;
 	    }
 	    //record current best cost:
-	    String currentBestCost = ("Current best cost = " + cost); BasicLog_AddLineTXT(currentBestCost); FullLog_AddLineTXT(currentBestCost); //in text loggers
+	    if (UseFullLog || UsebasicLog) {String currentBestCost = ("Current best cost = " + cost); BasicLog_AddLineTXT(currentBestCost); FullLog_AddLineTXT(currentBestCost);} //in text loggers
 	    HillClimberFitnessLog_addColumnCSV(String.valueOf(cost)); 
 	    HillClimberFitnessLog_addRowCSV(String.valueOf(i));
 	  }
-	  if(cost == 999.9) {
+	  if(cost == Double.MAX_VALUE) {
 	    String cost999 = "No valid solution found that beat the initial solution"; BasicLog_AddLineTXT(cost999); FullLog_AddLineTXT(cost999);
 		System.out.println(cost999);
 	  }
