@@ -80,9 +80,7 @@ public class SolveTSP { //this class is used for solving TSPs
 		  System.out.println(error);
 		  return 0;
 	  }
-	double x; //get size of width / height (called x)
-	double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term 
-	x = (1 + sqrtTerm) / 2;	// Calculate x
+	double x = (1 + Math.sqrt(1 + 8*n) ) / 2; //calculate x
 	if (UseFullLog) {String calculateCitiesXValue = ("calculateCitiesAmount: " + "x = " + x); FullLog_AddLineTXT(calculateCitiesXValue);}
 	//System.out.println(calculateCitiesXValue); //don't really need this unless testing, 45 element 1D array should print x = 10
 	return (int) x;
