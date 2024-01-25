@@ -9,7 +9,7 @@ public class MakeTSP {
 //should make small change to any non 0 value in the 1D tsp or both values in 2D version
 	private static FileWriterUtil basicLog; private static boolean UsebasicLog = true;
 	private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
-	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = false;
+	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
 	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = false;
 	public MakeTSP(double[] distances, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations) throws IOException
 	{
