@@ -143,7 +143,7 @@ public class MakeTSP {
 		  double newValue = 0;
 		  while (!valid)
 		  {
-			  newValue = (double)((new Random().nextInt(10)) * 0.1); // Generate random value between 0.1 to 1.0 in 0.1 increments
+			  newValue = new Random().nextDouble(); // Generate random value between 0.1 to 1.0 in 0.1 increments
 			  if ( (newValue > 0.0 && newValue < 1.0) && (newValue != array[index])) {valid = true;}//doing this for now to catch bad values
 			  else {String mutate_bad_val = ("mutate(): Caught bad value. Will generate another value.");FullLog_AddLineTXT(mutate_bad_val); }
 		  }
