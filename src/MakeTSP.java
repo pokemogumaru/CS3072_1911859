@@ -59,7 +59,8 @@ public class MakeTSP {
 			solver = new SolveTSP(distances, SolveIterations); //to run the hill climber to solve a TSP
 			double new_TSP_value = solver.return_solution();
 			double new_MSTdivTSP = new_MST_value / new_TSP_value;
-			String temp_str = ("temp MST: " + new_MST_value + " temp TSP cost: " + new_TSP_value + " temp MST/TSP value: " + new_MSTdivTSP);BasicLog_AddLineTXT(temp_str); FullLog_AddLineTXT(temp_str);
+			if (UseFullLog || UsebasicLog) {String temp_str = ("temp MST: " + new_MST_value + " temp TSP cost: " + new_TSP_value + " temp MST/TSP value: " + new_MSTdivTSP);
+			BasicLog_AddLineTXT(temp_str); FullLog_AddLineTXT(temp_str);}
 			//6 compare old and new value and make change if needed
 			if ( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) )
 			{//We want harder TSPs and we found a harder TSP OR we want easier TSPs and we found a easier TSP
@@ -67,16 +68,19 @@ public class MakeTSP {
 				TSP_value = new_TSP_value;
 				MST_value = new_MST_value;
 				MSTdivTSP = new_MSTdivTSP; //Update this variable to climb the hill
-				String madeChange = ("( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) ) is true, made a change");
-				BasicLog_AddLineTXT(madeChange); FullLog_AddLineTXT(madeChange);
+				if (UseFullLog || UsebasicLog) {String madeChange = ("( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) ) is true, made a change");
+				BasicLog_AddLineTXT(madeChange); FullLog_AddLineTXT(madeChange);}
 				changes++;
-				String changesSoFar = ("changes made to TSP so far: " + changes); BasicLog_AddLineTXT(changesSoFar); FullLog_AddLineTXT(changesSoFar);
-				HillClimberFitnessLog_addColumnCSV(String.valueOf(changes)); //Doing this inside the if statement so we only record when there is a change made
-			    HillClimberFitnessLog_addRowCSV(String.valueOf(MST_value));
-			    HillClimberFitnessLog_addRowCSV(String.valueOf(TSP_value));
-			    HillClimberFitnessLog_addRowCSV(String.valueOf(MSTdivTSP));
+				if (UseFullLog || UsebasicLog) {String changesSoFar = ("changes made to TSP so far: " + changes); BasicLog_AddLineTXT(changesSoFar); FullLog_AddLineTXT(changesSoFar);}
+				if (UsehillClimberFitnessLogLog)
+				{//Doing this inside the if statement so we only record when there is a change made
+					HillClimberFitnessLog_addColumnCSV(String.valueOf(changes)); 
+				    HillClimberFitnessLog_addRowCSV(String.valueOf(MST_value));
+				    HillClimberFitnessLog_addRowCSV(String.valueOf(TSP_value));
+				    HillClimberFitnessLog_addRowCSV(String.valueOf(MSTdivTSP));
+				}
 			}
-			else {String noChange = ("made no change");FullLog_AddLineTXT(noChange);String changesSoFar = ("changes made to TSP so far: " + changes); FullLog_AddLineTXT(changesSoFar);}
+			else {if (UseFullLog){String noChange = ("made no change");FullLog_AddLineTXT(noChange);String SoFar = ("changes made to TSP so far: " + changes); FullLog_AddLineTXT(SoFar);}}
 			
 	    }
 		//7 print final distances[], MST, TSP cost and MST/TSP value

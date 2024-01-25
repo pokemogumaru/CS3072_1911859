@@ -33,7 +33,7 @@ public class CS3072_1911859 {
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
 		MakeTSP maker = new MakeTSP(new_TSP(), true, 10000, 1, 10000); 
-		//MakeTSP makerFalse = new MakeTSP(new_TSP(), false, 10000, 1, 10000); //trying the same thing but for easier TSPs
+		MakeTSP makerFalse = new MakeTSP(new_TSP(), false, 10000, 1, 10000); //trying the same thing but for easier TSPs
 		
 		
         /*

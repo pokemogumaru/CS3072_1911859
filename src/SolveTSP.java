@@ -81,7 +81,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	double x; //get size of width / height (called x)
 	double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term 
 	x = (1 + sqrtTerm) / 2;	// Calculate x
-	String calculateCitiesXValue = ("calculateCitiesAmount: " + "x = " + x); FullLog_AddLineTXT(calculateCitiesXValue);
+	if (UseFullLog) {String calculateCitiesXValue = ("calculateCitiesAmount: " + "x = " + x); FullLog_AddLineTXT(calculateCitiesXValue);}
 	//System.out.println(calculateCitiesXValue); //don't really need this unless testing, 45 element 1D array should print x = 10
 	return (int) x;
 	  }
@@ -306,8 +306,11 @@ public class SolveTSP { //this class is used for solving TSPs
 	    }
 	    //record current best cost:
 	    if (UseFullLog || UsebasicLog) {String currentBestCost = ("Current best cost = " + cost); BasicLog_AddLineTXT(currentBestCost); FullLog_AddLineTXT(currentBestCost);} //in text loggers
-	    HillClimberFitnessLog_addColumnCSV(String.valueOf(cost)); 
-	    HillClimberFitnessLog_addRowCSV(String.valueOf(i));
+	    if (UsehillClimberFitnessLogLog)
+	    {//doing this only if UsehillClimberFitnessLogLog is true cuts down on overhead in cases it's false
+	    	HillClimberFitnessLog_addColumnCSV(String.valueOf(cost)); 
+		    HillClimberFitnessLog_addRowCSV(String.valueOf(i));
+	    }
 	  }
 	  if(cost == Double.MAX_VALUE) {
 	    String cost999 = "No valid solution found that beat the initial solution"; BasicLog_AddLineTXT(cost999); FullLog_AddLineTXT(cost999);
