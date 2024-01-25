@@ -23,21 +23,21 @@ public class CS3072_1911859 {
 		
 		
 		
-		test_2D(); //To test our 2D representation of 1D TSP
+		//test_2D(); //To test our 2D representation of 1D TSP
 		
 		//To run the TSP solver:
-		//SolveTSP solver = new SolveTSP(new_TSP_1dp()); //to run the hill climber to solve a TSP
+		//SolveTSP solver = new SolveTSP(new_TSP()); //to run the hill climber to solve a TSP
 		//System.out.println("CS3072_1911859: main: solver.return_solution() = " + solver.return_solution()); //Prints the total weight of solution to console
 		
 		//test_MST(); //To test our MST of a TSP
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
-		//MakeTSP maker = new MakeTSP(new_TSP_1dp(), true, 1000, 1, 1000); 
-		//MakeTSP makerFalse = new MakeTSP(new_TSP_1dp(), false, 1000, 1, 1000); //trying the same thing but for easier TSPs
+		//MakeTSP maker = new MakeTSP(new_TSP(), true, 1000, 1, 1000); 
+		//MakeTSP makerFalse = new MakeTSP(new_TSP(), false, 1000, 1, 1000); //trying the same thing but for easier TSPs
 		
 		
         /*
-		double[][] array2D = convert_1D_to_2D(new_TSP_1dp());
+		double[][] array2D = convert_1D_to_2D(new_TSP());
 		 // Generate CSV 
         generate_CSV_from_2D(array2D);
         //export TXT
