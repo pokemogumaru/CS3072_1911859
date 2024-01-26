@@ -141,6 +141,30 @@ public class MakeTSP {
 	}
 	
 	public static double[] mutate(double[] array) throws IOException
+	{//small change to random value
+		  int index = new Random().nextInt(array.length); // Get random index
+		  boolean valid = false;
+		  double newValue = 0;
+		  while (!valid)
+		  {
+			  double min = Double.MIN_VALUE;
+			  double max = 0.00001;
+			  newValue = min + (max - min) * new Random().nextDouble(); // Generate random double between minimum to max
+			  //System.out.println(newValue);
+			  Random random = new Random();
+			  boolean randomBoolean = random.nextBoolean();
+			  //System.out.println(randomBoolean);
+			  if (randomBoolean){newValue += array[index];} //if random boolean true then add small change
+			  else{newValue -= array[index];} //else subtract small change
+			  if ( (newValue > 0.0 && newValue < 1.0) && (newValue != array[index])) {valid = true;}//doing this for now to catch bad values
+			  else {String mutate_bad_val = ("mutate(): Caught bad value. Will generate another value.");FullLog_AddLineTXT(mutate_bad_val); }
+		  }
+		  String mutate_out = ("mutate(): Swapping position: " + index + " current value: " + array[index] + " to new value: " + newValue); FullLog_AddLineTXT(mutate_out);
+		  array[index] = newValue; // Mutate value at index
+		  return array; //return this
+		}
+	
+	public static double[] mutateRandom(double[] array) throws IOException
 	{//randomly mutate a value in a 1D double array within a range
 		  int index = new Random().nextInt(array.length); // Get random index
 		  boolean valid = false;
