@@ -160,10 +160,13 @@ public class MakeTSP {
 			  if ( (newValue > 0.0 && newValue < 1.0) && (newValue != array[index])) {valid = true;}//doing this for now to catch bad values
 			  else {invalidCount += 1;String mutate_bad_val = ("mutate(): Caught bad value. Will generate another value.");FullLog_AddLineTXT(mutate_bad_val); 
 			  if (invalidCount == 100)
-			  {
+			  {//this if statement will slow the program slightly but is needed for debug. Should remove when root cause is fixed.
 				  String invalidCountWarning = "LOUD Warning: invalidCount = 100. This likely indicates an infinite loop here.";
 				  BasicLog_AddLineTXT(invalidCountWarning); FullLog_AddLineTXT(invalidCountWarning);
 				  System.out.println(invalidCountWarning);
+				  String Warning2 = "Warning info: index = " + index + " array[index] = " + array[index] +  " newValue = " + newValue + " randomBoolean = " + randomBoolean;
+				  BasicLog_AddLineTXT(Warning2); FullLog_AddLineTXT(Warning2);
+				  System.out.println(Warning2);
 			  }
 			  }
 		  }
