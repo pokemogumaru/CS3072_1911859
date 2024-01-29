@@ -169,6 +169,8 @@ public class MakeTSP {
 				  String Warning2 = "Warning info: index = " + index + " array[index] = " + array[index] +  " newValue = " + newValue + " randomBoolean = " + randomBoolean;
 				  BasicLog_AddLineTXT(Warning2); FullLog_AddLineTXT(Warning2);
 				  System.out.println(Warning2);
+				  newValue = 0.5; //give ourselves a new valid value to get out of this loop
+				  valid = true;
 			  }
 			  }
 		  }
