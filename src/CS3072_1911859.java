@@ -33,7 +33,7 @@ public class CS3072_1911859 {
 		//test_MST(); //To test our MST of a TSP
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
-		/*
+		
 		MakeTSP maker10 = new MakeTSP(new_TSP(), true, 10000, 1, 10000); 
 		MakeTSP makerFalse10 = new MakeTSP(new_TSP(), false, 10000, 1, 10000); //trying the same thing but for easier TSPs
 		
@@ -51,7 +51,7 @@ public class CS3072_1911859 {
 		
 		MakeTSP maker15 = new MakeTSP(new_TSP(), true, 15000, 1, 15000); 
 		MakeTSP makerFalse15 = new MakeTSP(new_TSP(), false, 15000, 1, 15000); //trying the same thing but for easier TSPs
-		*/
+		
 		
 		
 		
