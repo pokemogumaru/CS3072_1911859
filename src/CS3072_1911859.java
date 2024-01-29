@@ -33,25 +33,39 @@ public class CS3072_1911859 {
 		//test_MST(); //To test our MST of a TSP
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
+		int iterations = 10000;
+		int iterations100k = 100000;
+		double[] TSP10 = new_TSP();
+		double[] TSP11 = new_TSP11(); //11 city
+		double[] TSP12 = new_TSP12(); //12 city
 		
-		MakeTSP maker10 = new MakeTSP(new_TSP(), true, 10000, 1, 10000); 
-		MakeTSP makerFalse10 = new MakeTSP(new_TSP(), false, 10000, 1, 10000); //trying the same thing but for easier TSPs
+		MakeTSP maker10 = new MakeTSP(new_TSP(), true, iterations, 1, iterations); 
+		MakeTSP makerFalse10 = new MakeTSP(new_TSP(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker11 = new MakeTSP(new_TSP(), true, 11000, 1, 11000); 
-		MakeTSP makerFalse11 = new MakeTSP(new_TSP(), false, 11000, 1, 11000); //trying the same thing but for easier TSPs
+		MakeTSP maker11 = new MakeTSP(new_TSP11(), true, iterations, 1, iterations); 
+		MakeTSP makerFalse11 = new MakeTSP(new_TSP11(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker12 = new MakeTSP(new_TSP(), true, 12000, 1, 12000); 
-		MakeTSP makerFalse12 = new MakeTSP(new_TSP(), false, 12000, 1, 12000); //trying the same thing but for easier TSPs
+		MakeTSP maker12 = new MakeTSP(new_TSP12(), true, iterations, 1, iterations); 
+		MakeTSP makerFalse12 = new MakeTSP(new_TSP12(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker13 = new MakeTSP(new_TSP(), true, 13000, 1, 13000); 
-		MakeTSP makerFalse13 = new MakeTSP(new_TSP(), false, 13000, 1, 13000); //trying the same thing but for easier TSPs
+		MakeTSP maker100 = new MakeTSP(new_TSP(), true, iterations100k, 1, iterations100k); 
+		MakeTSP makerFalse100 = new MakeTSP(new_TSP(), false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker14 = new MakeTSP(new_TSP(), true, 14000, 1, 14000); 
-		MakeTSP makerFalse14 = new MakeTSP(new_TSP(), false, 14000, 1, 14000); //trying the same thing but for easier TSPs
+		MakeTSP maker110 = new MakeTSP(new_TSP11(), true, iterations100k, 1, iterations100k); 
+		MakeTSP makerFalse110 = new MakeTSP(new_TSP11(), false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker15 = new MakeTSP(new_TSP(), true, 15000, 1, 15000); 
-		MakeTSP makerFalse15 = new MakeTSP(new_TSP(), false, 15000, 1, 15000); //trying the same thing but for easier TSPs
+		MakeTSP maker120 = new MakeTSP(new_TSP12(), true, iterations100k, 1, iterations100k); 
+		MakeTSP makerFalse120 = new MakeTSP(new_TSP12(), false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
+		/*
+		MakeTSP maker13 = new MakeTSP(new_TSP(), true, 130000, 1, 130000); 
+		MakeTSP makerFalse13 = new MakeTSP(new_TSP(), false, 130000, 1, 130000); //trying the same thing but for easier TSPs
 		
+		MakeTSP maker14 = new MakeTSP(new_TSP(), true, 140000, 1, 140000); 
+		MakeTSP makerFalse14 = new MakeTSP(new_TSP(), false, 140000, 1, 140000); //trying the same thing but for easier TSPs
+		
+		MakeTSP maker15 = new MakeTSP(new_TSP(), true, 150000, 1, 150000); 
+		MakeTSP makerFalse15 = new MakeTSP(new_TSP(), false, 150000, 1, 150000); //trying the same thing but for easier TSPs
+		*/
 		
 		
 		
@@ -73,6 +87,26 @@ public class CS3072_1911859 {
 	public static void test_new_TSP() {test_printer(new_TSP());} //same as other test method but for updated TSP generator
 	
 	public static double[] new_TSP() {
+		//populates and returns an array of 45 random values between 0 and 1 of type double
+		  double[] arr = new double[45];
+		  Random rand = new Random();
+		  for(int i = 0; i < arr.length; i++) {
+			  arr[i] = rand.nextDouble(); 
+			  }
+		  return arr;
+		}
+	
+	public static double[] new_TSP11() {
+		//populates and returns an array of 65 random values between 0 and 1 of type double
+		  double[] arr = new double[65];
+		  Random rand = new Random();
+		  for(int i = 0; i < arr.length; i++) {
+			  arr[i] = rand.nextDouble(); 
+			  }
+		  return arr;
+		}
+	
+	public static double[] new_TSP12() {
 		//populates and returns an array of 45 random values between 0 and 1 of type double
 		  double[] arr = new double[45];
 		  Random rand = new Random();
