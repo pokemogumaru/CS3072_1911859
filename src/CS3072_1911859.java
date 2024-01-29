@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Random;
 
+
 public class CS3072_1911859 {
 	private static FileWriterUtil csvLogger;
 	private static FileWriterUtil txtLogger;
@@ -32,13 +33,26 @@ public class CS3072_1911859 {
 		//test_MST(); //To test our MST of a TSP
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
+		/*
+		MakeTSP maker10 = new MakeTSP(new_TSP(), true, 10000, 1, 10000); 
+		MakeTSP makerFalse10 = new MakeTSP(new_TSP(), false, 10000, 1, 10000); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker = new MakeTSP(new_TSP(), true, 10000, 1, 10000); 
-		MakeTSP makerFalse = new MakeTSP(new_TSP(), false, 10000, 1, 10000); //trying the same thing but for easier TSPs
-		MakeTSP maker2 = new MakeTSP(new_TSP(), true, 10000, 1, 10000); 
-		MakeTSP makerFalse2 = new MakeTSP(new_TSP(), false, 10000, 1, 10000); //trying the same thing but for easier TSPs
-		MakeTSP maker3 = new MakeTSP(new_TSP(), true, 10000, 1, 10000); 
-		MakeTSP makerFalse3 = new MakeTSP(new_TSP(), false, 10000, 1, 10000); //trying the same thing but for easier TSPs
+		MakeTSP maker11 = new MakeTSP(new_TSP(), true, 11000, 1, 11000); 
+		MakeTSP makerFalse11 = new MakeTSP(new_TSP(), false, 11000, 1, 11000); //trying the same thing but for easier TSPs
+		
+		MakeTSP maker12 = new MakeTSP(new_TSP(), true, 12000, 1, 12000); 
+		MakeTSP makerFalse12 = new MakeTSP(new_TSP(), false, 12000, 1, 12000); //trying the same thing but for easier TSPs
+		
+		MakeTSP maker13 = new MakeTSP(new_TSP(), true, 13000, 1, 13000); 
+		MakeTSP makerFalse13 = new MakeTSP(new_TSP(), false, 13000, 1, 13000); //trying the same thing but for easier TSPs
+		
+		MakeTSP maker14 = new MakeTSP(new_TSP(), true, 14000, 1, 14000); 
+		MakeTSP makerFalse14 = new MakeTSP(new_TSP(), false, 14000, 1, 14000); //trying the same thing but for easier TSPs
+		
+		MakeTSP maker15 = new MakeTSP(new_TSP(), true, 15000, 1, 15000); 
+		MakeTSP makerFalse15 = new MakeTSP(new_TSP(), false, 15000, 1, 15000); //trying the same thing but for easier TSPs
+		*/
+		
 		
 		
         /*
@@ -299,6 +313,8 @@ returns a 1-D array of type double
 		System.out.println("easy");
 		printSquare(convert_1D_to_2D(easy));
 	}
+	
+	
 
 	}
 
