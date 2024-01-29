@@ -155,7 +155,9 @@ public class MakeTSP {
 			  Random random = new Random();
 			  boolean randomBoolean = random.nextBoolean();
 			  //System.out.println(randomBoolean);
-			  if (randomBoolean){newValue += array[index];} //if random boolean true then add small change
+			  if ( (randomBoolean && (newValue + array[index] < 1.0)) || (!randomBoolean && (array[index] - newValue < 0.00)) )
+				//if (random boolean true and new value will be < 1 then add small change) or (boolean false and newValue < 0 )
+			  {newValue += array[index];}
 			  else{newValue -= array[index];} //else subtract small change
 			  if ( (newValue > 0.0 && newValue < 1.0) && (newValue != array[index])) {valid = true;}//doing this for now to catch bad values
 			  else {invalidCount += 1;String mutate_bad_val = ("mutate(): Caught bad value. Will generate another value.");FullLog_AddLineTXT(mutate_bad_val); 
