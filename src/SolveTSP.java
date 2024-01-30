@@ -97,9 +97,9 @@ public class SolveTSP { //this class is used for solving TSPs
 	  case 13:
 		  return 45;
 	  case 14:
-		  return 55;
+		  return 91;
 	  case 15:
-		  return 66;
+		  return 105;
 	  }
 	  
 	double x = (1 + Math.sqrt(1 + 8*n) ) / 2; //calculate x
