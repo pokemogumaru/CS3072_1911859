@@ -22,7 +22,7 @@ public class CS3072_1911859 {
 		//to test new_TSP_1dp_ascending (old method):
 		//test_new_TSP();
 		
-		//test_2D(10); //To test our 2D representation of 1D TSP. input is number of cities
+		test_2D(10); //To test our 2D representation of 1D TSP. input is number of cities
 		
 		//To run the TSP solver:
 		//SolveTSP solver = new SolveTSP(new_TSP(15), 1000); //to run the hill climber to solve a TSP
@@ -31,7 +31,7 @@ public class CS3072_1911859 {
 		//test_MST(10); //To test our MST of a TSP. Input is number of cities
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
-		
+		/*
 		int iterations = 10000;
 		int iterations100k = 100000;
 		double[] TSP10 = new_TSP(10);
@@ -41,7 +41,7 @@ public class CS3072_1911859 {
 		double[] TSP14 = new_TSP(14); //14 city
 		double[] TSP15 = new_TSP(15); //15 city
 		new MakeTSP(TSP10, true, iterations, 1, iterations); 
-		/*
+		
 		new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		new MakeTSP(TSP11, true, iterations, 1, iterations); 
 		new MakeTSP(TSP11, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
@@ -188,33 +188,23 @@ returns a 1-D array of type double
 		  print_2D(array2D);
 	}
 	
-	public static void print_2D(double[][] array2D)
-	{ // Prints the contents of 2D array to console
-		int iPlusOne = 0;
+	public static void print_2D(double[][] TSP_2D)
+	  {//used to test a 2D array in a nicely formatted way
+		  int iPlusOne = 0;
 		  int jPlusOne = 0;
-		  //using PlusOne variables to display 1 to 10 rather than 0 to 9
+		  //using PlusOne variables to display index values 1 to 10 rather than 0 to 9
 		  //better way to do this but using this for now.
 		// Loop through each row (outer loop)
-		  for(int i = 0; i < array2D.length; i++) {
+		  for(int i = 0; i < TSP_2D.length; i++) {
 		    // Loop through each column (inner loop) 
-		    for(int j = 0; j < array2D[i].length; j++) {
-		      iPlusOne = i +1;
+		    for(int j = 0; j < TSP_2D[i].length; j++) {
+		      iPlusOne = i +1; //we count from 1 so add 1 to x and y
 		      jPlusOne = j +1;
 		      // Print value and position    
-		      System.out.println("print_2D(): Value at x=" + iPlusOne + ", y=" + jPlusOne + ": " + array2D[i][j]);
-		      
+		      System.out.println("Value at x=" + iPlusOne + ", y=" + jPlusOne + ": " + TSP_2D[i][j]);
 		    }
 		  }
-		//output to csv if we want to
-		  /*
-	      try {
-			generate_CSV_from_2D(array2D);
-		} catch (Exception e) {
-			System.out.println("csv failed");
-			e.printStackTrace();
-		}
-		*/
-	}
+	  }
 	public static void print_2D_square(double[][] array2D)
 	{ // Similar to the print_2D method but different printing format
 		  //using PlusOne variables to display 1 to 10 rather than 0 to 9

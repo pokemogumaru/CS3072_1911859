@@ -170,23 +170,8 @@ public class SolveTSP { //this class is used for solving TSPs
 	 return totalCost; // for example 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 the cost 5.0 is correct!
   }
   
-  public static void print_2D(double[][] TSP_2D)
-  {//used to test a 2D array in a nicely formatted way
-	  int iPlusOne = 0;
-	  int jPlusOne = 0;
-	  //using PlusOne variables to display index values 1 to 10 rather than 0 to 9
-	  //better way to do this but using this for now.
-	// Loop through each row (outer loop)
-	  for(int i = 0; i < TSP_2D.length; i++) {
-	    // Loop through each column (inner loop) 
-	    for(int j = 0; j < TSP_2D[i].length; j++) {
-	      iPlusOne = i +1; //we count from 1 so add 1 to x and y
-	      jPlusOne = j +1;
-	      // Print value and position    
-	      System.out.println("Value at x=" + iPlusOne + ", y=" + jPlusOne + ": " + TSP_2D[i][j]);
-	    }
-	  }
-  }
+  public static void print_2D(double[][] TSP_2D){CS3072_1911859.print_2D(TSP_2D);}
+  //used to test a 2D array in a nicely formatted way. Use the existing method in other class
   
   public static int[] lookup_2D_from_1D_position(int a, int n) {
 	  //used to get the position of a value in the 2D array from the 1D index (for TSPs)
