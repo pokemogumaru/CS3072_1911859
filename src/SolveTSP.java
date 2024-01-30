@@ -105,7 +105,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	  case 105:
 		  return 15;
 	  }
-	  
 	double x = (1 + Math.sqrt(1 + 8*n) ) / 2; //calculate x
 	if (UseFullLog) {String calculateCitiesXValue = ("calculateCitiesAmount: " + "x = " + x); FullLog_AddLineTXT(calculateCitiesXValue);}
 	//System.out.println(calculateCitiesXValue); //don't really need this unless testing, 45 element 1D array should print x = 10
@@ -207,7 +206,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	  //better way to do this but using this for now.
 	// Loop through each row (outer loop)
 	  for(int i = 0; i < TSP_2D.length; i++) {
-
 	    // Loop through each column (inner loop) 
 	    for(int j = 0; j < TSP_2D[i].length; j++) {
 	      iPlusOne = i +1; //we count from 1 so add 1 to x and y
@@ -226,7 +224,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	  int y = 0;
 	  for(int i = 1; i <= n; i++) {
 	    for(int j = i + 1; j <= n; j++) {
-	      
 	      if(a == 0) { //then stop, we have found the position we were looking for
 	        x = i;
 	        y = j;
@@ -241,7 +238,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	  solution[0] = x;
 	  solution[1] = y;
 	  return solution;
-
 	}
   
   public static boolean hasZeroValue(List<Integer> solution, double[] distances) throws IOException{

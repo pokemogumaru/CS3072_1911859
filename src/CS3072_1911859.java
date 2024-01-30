@@ -22,8 +22,6 @@ public class CS3072_1911859 {
 		//to test new_TSP_1dp_ascending (old method):
 		//test_new_TSP();
 		
-		
-		
 		//test_2D(10); //To test our 2D representation of 1D TSP. input is number of cities
 		
 		//To run the TSP solver:
@@ -70,7 +68,6 @@ public class CS3072_1911859 {
 		
 		new MakeTSP(TSP12, true, iterations100k, 1, iterations100k); 
 		new MakeTSP(TSP12, false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
-		
 		
 		
         /*
