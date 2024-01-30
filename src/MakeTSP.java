@@ -15,7 +15,7 @@ public class MakeTSP {
 	{
 		Timer timer = new Timer(); timer.start(); //make timer instance and start timing. Doing this before opening files.
 		//Open files:
-		String variables = "MakeTSP " + SolveTSP.calculateCitiesAmount(distances) + " cities, " + DifficultTrueEasyFalse + " DifficultTrueEasyFalse, " + iterations + " inner, " + SolveIterations + " outer";
+		String variables = " MakeTSP " + SolveTSP.calculateCitiesAmount(distances) + " cities, " + DifficultTrueEasyFalse + " DifficultTrueEasyFalse, " + iterations + " inner, " + SolveIterations + " outer";
 		if (UsebasicLog) {basicLog = new FileWriterUtil(dateTime() + variables + " basicLog.txt", "txt"); basicLog.start();} //create basic log instance and start using the file
 		if (UseFullLog) {fullLog = new FileWriterUtil(dateTime() + variables + " fullLog.txt", "txt"); fullLog.start();} //create fullLog instance and start using the file
 		if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + variables+ " hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
