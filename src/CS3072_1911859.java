@@ -52,14 +52,14 @@ public class CS3072_1911859 {
 		MakeTSP maker12 = new MakeTSP(new_TSP12(), true, iterations, 1, iterations); 
 		MakeTSP makerFalse12 = new MakeTSP(new_TSP12(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker13 = new MakeTSP(new_TSP(), true, iterations, 1, iterations); 
-		MakeTSP makerFalse13 = new MakeTSP(new_TSP(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		MakeTSP maker13 = new MakeTSP(new_TSP13(), true, iterations, 1, iterations); 
+		MakeTSP makerFalse13 = new MakeTSP(new_TSP13(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker14 = new MakeTSP(new_TSP(), true, iterations, 1, iterations); 
-		MakeTSP makerFalse14 = new MakeTSP(new_TSP(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		MakeTSP maker14 = new MakeTSP(new_TSP14(), true, iterations, 1, iterations); 
+		MakeTSP makerFalse14 = new MakeTSP(new_TSP14(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker15 = new MakeTSP(new_TSP(), true, iterations, 1, iterations); 
-		MakeTSP makerFalse15 = new MakeTSP(new_TSP(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		MakeTSP maker15 = new MakeTSP(new_TSP15(), true, iterations, 1, iterations); 
+		MakeTSP makerFalse15 = new MakeTSP(new_TSP15(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
 		MakeTSP maker100 = new MakeTSP(new_TSP(), true, iterations100k, 1, iterations100k); 
 		MakeTSP makerFalse100 = new MakeTSP(new_TSP(), false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
