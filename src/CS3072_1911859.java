@@ -25,12 +25,13 @@ public class CS3072_1911859 {
 		//test_2D(10); //To test our 2D representation of 1D TSP. input is number of cities
 		
 		//To run the TSP solver:
-		//SolveTSP solver = new SolveTSP(new_TSP(), 1000); //to run the hill climber to solve a TSP
+		//SolveTSP solver = new SolveTSP(new_TSP(15), 1000); //to run the hill climber to solve a TSP
 		//System.out.println("CS3072_1911859: main: solver.return_solution() = " + solver.return_solution()); //Prints the total weight of solution to console
 		
-		test_MST(10); //To test our MST of a TSP. Input is number of cities
+		//test_MST(10); //To test our MST of a TSP. Input is number of cities
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
+		
 		int iterations = 10000;
 		int iterations100k = 100000;
 		double[] TSP10 = new_TSP(10);
@@ -39,36 +40,26 @@ public class CS3072_1911859 {
 		double[] TSP13 = new_TSP(13); //13 city
 		double[] TSP14 = new_TSP(14); //14 city
 		double[] TSP15 = new_TSP(15); //15 city
-		
-		
 		new MakeTSP(TSP10, true, iterations, 1, iterations); 
-		
+		/*
 		new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
-		
 		new MakeTSP(TSP11, true, iterations, 1, iterations); 
 		new MakeTSP(TSP11, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
-		
 		new MakeTSP(TSP12, true, iterations, 1, iterations); 
 		new MakeTSP(TSP12, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
-		
 		new MakeTSP(TSP13, true, iterations, 1, iterations); 
 		new MakeTSP(TSP13, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
-		
 		new MakeTSP(TSP14, true, iterations, 1, iterations); 
 		new MakeTSP(TSP14, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
-		
 		new MakeTSP(TSP15, true, iterations, 1, iterations); 
 		new MakeTSP(TSP15, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
-		
 		new MakeTSP(TSP10, true, iterations100k, 1, iterations100k); 
 		new MakeTSP(TSP10, false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
-		
 		new MakeTSP(TSP11, true, iterations100k, 1, iterations100k); 
 		new MakeTSP(TSP11, false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
-		
 		new MakeTSP(TSP12, true, iterations100k, 1, iterations100k); 
 		new MakeTSP(TSP12, false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
-		
+		*/
 		
         /*
 		double[][] array2D = convert_1D_to_2D(new_TSP());
@@ -226,25 +217,17 @@ returns a 1-D array of type double
 	}
 	public static void print_2D_square(double[][] array2D)
 	{ // Similar to the print_2D method but different printing format
-		int iPlusOne = 0;
-		  int jPlusOne = 0;
 		  //using PlusOne variables to display 1 to 10 rather than 0 to 9
 		  //better way to do this but using this for now.
 		// Loop through each row (outer loop)
 		  System.out.println();
 		  for(int i = 0; i < array2D.length; i++) {
-		    // Loop through each column (inner loop) 
 		    for(int j = 0; j < array2D[i].length; j++) {
-		      iPlusOne = i +1;
-		      jPlusOne = j +1;
-		      // Print value and position    
-		      System.out.print(array2D[i][j]);
+		      System.out.print(array2D[i][j]); // Print value and position    
 		    System.out.print(" ");
-		    
 		  }
 		    System.out.println();
 		  }
-		
 	}
 	
 	public static void printSquare(double[][] array) {

@@ -83,24 +83,15 @@ public class SolveTSP { //this class is used for solving TSPs
 	  }
 	  switch(n)
 	  {//in most likely cases this should speedup rather than slow down
-	  case 3:
-		  return 3;
-	  case 6:
-		  return 4;
-	  case 10:
-		  return 5;
-	  case 45:
-		  return 10;
-	  case 55:
-		  return 11;
-	  case 66:
-		  return 12;
-	  case 78:
-		  return 13;
-	  case 91:
-		  return 14;
-	  case 105:
-		  return 15;
+	  case 3:return 3;
+	  case 6: return 4;
+	  case 10:return 5;
+	  case 45:return 10;
+	  case 55:return 11;
+	  case 66:return 12;
+	  case 78:return 13;
+	  case 91:return 14;
+	  case 105:return 15;
 	  }
 	double x = (1 + Math.sqrt(1 + 8*n) ) / 2; //calculate x
 	if (UseFullLog) {String calculateCitiesXValue = ("calculateCitiesAmount: " + "x = " + x); FullLog_AddLineTXT(calculateCitiesXValue);}
@@ -110,35 +101,19 @@ public class SolveTSP { //this class is used for solving TSPs
 
   public List<Integer> generateInitialSolution(int numCities) throws IOException {
 	  // generates an initial solution based on the number of cities
-	  //Note that this solution may not be possible since we don't check it against 0 value distances
-	  //Also note that we will have each city once. This is important as we will perform random swaps later.
+	  //Note that we will have each city once. This is important as we will perform random swaps later.
 	  //Knowing each city is visited once means we meet this acceptance criteria for this and all future solutions
 	  List<Integer> cities = new ArrayList<>();
-	  for(int i = 1; i <= numCities; i++) {
-	    cities.add(i); //basic loop to give us a starting solution
-	  }
+	  for(int i = 1; i <= numCities; i++) {cities.add(i);}//basic loop to give us a starting solution
 	  if (UseFullLog) {FullLog_AddLineTXT("SolveTSP: generateInitialSolution(): Cities list: " + cities);} //used for testing method. Just keeping in full log
 	  return cities;
 	}
 
   public static double[][] convert_1D_to_2D(double[] array_1D) throws IOException
-	{
-		// Get size of 1D array
-		  int n = array_1D.length;
-		  if (n < 1)
-		  {
-			  // should never be less than 1 element, giving a 2x2 matrix
-			  double[][] array_2D = new double[1][1];
-			  System.out.println("convert_1D_to_2D: less than 1 unique element, likely an error.");
-			  return array_2D;
-		  }
-		  //get size of width / height (called x)
-		double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term 
-		double x = (1 + sqrtTerm) / 2; // Calculate x
-		if (UseFullLog) {String xValue = ("convert_1D_to_2D: x = " + x); FullLog_AddLineTXT(xValue);} //test this
-		//System.out.println(xValue);
-		// Create 2D array with x by x size
-		double[][] array_2D = new double[(int) x][(int) x]; //new 2D distance matrix
+	{//returns a 2D version of a 1D TSP array
+		//System.out.println("convert_1D_to_2D: calculateCitiesAmount(array_1D) = " + calculateCitiesAmount(array_1D));//debug
+		int x = calculateCitiesAmount(array_1D); // Get size of 1D array using calculateCitiesAmount method
+		double[][] array_2D = new double[(int) x][(int) x]; // Create 2D array with x by x size
 		int a = 0; //used to track position in the 1D array
 		double b = 0; //using this to track array_1D values as we use less reads
 		for(int i = 0; i < x-1; i++) { //x-1 because we ignore 1st 0 value which would be from a city to the same city
@@ -199,7 +174,7 @@ public class SolveTSP { //this class is used for solving TSPs
   {//used to test a 2D array in a nicely formatted way
 	  int iPlusOne = 0;
 	  int jPlusOne = 0;
-	  //using PlusOne variables to display 1 to 10 rather than 0 to 9
+	  //using PlusOne variables to display index values 1 to 10 rather than 0 to 9
 	  //better way to do this but using this for now.
 	// Loop through each row (outer loop)
 	  for(int i = 0; i < TSP_2D.length; i++) {
