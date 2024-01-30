@@ -304,8 +304,7 @@ public class SolveTSP { //this class is used for solving TSPs
 		  String out = "";
 		  System.out.println("Tour:");
 		  FullLog_AddLineTXT("Tour:");
-		  // Loop through each city in the optimal tour
-		  for(int i = 0; i < optimalTour.size(); i++) {
+		  for(int i = 0; i < optimalTour.size(); i++) {// Loop through each city in the optimal tour
 		    System.out.print(optimalTour.get(i)); // Print current city number 
 		    out += optimalTour.get(i);
 		    if(i != optimalTour.size() - 1) { // If not the last city, print connector
