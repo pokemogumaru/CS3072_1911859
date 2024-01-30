@@ -190,9 +190,8 @@ returns a 1-D array of type double
 	
 	public static void print_2D(double[][] TSP_2D)
 	  {//used to test a 2D array in a nicely formatted way
-		  int iPlusOne = 0;
+		  int iPlusOne = 0; //using PlusOne variables to display index values 1 to 10 rather than 0 to 9
 		  int jPlusOne = 0;
-		  //using PlusOne variables to display index values 1 to 10 rather than 0 to 9
 		  //better way to do this but using this for now.
 		// Loop through each row (outer loop)
 		  for(int i = 0; i < TSP_2D.length; i++) {
