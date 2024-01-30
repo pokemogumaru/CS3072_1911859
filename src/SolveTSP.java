@@ -80,6 +80,28 @@ public class SolveTSP { //this class is used for solving TSPs
 		  System.out.println(error);
 		  return 0;
 	  }
+	  switch(n)
+	  {//in most likely cases this should speedup rather than slow down
+	  case 3:
+		  return 3;
+	  case 4:
+		  return 6;
+	  case 5:
+		  return 10;
+	  case 10:
+		  return 45;
+	  case 11:
+		  return 55;
+	  case 12:
+		  return 66;
+	  case 13:
+		  return 45;
+	  case 14:
+		  return 55;
+	  case 15:
+		  return 66;
+	  }
+	  
 	double x = (1 + Math.sqrt(1 + 8*n) ) / 2; //calculate x
 	if (UseFullLog) {String calculateCitiesXValue = ("calculateCitiesAmount: " + "x = " + x); FullLog_AddLineTXT(calculateCitiesXValue);}
 	//System.out.println(calculateCitiesXValue); //don't really need this unless testing, 45 element 1D array should print x = 10

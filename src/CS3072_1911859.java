@@ -38,13 +38,13 @@ public class CS3072_1911859 {
 		double[] TSP10 = new_TSP();
 		double[] TSP11 = new_TSP11(); //11 city
 		double[] TSP12 = new_TSP12(); //12 city
-		
+		/*
 		MakeTSP maker10 = new MakeTSP(new_TSP(), true, iterations, 1, iterations); 
 		MakeTSP makerFalse10 = new MakeTSP(new_TSP(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
-		
-		MakeTSP maker11 = new MakeTSP(new_TSP11(), true, iterations, 1, iterations); 
-		MakeTSP makerFalse11 = new MakeTSP(new_TSP11(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
-		
+		*/
+		MakeTSP maker11 = new MakeTSP(new_TSP(), true, iterations, 1, iterations); 
+		//MakeTSP makerFalse11 = new MakeTSP(new_TSP11(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		/*
 		MakeTSP maker12 = new MakeTSP(new_TSP12(), true, iterations, 1, iterations); 
 		MakeTSP makerFalse12 = new MakeTSP(new_TSP12(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
@@ -56,6 +56,7 @@ public class CS3072_1911859 {
 		
 		MakeTSP maker120 = new MakeTSP(new_TSP12(), true, iterations100k, 1, iterations100k); 
 		MakeTSP makerFalse120 = new MakeTSP(new_TSP12(), false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
+		*/
 		/*
 		MakeTSP maker13 = new MakeTSP(new_TSP(), true, 130000, 1, 130000); 
 		MakeTSP makerFalse13 = new MakeTSP(new_TSP(), false, 130000, 1, 130000); //trying the same thing but for easier TSPs
@@ -96,9 +97,19 @@ public class CS3072_1911859 {
 		  return arr;
 		}
 	
+	public static double[] new_TSP3() {
+		//populates and returns an array of 3 random values between 0 and 1 of type double
+		  double[] arr = new double[3];
+		  Random rand = new Random();
+		  for(int i = 0; i < arr.length; i++) {
+			  arr[i] = rand.nextDouble(); 
+			  }
+		  return arr;
+		}
+	
 	public static double[] new_TSP11() {
-		//populates and returns an array of 65 random values between 0 and 1 of type double
-		  double[] arr = new double[65];
+		//populates and returns an array of 66 random values between 0 and 1 of type double
+		  double[] arr = new double[66];
 		  Random rand = new Random();
 		  for(int i = 0; i < arr.length; i++) {
 			  arr[i] = rand.nextDouble(); 
