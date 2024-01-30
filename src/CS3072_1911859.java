@@ -36,11 +36,11 @@ public class CS3072_1911859 {
 		int iterations = 10000;
 		int iterations100k = 100000;
 		double[] TSP10 = new_TSP(10);
-		double[] TSP11 = new_TSP(10); //11 city
-		double[] TSP12 = new_TSP(10); //12 city
-		double[] TSP13 = new_TSP(10); //13 city
-		double[] TSP14 = new_TSP(10); //14 city
-		double[] TSP15 = new_TSP(10); //15 city
+		double[] TSP11 = new_TSP(11); //11 city
+		double[] TSP12 = new_TSP(12); //12 city
+		double[] TSP13 = new_TSP(13); //13 city
+		double[] TSP14 = new_TSP(14); //14 city
+		double[] TSP15 = new_TSP(15); //15 city
 		
 		
 		MakeTSP maker10 = new MakeTSP(TSP10, true, iterations, 1, iterations); 
