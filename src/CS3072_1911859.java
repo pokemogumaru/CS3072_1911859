@@ -91,7 +91,7 @@ public class CS3072_1911859 {
 	
 	public static double[] new_TSP(int cities) throws IOException
 	{//populates and returns an array of x random values between 0 and 1 of type double
-		int x = SolveTSP.calculateCitiesPartial(cities);
+		int x = ((cities * cities) - cities) / 2;
 		  double[] arr = new double[x];
 		  Random rand = new Random();
 		  for(int i = 0; i < arr.length; i++) {arr[i] = rand.nextDouble(); }

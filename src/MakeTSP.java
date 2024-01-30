@@ -113,6 +113,7 @@ public class MakeTSP {
 	public static double[][] convert_1D_to_2D(double[] array_1D)
 	{//borrowed from CS3072_1911859 class
 		  int n = array_1D.length; // Get size of 1D array
+		  //System.out.println("convert_1D_to_2D(): n = " + n); //debug
 		  if (n < 1)
 		  {// should never be less than 1 element, giving a 2x2 matrix
 			  double[][] array_2D = new double[1][1];
@@ -123,7 +124,7 @@ public class MakeTSP {
 		double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term 
 		x = (1 + sqrtTerm) / 2; // Calculate x
 		//test this
-		//System.out.println("convert_1D_to_2D(): x = " + x);
+		//System.out.println("convert_1D_to_2D(): x = " + x); //debug
 		// Create 2D array with x by x size
 		double[][] array_2D = new double[(int) x][(int) x]; //new 2D distance matrix
 		int a = 0; //used to track position in the 1D array
