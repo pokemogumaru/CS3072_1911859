@@ -28,7 +28,7 @@ public class CS3072_1911859 {
 		//SolveTSP solver = new SolveTSP(new_TSP(), 1000); //to run the hill climber to solve a TSP
 		//System.out.println("CS3072_1911859: main: solver.return_solution() = " + solver.return_solution()); //Prints the total weight of solution to console
 		
-		//test_MST(10); //To test our MST of a TSP. Input is number of cities
+		test_MST(10); //To test our MST of a TSP. Input is number of cities
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
 		int iterations = 10000;
@@ -251,13 +251,10 @@ returns a 1-D array of type double
 		int n = array.length; //assume square
 		  for(int i = 0; i < n; i++) {
 		    for(int j = 0; j < n; j++) {
-		      
 		      System.out.print(array[i][j] + " ");
-		      
 		    }
 		    System.out.println();
 		  }
-
 		}
 	
 	public static void generate_CSV_from_2D(double[][] matrix) throws Exception {
@@ -309,12 +306,8 @@ returns a 1-D array of type double
 	}
 	
 	
-	public static double MST_total(double[][] graph)
-	{ //A method that returns the sum of weights in a 2D double graph. Uses the total_2D method.
-		double total = total_2D(graph); //use the existing method to do this
-		total = total / 2; //since we don't want to count values twice
-		return total;
-	}
+	public static double MST_total(double[][] graph){ return (total_2D(graph)) / 2; } //Returns the sum of MST cost
+	//use the total_2D method to count sum of values. Divide by 2 since we don't want to count values twice.
 	
 	public static void testPrintSquare()
 	{//can use this to quickly print some 2D arrays to console when needed.
