@@ -43,32 +43,33 @@ public class CS3072_1911859 {
 		double[] TSP15 = new_TSP(15); //15 city
 		
 		
-		MakeTSP maker10 = new MakeTSP(TSP10, true, iterations, 1, iterations); 
-		MakeTSP makerFalse10 = new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		new MakeTSP(TSP10, true, iterations, 1, iterations); 
 		
-		MakeTSP maker11 = new MakeTSP(TSP11, true, iterations, 1, iterations); 
-		MakeTSP makerFalse11 = new MakeTSP(TSP11, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker12 = new MakeTSP(TSP12, true, iterations, 1, iterations); 
-		MakeTSP makerFalse12 = new MakeTSP(TSP12, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		new MakeTSP(TSP11, true, iterations, 1, iterations); 
+		new MakeTSP(TSP11, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker13 = new MakeTSP(TSP13, true, iterations, 1, iterations); 
-		MakeTSP makerFalse13 = new MakeTSP(TSP13, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		new MakeTSP(TSP12, true, iterations, 1, iterations); 
+		new MakeTSP(TSP12, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker14 = new MakeTSP(TSP14, true, iterations, 1, iterations); 
-		MakeTSP makerFalse14 = new MakeTSP(TSP14, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		new MakeTSP(TSP13, true, iterations, 1, iterations); 
+		new MakeTSP(TSP13, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker15 = new MakeTSP(TSP15, true, iterations, 1, iterations); 
-		MakeTSP makerFalse15 = new MakeTSP(TSP15, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		new MakeTSP(TSP14, true, iterations, 1, iterations); 
+		new MakeTSP(TSP14, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker100 = new MakeTSP(TSP10, true, iterations100k, 1, iterations100k); 
-		MakeTSP makerFalse100 = new MakeTSP(TSP10, false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
+		new MakeTSP(TSP15, true, iterations, 1, iterations); 
+		new MakeTSP(TSP15, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker110 = new MakeTSP(TSP11, true, iterations100k, 1, iterations100k); 
-		MakeTSP makerFalse110 = new MakeTSP(TSP11, false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
+		new MakeTSP(TSP10, true, iterations100k, 1, iterations100k); 
+		new MakeTSP(TSP10, false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker120 = new MakeTSP(TSP12, true, iterations100k, 1, iterations100k); 
-		MakeTSP makerFalse120 = new MakeTSP(TSP12, false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
+		new MakeTSP(TSP11, true, iterations100k, 1, iterations100k); 
+		new MakeTSP(TSP11, false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
+		
+		new MakeTSP(TSP12, true, iterations100k, 1, iterations100k); 
+		new MakeTSP(TSP12, false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
 		
 		
 		
