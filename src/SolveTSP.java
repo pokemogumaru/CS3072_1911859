@@ -95,7 +95,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  case 12:
 		  return 66;
 	  case 13:
-		  return 45;
+		  return 78;
 	  case 14:
 		  return 91;
 	  case 15:

@@ -38,6 +38,10 @@ public class CS3072_1911859 {
 		double[] TSP10 = new_TSP();
 		double[] TSP11 = new_TSP11(); //11 city
 		double[] TSP12 = new_TSP12(); //12 city
+		double[] TSP13 = new_TSP13(); //13 city
+		double[] TSP14 = new_TSP14(); //14 city
+		double[] TSP15 = new_TSP15(); //15 city
+		
 		
 		MakeTSP maker10 = new MakeTSP(new_TSP(), true, iterations, 1, iterations); 
 		MakeTSP makerFalse10 = new MakeTSP(new_TSP(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
@@ -106,8 +110,8 @@ public class CS3072_1911859 {
 		}
 	
 	public static double[] new_TSP11() {
-		//populates and returns an array of 66 random values between 0 and 1 of type double
-		  double[] arr = new double[66];
+		//populates and returns an array of 55 random values between 0 and 1 of type double
+		  double[] arr = new double[55];
 		  Random rand = new Random();
 		  for(int i = 0; i < arr.length; i++) {
 			  arr[i] = rand.nextDouble(); 
@@ -116,8 +120,35 @@ public class CS3072_1911859 {
 		}
 	
 	public static double[] new_TSP12() {
-		//populates and returns an array of 45 random values between 0 and 1 of type double
-		  double[] arr = new double[45];
+		//populates and returns an array of 66 random values between 0 and 1 of type double
+		  double[] arr = new double[66];
+		  Random rand = new Random();
+		  for(int i = 0; i < arr.length; i++) {
+			  arr[i] = rand.nextDouble(); 
+			  }
+		  return arr;
+		}
+	public static double[] new_TSP13() {
+		//populates and returns an array of 78 random values between 0 and 1 of type double
+		  double[] arr = new double[78];
+		  Random rand = new Random();
+		  for(int i = 0; i < arr.length; i++) {
+			  arr[i] = rand.nextDouble(); 
+			  }
+		  return arr;
+		}
+	public static double[] new_TSP14() {
+		//populates and returns an array of 91 random values between 0 and 1 of type double
+		  double[] arr = new double[91];
+		  Random rand = new Random();
+		  for(int i = 0; i < arr.length; i++) {
+			  arr[i] = rand.nextDouble(); 
+			  }
+		  return arr;
+		}
+	public static double[] new_TSP15() {
+		//populates and returns an array of 105 random values between 0 and 1 of type double
+		  double[] arr = new double[105];
 		  Random rand = new Random();
 		  for(int i = 0; i < arr.length; i++) {
 			  arr[i] = rand.nextDouble(); 
