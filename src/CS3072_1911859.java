@@ -22,7 +22,7 @@ public class CS3072_1911859 {
 		//to test new_TSP_1dp_ascending (old method):
 		//test_new_TSP();
 		
-		test_2D(10); //To test our 2D representation of 1D TSP. input is number of cities
+		test_2D(3); //To test our 2D representation of 1D TSP. input is number of cities
 		
 		//To run the TSP solver:
 		//SolveTSP solver = new SolveTSP(new_TSP(15), 1000); //to run the hill climber to solve a TSP
@@ -118,35 +118,7 @@ returns a 1-D array of type double
 		  return arr;
 		}
 	
-	public static double[][] convert_1D_to_2D(double[] array_1D)
-	{
-		  int n = array_1D.length; // Get size of 1D array
-		  if (n < 1)
-		  {// should never be less than 1 element, giving a 2x2 matrix
-			  double[][] array_2D = new double[1][1];
-			  System.out.println("convert_1D_to_2D(): less than 1 unique element, likely an error.");
-			  return array_2D;
-		  }
-		double x; //get size of width / height (called x)
-		double sqrtTerm = Math.sqrt(1 + 8*n); // Calculate square root term 
-		x = (1 + sqrtTerm) / 2; // Calculate x
-		//test this
-		System.out.println("convert_1D_to_2D(): x = " + x);
-		// Create 2D array with x by x size
-		double[][] array_2D = new double[(int) x][(int) x]; //new 2D distance matrix
-		int a = 0; //used to track position in the 1D array
-		double b = 0; //using this to track array_1D values as we use less reads
-		for(int i = 0; i < x -1; i++) { //x-1 because we ignore 1st 0 value which would be from a city to the same city
-			  for(int j = i+1; j < x; j++) {
-				b = array_1D[a];
-			    array_2D[i][j] = b; //populate 2D values
-			    array_2D[j][i] = b;
-				//System.out.println("b = " + b + ", array_2D[i][j] = " + array_2D[i][j] + ", array_2D[j][i] = " + array_2D[j][i] + ", a = " + a + ", i = " + i + ", j = " + j);
-			    a++; //increment a
-			  }
-			}
-		return array_2D;
-	}
+	public static double[][] convert_1D_to_2D(double[] array_1D) throws IOException{return SolveTSP.convert_1D_to_2D(array_1D);} //use method in other class
 	
 	public static int[][] convertToIntGraph(double[] array_1D)
 	{//The same thing as method above for ints
@@ -274,7 +246,7 @@ returns a 1-D array of type double
 	public static double MST_total(double[][] graph){ return (total_2D(graph)) / 2; } //Returns the sum of MST cost
 	//use the total_2D method to count sum of values. Divide by 2 since we don't want to count values twice.
 	
-	public static void testPrintSquare()
+	public static void testPrintSquare() throws IOException
 	{//can use this to quickly print some 2D arrays to console when needed.
 		double[] hard = {0.6973137768529732, 0.7173975401481106, 0.8121678358099457, 0.6066188902068832, 0.6842276119430029, 0.0015752268248071521, 0.18122046670661063, 0.6488066954514633, 0.16039846889680975, 0.3616177881839977, 0.787119186426413, 0.39842197416618974, 0.15014820213380298, 0.6855653959407451, 0.6234810198813764, 0.0017957863533194507, 0.5908682992299912, 0.6130378860100635, 0.18114114945187587, 0.10129995634689615, 0.6347975474309869, 0.21239564157006086, 0.3582638830895831, 0.5976270377548586, 0.13200551417018835, 0.8960381945414662, 0.31713632140465664, 0.5386905961073206, 0.3977441755386576, 0.8203789868008425, 0.4967786765569153, 0.6961788593112921, 0.9377597710440467, 0.12470653026113465, 0.03310825590707378, 0.15218864294314338, 0.16420673484567005, 0.022456532218007696, 0.8075806194618824, 0.7655863231516281, 0.7375048240793066, 0.3725638604010526, 0.5432352224513644, 0.5812482028549827, 0.9801468724040088};
 		double[] easy = {0.475649211613259, 0.6881440319720299, 0.19153825350184406, 0.44889946126174907, 0.6867317503052026, 0.8311307709247071, 0.8969775921500719, 0.24653056581939126, 0.48785612097576836, 0.7601998468109316, 0.08487435049837877, 0.8574758272044032, 0.7350181339083649, 0.30592414287126546, 0.6206566572221529, 0.2925497292822392, 0.6530117744458656, 0.7047521217234005, 0.5590050727960773, 0.07719903645200876, 0.35735423609158967, 0.09428531127091933, 0.3350702254681923, 0.09651865981641983, 0.27711646337680185, 0.19395238581271257, 0.8929092988757384, 0.45183245294744234, 0.363078275698108, 0.8085589395302673, 0.4919996082071373, 0.1305868855277228, 0.6654408030594076, 0.6720305001865299, 0.2650634751842085, 0.2746541865315578, 0.9757841333584442, 0.8326099597482396, 0.20355590314452277, 0.7377266114578032, 0.3979162225982308, 0.5176869593377945, 0.4138248244002356, 0.7759597537385036, 0.5667366112863903};
