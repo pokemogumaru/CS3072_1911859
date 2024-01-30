@@ -323,8 +323,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	    boolean condition2 = false;
 	    double newCost = generateTourCost(newSolution, distances);
 	    if(newCost < cost) {condition1 = true;}
-	    //if(!hasZeroValue(newSolution, distances)) {condition2 = true;}
-	    //commenting out above line as this should always be true if all cities are connected.
 	    condition2 = true;
 	    if(condition1 && condition2) { //update solution and cost
 	      solution = (ArrayList<Integer>) newSolution.clone();
