@@ -190,20 +190,13 @@ returns a 1-D array of type double
 	
 	public static void print_2D(double[][] TSP_2D)
 	  {//used to test a 2D array in a nicely formatted way
-		  int iPlusOne = 0; //using PlusOne variables to display index values 1 to 10 rather than 0 to 9
-		  int jPlusOne = 0;
-		  //better way to do this but using this for now.
-		// Loop through each row (outer loop)
 		  for(int i = 0; i < TSP_2D.length; i++) {
-		    // Loop through each column (inner loop) 
 		    for(int j = 0; j < TSP_2D[i].length; j++) {
-		      iPlusOne = i +1; //we count from 1 so add 1 to x and y
-		      jPlusOne = j +1;
-		      // Print value and position    
-		      System.out.println("Value at x=" + iPlusOne + ", y=" + jPlusOne + ": " + TSP_2D[i][j]);
+		      System.out.println("Value at x=" + (i+1) + ", y=" + (j+1) + ": " + TSP_2D[i][j]);// Print value and position. i+1 & j+1 as index counts from 0
 		    }
 		  }
 	  }
+	
 	public static void print_2D_square(double[][] array2D)
 	{ // Similar to the print_2D method but different printing format
 		  //using PlusOne variables to display 1 to 10 rather than 0 to 9
