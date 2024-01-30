@@ -172,12 +172,24 @@ returns a 1-D array of type double
 		  int nrow = array2D.length;
 		  System.out.print(name + " <- matrix(c(");
 		  for(int i = 0; i < nrow; i++) {
+			  //System.out.print("(");
 		    for(int j = 0; j < array2D[i].length; j++) {
-		      System.out.print(array2D[i][j]+ ", "); // Print value and position
+		    if ((i + 1 == nrow) && (j + 1 == nrow))
+		    {
+		    	System.out.print(array2D[i][j]+ "),"); // Print value and position
+		    }
+		    else
+		    {
+		    	System.out.print(array2D[i][j]+ ", "); // Print value and position
+		    }
+		      
 		  }
+		    //System.out.print("),");
 		    System.out.println();
+		    
 		  }
 		  System.out.println("nrow = " + nrow + ", ncol = "+ nrow +")");//assuming it's square
+		  System.out.println("print(" + name + ")");
 	}
 	
 	public static void printSquare(double[][] array) {
