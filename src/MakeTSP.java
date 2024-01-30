@@ -15,10 +15,11 @@ public class MakeTSP {
 	{
 		Timer timer = new Timer(); timer.start(); //make timer instance and start timing. Doing this before opening files.
 		//Open files:
-		if (UsebasicLog) {basicLog = new FileWriterUtil(dateTime() + " MakeTSP basicLog.txt", "txt"); basicLog.start();} //create basic log instance and start using the file
-		if (UseFullLog) {fullLog = new FileWriterUtil(dateTime() + " MakeTSP fullLog.txt", "txt"); fullLog.start();} //create fullLog instance and start using the file
-		if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + " MakeTSP hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
-		if (UsefitnessRepeatsLog) {fitnessRepeatsLog = new FileWriterUtil(dateTime() + " MakeTSP fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start();}//used to track fitness at end of each iteration so we can see best fitness trend for repeats
+		String variables = "MakeTSP " + SolveTSP.calculateCitiesAmount(distances) + " cities, " + DifficultTrueEasyFalse + " DifficultTrueEasyFalse, " + iterations + " inner, " + SolveIterations + " outer";
+		if (UsebasicLog) {basicLog = new FileWriterUtil(dateTime() + variables + " basicLog.txt", "txt"); basicLog.start();} //create basic log instance and start using the file
+		if (UseFullLog) {fullLog = new FileWriterUtil(dateTime() + variables + " fullLog.txt", "txt"); fullLog.start();} //create fullLog instance and start using the file
+		if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + variables+ " hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
+		if (UsefitnessRepeatsLog) {fitnessRepeatsLog = new FileWriterUtil(dateTime() + variables+ " fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start();}//used to track fitness at end of each iteration so we can see best fitness trend for repeats
 		//End of initialising log files
 		String start_values = "MakeTSP: starting with DifficultTrueEasyFalse = " + DifficultTrueEasyFalse + " Outer iterations = " + iterations + " Inner iterations = " + SolveIterations + " Number of cities = " + SolveTSP.calculateCitiesAmount(distances);
 		BasicLog_AddLineTXT(start_values); FullLog_AddLineTXT(start_values);
