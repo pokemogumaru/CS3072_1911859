@@ -24,51 +24,51 @@ public class CS3072_1911859 {
 		
 		
 		
-		//test_2D(); //To test our 2D representation of 1D TSP
+		//test_2D(10); //To test our 2D representation of 1D TSP. input is number of cities
 		
 		//To run the TSP solver:
 		//SolveTSP solver = new SolveTSP(new_TSP(), 1000); //to run the hill climber to solve a TSP
 		//System.out.println("CS3072_1911859: main: solver.return_solution() = " + solver.return_solution()); //Prints the total weight of solution to console
 		
-		//test_MST(); //To test our MST of a TSP
+		//test_MST(10); //To test our MST of a TSP. Input is number of cities
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
 		int iterations = 10000;
 		int iterations100k = 100000;
-		double[] TSP10 = new_TSP();
-		double[] TSP11 = new_TSP11(); //11 city
-		double[] TSP12 = new_TSP12(); //12 city
-		double[] TSP13 = new_TSP13(); //13 city
-		double[] TSP14 = new_TSP14(); //14 city
-		double[] TSP15 = new_TSP15(); //15 city
+		double[] TSP10 = new_TSP(10);
+		double[] TSP11 = new_TSP(10); //11 city
+		double[] TSP12 = new_TSP(10); //12 city
+		double[] TSP13 = new_TSP(10); //13 city
+		double[] TSP14 = new_TSP(10); //14 city
+		double[] TSP15 = new_TSP(10); //15 city
 		
 		
-		MakeTSP maker10 = new MakeTSP(new_TSP(), true, iterations, 1, iterations); 
-		MakeTSP makerFalse10 = new MakeTSP(new_TSP(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		MakeTSP maker10 = new MakeTSP(TSP10, true, iterations, 1, iterations); 
+		MakeTSP makerFalse10 = new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker11 = new MakeTSP(new_TSP11(), true, iterations, 1, iterations); 
-		MakeTSP makerFalse11 = new MakeTSP(new_TSP11(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		MakeTSP maker11 = new MakeTSP(TSP11, true, iterations, 1, iterations); 
+		MakeTSP makerFalse11 = new MakeTSP(TSP11, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker12 = new MakeTSP(new_TSP12(), true, iterations, 1, iterations); 
-		MakeTSP makerFalse12 = new MakeTSP(new_TSP12(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		MakeTSP maker12 = new MakeTSP(TSP12, true, iterations, 1, iterations); 
+		MakeTSP makerFalse12 = new MakeTSP(TSP12, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker13 = new MakeTSP(new_TSP13(), true, iterations, 1, iterations); 
-		MakeTSP makerFalse13 = new MakeTSP(new_TSP13(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		MakeTSP maker13 = new MakeTSP(TSP13, true, iterations, 1, iterations); 
+		MakeTSP makerFalse13 = new MakeTSP(TSP13, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker14 = new MakeTSP(new_TSP14(), true, iterations, 1, iterations); 
-		MakeTSP makerFalse14 = new MakeTSP(new_TSP14(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		MakeTSP maker14 = new MakeTSP(TSP14, true, iterations, 1, iterations); 
+		MakeTSP makerFalse14 = new MakeTSP(TSP14, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker15 = new MakeTSP(new_TSP15(), true, iterations, 1, iterations); 
-		MakeTSP makerFalse15 = new MakeTSP(new_TSP15(), false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		MakeTSP maker15 = new MakeTSP(TSP15, true, iterations, 1, iterations); 
+		MakeTSP makerFalse15 = new MakeTSP(TSP15, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker100 = new MakeTSP(new_TSP(), true, iterations100k, 1, iterations100k); 
-		MakeTSP makerFalse100 = new MakeTSP(new_TSP(), false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
+		MakeTSP maker100 = new MakeTSP(TSP10, true, iterations100k, 1, iterations100k); 
+		MakeTSP makerFalse100 = new MakeTSP(TSP10, false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker110 = new MakeTSP(new_TSP11(), true, iterations100k, 1, iterations100k); 
-		MakeTSP makerFalse110 = new MakeTSP(new_TSP11(), false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
+		MakeTSP maker110 = new MakeTSP(TSP11, true, iterations100k, 1, iterations100k); 
+		MakeTSP makerFalse110 = new MakeTSP(TSP11, false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
 		
-		MakeTSP maker120 = new MakeTSP(new_TSP12(), true, iterations100k, 1, iterations100k); 
-		MakeTSP makerFalse120 = new MakeTSP(new_TSP12(), false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
+		MakeTSP maker120 = new MakeTSP(TSP12, true, iterations100k, 1, iterations100k); 
+		MakeTSP makerFalse120 = new MakeTSP(TSP12, false, iterations100k, 1, iterations100k); //trying the same thing but for easier TSPs
 		
 		
 		
@@ -87,74 +87,16 @@ public class CS3072_1911859 {
 
 	public static void test_new_TSP_1dp_ascending(){test_printer(new_TSP_1dp_ascending());} //tests the initial TSP generator by counting values and showing each value
 	
-	public static void test_new_TSP() {test_printer(new_TSP());} //same as other test method but for updated TSP generator
+	public static void test_new_TSP() throws IOException {test_printer(new_TSP(10));} //same as other test method but for updated TSP generator
 	
-	public static double[] new_TSP() {
-		//populates and returns an array of 45 random values between 0 and 1 of type double
-		  double[] arr = new double[45];
+	public static double[] new_TSP(int cities) throws IOException
+	{//populates and returns an array of x random values between 0 and 1 of type double
+		int x = SolveTSP.calculateCitiesPartial(cities);
+		  double[] arr = new double[x];
 		  Random rand = new Random();
-		  for(int i = 0; i < arr.length; i++) {
-			  arr[i] = rand.nextDouble(); 
-			  }
+		  for(int i = 0; i < arr.length; i++) {arr[i] = rand.nextDouble(); }
 		  return arr;
-		}
-	
-	public static double[] new_TSP3() {
-		//populates and returns an array of 3 random values between 0 and 1 of type double
-		  double[] arr = new double[3];
-		  Random rand = new Random();
-		  for(int i = 0; i < arr.length; i++) {
-			  arr[i] = rand.nextDouble(); 
-			  }
-		  return arr;
-		}
-	
-	public static double[] new_TSP11() {
-		//populates and returns an array of 55 random values between 0 and 1 of type double
-		  double[] arr = new double[55];
-		  Random rand = new Random();
-		  for(int i = 0; i < arr.length; i++) {
-			  arr[i] = rand.nextDouble(); 
-			  }
-		  return arr;
-		}
-	
-	public static double[] new_TSP12() {
-		//populates and returns an array of 66 random values between 0 and 1 of type double
-		  double[] arr = new double[66];
-		  Random rand = new Random();
-		  for(int i = 0; i < arr.length; i++) {
-			  arr[i] = rand.nextDouble(); 
-			  }
-		  return arr;
-		}
-	public static double[] new_TSP13() {
-		//populates and returns an array of 78 random values between 0 and 1 of type double
-		  double[] arr = new double[78];
-		  Random rand = new Random();
-		  for(int i = 0; i < arr.length; i++) {
-			  arr[i] = rand.nextDouble(); 
-			  }
-		  return arr;
-		}
-	public static double[] new_TSP14() {
-		//populates and returns an array of 91 random values between 0 and 1 of type double
-		  double[] arr = new double[91];
-		  Random rand = new Random();
-		  for(int i = 0; i < arr.length; i++) {
-			  arr[i] = rand.nextDouble(); 
-			  }
-		  return arr;
-		}
-	public static double[] new_TSP15() {
-		//populates and returns an array of 105 random values between 0 and 1 of type double
-		  double[] arr = new double[105];
-		  Random rand = new Random();
-		  for(int i = 0; i < arr.length; i++) {
-			  arr[i] = rand.nextDouble(); 
-			  }
-		  return arr;
-		}
+	}
 	
 	public static void test_printer(double[] arr)
 	{
@@ -245,9 +187,9 @@ returns a 1-D array of type double
 		return array_2D;
 	}
 	
-	public static void test_2D()
+	public static void test_2D(int x) throws IOException
 	{//this method tests the initial TSP generator by counting values and showing each value
-		double[] array1D = new_TSP();
+		double[] array1D = new_TSP(x);
 		  System.out.println("test_2D(): Number of items: " + array1D.length); //prints the number of values
 		  for(double value : array1D) {
 		    System.out.println(value); //prints each value as part of testing
@@ -348,9 +290,9 @@ returns a 1-D array of type double
 		  return dateTime;
 	  }
 	
-	public static void test_MST() throws IOException
+	public static void test_MST(int x) throws IOException
 	{// Tests our MST graph of our new TSP
-		  double[] distances = new_TSP(); // make new TSP
+		  double[] distances = new_TSP(x); // make new TSP
 		  double g[][] = convert_1D_to_2D(distances); //store as 2D
 		  double mst[][] = MST.PrimsMST(g); //calculate MST
 		  print_2D(mst); //print the contents to console

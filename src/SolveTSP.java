@@ -73,6 +73,10 @@ public class SolveTSP { //this class is used for solving TSPs
   public static int calculateCitiesAmount(double[] distances) throws IOException {
 	// Get size of 1D array
 	  int n = distances.length;
+	  return calculateCitiesPartial(n);
+	  }
+  public static int calculateCitiesPartial(int n) throws IOException
+  {
 	  if (n < 1)
 	  {// should never be less than 1 element, giving a 2x2 matrix
 		  String error = ("SolveTSP: calculateCitiesAmount(): less than 1 unique element, likely an error.");
@@ -106,7 +110,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	if (UseFullLog) {String calculateCitiesXValue = ("calculateCitiesAmount: " + "x = " + x); FullLog_AddLineTXT(calculateCitiesXValue);}
 	//System.out.println(calculateCitiesXValue); //don't really need this unless testing, 45 element 1D array should print x = 10
 	return (int) x;
-	  }
+  }
 
   public List<Integer> generateInitialSolution(int numCities) throws IOException {
 	  // generates an initial solution based on the number of cities
