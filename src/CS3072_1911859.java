@@ -80,8 +80,7 @@ public class CS3072_1911859 {
 	
 	public static double[] new_TSP(int cities) throws IOException
 	{//populates and returns an array of x random values between 0 and 1 of type double
-		int x = ((cities * cities) - cities) / 2;
-		  double[] arr = new double[x];
+		  double[] arr = new double[( ((cities * cities) - cities) / 2 )];
 		  Random rand = new Random();
 		  for(int i = 0; i < arr.length; i++) {arr[i] = rand.nextDouble(); }
 		  return arr;
@@ -152,9 +151,7 @@ returns a 1-D array of type double
 	{//this method tests the initial TSP generator by counting values and showing each value
 		double[] array1D = new_TSP(x);
 		  System.out.println("test_2D(): Number of items: " + array1D.length); //prints the number of values
-		  for(double value : array1D) {
-		    System.out.println(value); //prints each value as part of testing
-		  }
+		  for(double value : array1D) { System.out.println(value); }//prints each value as part of testing
 		  System.out.println("test_2D(): end of TSP test");
 		  double[][] array2D = convert_1D_to_2D(array1D);
 		  print_2D(array2D);
