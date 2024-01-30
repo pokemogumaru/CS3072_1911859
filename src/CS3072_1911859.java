@@ -105,9 +105,7 @@ returns a 1-D array of type double
 		  double value = 0.1; // Start with 0.1
 		  for(int i = 0; i < arr.length; i++) {
 		    arr[i] = value; 
-		    if(value >= 1.0) { // Check if previous value was 1.0, reset to 0.1 if so
-		      value = 0.1; 
-		    }
+		    if(value >= 1.0) {  value = 0.1;  }// Check if previous value was 1.0, reset to 0.1 if so
 		    else {
 		      value += 0.1; // Add 0.1 otherwise 
 		      value = Math.round(value * 10) / 10.0; //rounding fixes a strange java error I saw with some values e.g. 1.4000000000000001
@@ -168,9 +166,6 @@ returns a 1-D array of type double
 	
 	public static void print_2D_square(double[][] array2D)
 	{ // Similar to the print_2D method but different printing format
-		  //using PlusOne variables to display 1 to 10 rather than 0 to 9
-		  //better way to do this but using this for now.
-		// Loop through each row (outer loop)
 		  System.out.println();
 		  for(int i = 0; i < array2D.length; i++) {
 		    for(int j = 0; j < array2D[i].length; j++) {
