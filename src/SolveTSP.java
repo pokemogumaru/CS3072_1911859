@@ -70,11 +70,8 @@ public class SolveTSP { //this class is used for solving TSPs
     if (UsefitnessRepeatsLog) {fitnessRepeatsLog.close();} //stop using the file for log
   }
 
-  public static int calculateCitiesAmount(double[] distances) throws IOException {
-	// Get size of 1D array
-	  int n = distances.length;
-	  return calculateCitiesPartial(n);
-	  }
+  public static int calculateCitiesAmount(double[] distances) throws IOException { return calculateCitiesPartial(distances.length); }// Get size of 1D array
+  
   public static int calculateCitiesPartial(int n) throws IOException
   {
 	  if (n < 1)
