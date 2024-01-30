@@ -44,7 +44,7 @@ public class SolveTSP { //this class is used for solving TSPs
         //hasZeroValue(initialSolution,distances);
         //System.out.println("Best tour after hill climber:");
         //tourPrinter(hcSolution);
-        generateTourCost = generateTourCost(hcSolution, distances);
+        generateTourCost = generateTourCost(hcSolution, distances, numCities);
         //System.out.println("Best total cost (including return to start): " + generateTourCost);
         if (UsefitnessRepeatsLog) {fitnessRepeatsLog.addColumnCSV(String.valueOf(generateTourCost)); fitnessRepeatsLog.addRowCSV(String.valueOf(i));}
     }
@@ -127,7 +127,7 @@ public class SolveTSP { //this class is used for solving TSPs
 		return array_2D;
 	}
   
-  public static double generateTourCost(List<Integer> solution, double[] distances) throws IOException{
+  public static double generateTourCost(List<Integer> solution, double[] distances, int cities) throws IOException{
 	  //A method to generate the total cost of a TSP solution.
 	  //Takes in:
 	  //solution, an arrayList of integers representing the cities to visit in order
@@ -136,7 +136,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  double[][] TSP_2D = convert_1D_to_2D(distances);
 	  //print_2D(TSP_2D); //if we want to test the 2D representation
 	  //step 2 - calculate number of cities
-	 int cities = calculateCitiesAmount(distances);
+	 //int cities = calculateCitiesAmount(distances);
 	  //step 3 - loop through cities array and find total cost of travel. Include cost of returning to start
 	 double totalCost = 0.0;
 	 double cost;
@@ -274,7 +274,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	    newSolution.set(indexB, temp);
 	    boolean condition1 = false;
 	    boolean condition2 = false;
-	    double newCost = generateTourCost(newSolution, distances);
+	    double newCost = generateTourCost(newSolution, distances,numCities);
 	    if(newCost < cost) {condition1 = true;}
 	    condition2 = true;
 	    if(condition1 && condition2) { //update solution and cost
