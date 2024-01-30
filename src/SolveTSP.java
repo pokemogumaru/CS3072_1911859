@@ -275,9 +275,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	    boolean condition1 = false;
 	    boolean condition2 = false;
 	    double newCost = generateTourCost(newSolution, distances,numCities);
-	    if(newCost < cost) {condition1 = true;}
-	    condition2 = true;
-	    if(condition1 && condition2) { //update solution and cost
+	    if(newCost < cost) { //update solution and cost
 	      solution = (ArrayList<Integer>) newSolution.clone();
 	      cost = newCost;
 	    }
