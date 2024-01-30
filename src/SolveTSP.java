@@ -1,7 +1,5 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random; // used for swapping random values
 import java.time.LocalDateTime;
@@ -108,7 +106,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  if (UseFullLog) {FullLog_AddLineTXT("SolveTSP: generateInitialSolution(): Cities list: " + cities);} //used for testing method. Just keeping in full log
 	  return cities;
 	}
-
+  
   public static double[][] convert_1D_to_2D(double[] array_1D) throws IOException
 	{//returns a 2D version of a 1D TSP array
 		//System.out.println("convert_1D_to_2D: calculateCitiesAmount(array_1D) = " + calculateCitiesAmount(array_1D));//debug
