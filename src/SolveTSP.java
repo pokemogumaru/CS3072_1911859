@@ -88,22 +88,22 @@ public class SolveTSP { //this class is used for solving TSPs
 	  {//in most likely cases this should speedup rather than slow down
 	  case 3:
 		  return 3;
-	  case 4:
-		  return 6;
-	  case 5:
-		  return 10;
+	  case 6:
+		  return 4;
 	  case 10:
-		  return 45;
-	  case 11:
-		  return 55;
-	  case 12:
-		  return 66;
-	  case 13:
-		  return 78;
-	  case 14:
-		  return 91;
-	  case 15:
-		  return 105;
+		  return 5;
+	  case 45:
+		  return 10;
+	  case 55:
+		  return 11;
+	  case 66:
+		  return 12;
+	  case 78:
+		  return 13;
+	  case 91:
+		  return 14;
+	  case 105:
+		  return 15;
 	  }
 	  
 	double x = (1 + Math.sqrt(1 + 8*n) ) / 2; //calculate x
