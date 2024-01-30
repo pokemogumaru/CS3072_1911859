@@ -31,15 +31,17 @@ public class CS3072_1911859 {
 		//test_MST(10); //To test our MST of a TSP. Input is number of cities
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
-		
+		/*
 		int iterations = 10000;
 		int iterations100k = 100000;
+		double[] TSP3 = new_TSP(3);
 		double[] TSP10 = new_TSP(10);
 		double[] TSP11 = new_TSP(11); //11 city
 		double[] TSP12 = new_TSP(12); //12 city
 		double[] TSP13 = new_TSP(13); //13 city
 		double[] TSP14 = new_TSP(14); //14 city
 		double[] TSP15 = new_TSP(15); //15 city
+		
 		new MakeTSP(TSP10, true, iterations, 1, iterations); 
 		new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		iterations = 11000;
@@ -57,6 +59,9 @@ public class CS3072_1911859 {
 		iterations = 15000;
 		new MakeTSP(TSP10, true, iterations, 1, iterations); 
 		new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
+		*/
+		
+		testPrintSquare();
 		
         /*
 		double[][] array2D = convert_1D_to_2D(new_TSP());
@@ -161,13 +166,12 @@ returns a 1-D array of type double
 		  }
 	  }
 	
-	public static void print_2D_square(double[][] array2D)
+	public static void printSquareR(double[][] array2D)
 	{ // Similar to the print_2D method but different printing format
 		  System.out.println();
 		  for(int i = 0; i < array2D.length; i++) {
 		    for(int j = 0; j < array2D[i].length; j++) {
-		      System.out.print(array2D[i][j]); // Print value and position    
-		    System.out.print(" ");
+		      System.out.print(array2D[i][j]+ ", "); // Print value and position
 		  }
 		    System.out.println();
 		  }
@@ -241,10 +245,10 @@ returns a 1-D array of type double
 		double[] easy = {0.475649211613259, 0.6881440319720299, 0.19153825350184406, 0.44889946126174907, 0.6867317503052026, 0.8311307709247071, 0.8969775921500719, 0.24653056581939126, 0.48785612097576836, 0.7601998468109316, 0.08487435049837877, 0.8574758272044032, 0.7350181339083649, 0.30592414287126546, 0.6206566572221529, 0.2925497292822392, 0.6530117744458656, 0.7047521217234005, 0.5590050727960773, 0.07719903645200876, 0.35735423609158967, 0.09428531127091933, 0.3350702254681923, 0.09651865981641983, 0.27711646337680185, 0.19395238581271257, 0.8929092988757384, 0.45183245294744234, 0.363078275698108, 0.8085589395302673, 0.4919996082071373, 0.1305868855277228, 0.6654408030594076, 0.6720305001865299, 0.2650634751842085, 0.2746541865315578, 0.9757841333584442, 0.8326099597482396, 0.20355590314452277, 0.7377266114578032, 0.3979162225982308, 0.5176869593377945, 0.4138248244002356, 0.7759597537385036, 0.5667366112863903};
 		
 		System.out.println("hard:");
-		printSquare(convert_1D_to_2D(hard));
+		printSquareR(convert_1D_to_2D(hard));
 		System.out.println();
 		System.out.println("easy");
-		printSquare(convert_1D_to_2D(easy));
+		printSquareR(convert_1D_to_2D(easy));
 	}
 	
 	
