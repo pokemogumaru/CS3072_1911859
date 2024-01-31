@@ -31,38 +31,41 @@ public class CS3072_1911859 {
 		//test_MST(10); //To test our MST of a TSP. Input is number of cities
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
-		/*
+		
 		int iterations = 10000;
-		int iterations100k = 100000;
-		double[] TSP3 = new_TSP(3);
+		//int iterations100k = 100000;
+		//double[] TSP3 = new_TSP(3);
 		double[] TSP10 = new_TSP(10);
+		int repeats = 20;
+		/*
 		double[] TSP11 = new_TSP(11); //11 city
 		double[] TSP12 = new_TSP(12); //12 city
 		double[] TSP13 = new_TSP(13); //13 city
 		double[] TSP14 = new_TSP(14); //14 city
 		double[] TSP15 = new_TSP(15); //15 city
-		
-		new MakeTSP(TSP10, true, iterations, 1, iterations); 
-		
-		new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
-		iterations = 11000;
-		new MakeTSP(TSP10, true, iterations, 1, iterations); 
-		new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
-		iterations = 12000;
-		new MakeTSP(TSP10, true, iterations, 1, iterations); 
-		new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
-		iterations = 13000;
-		new MakeTSP(TSP10, true, iterations, 1, iterations); 
-		new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
-		iterations = 14000;
-		new MakeTSP(TSP10, true, iterations, 1, iterations); 
-		new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
-		iterations = 15000;
-		new MakeTSP(TSP10, true, iterations, 1, iterations); 
-		new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		*/
 		
-		testPrintR();
+		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
+		
+		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
+		iterations = 11000;
+		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
+		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
+		iterations = 12000;
+		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
+		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
+		iterations = 13000;
+		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
+		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
+		iterations = 14000;
+		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
+		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
+		iterations = 15000;
+		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
+		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
+		
+		
+		//testPrintR();
 		
         /*
 		double[][] array2D = convert_1D_to_2D(new_TSP());

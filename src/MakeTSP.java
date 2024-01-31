@@ -7,10 +7,11 @@ import java.util.Random;
 public class MakeTSP {
 //This class will be used to generate / modify TSPs to minimise / maximise their difficulty
 //should make small change to any non 0 value in the 1D tsp or both values in 2D version
+	private static double classFitness;
 	private static FileWriterUtil basicLog; private static boolean UsebasicLog = true;
 	private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
 	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
-	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = false;
+	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
 	public MakeTSP(double[] distances, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations) throws IOException
 	{
 		Timer timer = new Timer(); timer.start(); //make timer instance and start timing. Doing this before opening files.
@@ -27,6 +28,7 @@ public class MakeTSP {
 	    {
 			System.out.println("Doing repeat number " + i);
 			HillClimbMakeTSP(distances, DifficultTrueEasyFalse, iterations, SolveIterations);
+			if (UsefitnessRepeatsLog) {fitnessRepeatsLog.addColumnCSV(String.valueOf(classFitness)); fitnessRepeatsLog.addRowCSV(String.valueOf(i));}
 	    }
 		String finished_repeats = ("Finished doing (" + repeats + ") repeats");BasicLog_AddLineTXT(finished_repeats); FullLog_AddLineTXT(finished_repeats);
 		timer.stop();String result = timer.getTotal();
@@ -93,6 +95,7 @@ public class MakeTSP {
 		String end = ("final MST: " + MST_value + " final TSP cost: " + TSP_value + " final MST/TSP value: " + MSTdivTSP); BasicLog_AddLineTXT(end); FullLog_AddLineTXT(end);
 		String finalDistances = "final distance array after: " + Arrays.toString(distances); BasicLog_AddLineTXT(finalDistances); FullLog_AddLineTXT(finalDistances);
 		System.out.println(end);
+		classFitness = MSTdivTSP;
 	}
 	
 	public static double GetMST(double[] distances){return (MST_total(MST.PrimsMST(convert_1D_to_2D(distances))));}
