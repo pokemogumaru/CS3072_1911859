@@ -31,7 +31,7 @@ public class CS3072_1911859 {
 		//test_MST(10); //To test our MST of a TSP. Input is number of cities
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
-		
+		/*
 		int iterations = 10000;
 		int iterations100k = 100000;
 		double[] TSP3 = new_TSP(3);
@@ -43,7 +43,7 @@ public class CS3072_1911859 {
 		double[] TSP15 = new_TSP(15); //15 city
 		
 		new MakeTSP(TSP10, true, iterations, 1, iterations); 
-		/*
+		
 		new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		iterations = 11000;
 		new MakeTSP(TSP10, true, iterations, 1, iterations); 
@@ -62,7 +62,7 @@ public class CS3072_1911859 {
 		new MakeTSP(TSP10, false, iterations, 1, iterations); //trying the same thing but for easier TSPs
 		*/
 		
-		//testPrintR();
+		testPrintR();
 		
         /*
 		double[][] array2D = convert_1D_to_2D(new_TSP());
@@ -260,11 +260,19 @@ returns a 1-D array of type double
 	
 	public static void plotR(){System.out.println("plot(fit$points)");}
 	
+	public static void meanDistancesR(String name)
+	{
+		System.out.println("distances <- dist(" + name + ")");
+		System.out.println("avg_distance <- mean(as.matrix(distances))");
+		System.out.println("print(paste(\"Average Distance:\", round(avg_distance, 2)))");
+	}
+	
 	public static void printR(double[] arr, String name) throws IOException
 	{
 		System.out.println(name + ":");
 		printSquareR(convert_1D_to_2D(arr), name);
 		fitR(name);
+		meanDistancesR(name);
 		plotR();
 		System.out.println();
 	}
