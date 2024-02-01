@@ -7,7 +7,10 @@ import java.util.Random;
 public class MakeTSP {
 //This class will be used to generate / modify TSPs to minimise / maximise their difficulty
 //should make small change to any non 0 value in the 1D tsp or both values in 2D version
-	private static double classFitness;
+	private static double classFitness; //final fitness
+	private static double startFitness; //starting fitness, used by csv repeat logger
+	private static double iterationOfLastChange; //uses to track when the last change was made.
+	private static double totalChangesMade; //used by csv repeat logger
 	private static FileWriterUtil basicLog; private static boolean UsebasicLog = true;
 	private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
 	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
@@ -16,29 +19,23 @@ public class MakeTSP {
 	{
 		Timer timer = new Timer(); timer.start(); //make timer instance and start timing. Doing this before opening files.
 		//Open files:
-		String variables = " MakeTSP " + NumCities + " cities, " + DifficultTrueEasyFalse + " DifficultTrueEasyFalse, " + iterations + " inner, " + SolveIterations + " outer";
-		if (UsebasicLog) {basicLog = new FileWriterUtil(dateTime() + variables + " basicLog.txt", "txt"); basicLog.start();} //create basic log instance and start using the file
-		if (UseFullLog) {fullLog = new FileWriterUtil(dateTime() + variables + " fullLog.txt", "txt"); fullLog.start();} //create fullLog instance and start using the file
-		if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + variables+ " hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
-		if (UsefitnessRepeatsLog) {fitnessRepeatsLog = new FileWriterUtil(dateTime() + variables+ " fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start();}//used to track fitness at end of each iteration so we can see best fitness trend for repeats
+		openFiles(NumCities,DifficultTrueEasyFalse,iterations,SolveIterations);
 		//End of initialising log files
 		String start_values = "MakeTSP: starting with DifficultTrueEasyFalse = " + DifficultTrueEasyFalse + " Outer iterations = " + iterations + " Inner iterations = " + SolveIterations + " Number of cities = " + NumCities;
 		BasicLog_AddLineTXT(start_values); FullLog_AddLineTXT(start_values);
+		
 		for (int i = 1; i <= repeats; i++)
 	    {
 			System.out.println("Doing repeat number " + i);
 			double[] TSP10 = CS3072_1911859.new_TSP(10); //doing this each time so we get a new TSP each repeat
 			HillClimbMakeTSP(TSP10, DifficultTrueEasyFalse, iterations, SolveIterations);
-			if (UsefitnessRepeatsLog) {fitnessRepeatsLog.addColumnCSV(String.valueOf(classFitness)); fitnessRepeatsLog.addRowCSV(String.valueOf(i));}
+			if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
 	    }
 		String finished_repeats = ("Finished doing (" + repeats + ") repeats");BasicLog_AddLineTXT(finished_repeats); FullLog_AddLineTXT(finished_repeats);
 		timer.stop();String result = timer.getTotal();
 	    String result1 = ("The SolveTSP method took: " + result);BasicLog_AddLineTXT(result1); FullLog_AddLineTXT(result1); //add to text loggers, have to do this before closing files
 		//Close files:
-		if (UsebasicLog) {basicLog.close();} //stop using the file for basic log
-	    if (UseFullLog) {fullLog.close();} //stop using the file for log
-	    if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.close();} //stop using the file for log
-	    if (UsefitnessRepeatsLog) {fitnessRepeatsLog.close();} //stop using the file for log
+	    closeFiles();
 	}
 	
 	public static void HillClimbMakeTSP(double[] distances, boolean MaxOrMin, int iterations, int SolveIterations) throws IOException
@@ -49,6 +46,7 @@ public class MakeTSP {
 		double MSTdivTSP = MST_value / TSP_value; //3 calculate current value. Higher value means easy TSP to solve, lower end value means hard TSP so solve.Not rounding this to 1 dp as longer decimals can be expected here
 		String start = ("MakeTSP: HillClimbMakeTSP(): starting MST_value = " + MST_value + " starting TSP_value = " + TSP_value + " starting MSTdivTSP = " + MSTdivTSP);
 		BasicLog_AddLineTXT(start); FullLog_AddLineTXT(start);
+		startFitness = MSTdivTSP;
 		int changes = 0; //track how many changes we kept
 		for (int i = 1; i <= iterations; i++)
 	    {
@@ -78,11 +76,14 @@ public class MakeTSP {
 				if (UseFullLog || UsebasicLog) {String changesSoFar = ("changes made to TSP so far: " + changes); BasicLog_AddLineTXT(changesSoFar); FullLog_AddLineTXT(changesSoFar);}
 				if (UsehillClimberFitnessLogLog)
 				{//Doing this inside the if statement so we only record when there is a change made
-					HillClimberFitnessLog_addColumnCSV(String.valueOf(changes)); 
+					//HillClimberFitnessLog_addColumnCSV(String.valueOf(changes)); 
+					HillClimberFitnessLog_addRowCSV(String.valueOf(changes)); 
 				    HillClimberFitnessLog_addRowCSV(String.valueOf(MST_value));
 				    HillClimberFitnessLog_addRowCSV(String.valueOf(TSP_value));
-				    HillClimberFitnessLog_addRowCSV(String.valueOf(MSTdivTSP));
+				    //HillClimberFitnessLog_addRowCSV(String.valueOf(MSTdivTSP));
+				    HillClimberFitnessLog_addColumnCSV(String.valueOf(MSTdivTSP));
 				}
+				iterationOfLastChange = i; //update iterationOfLastChange
 			}
 			else {if (UseFullLog){String noChange = ("made no change");FullLog_AddLineTXT(noChange);String SoFar = ("changes made to TSP so far: " + changes); FullLog_AddLineTXT(SoFar);}}
 			
@@ -96,6 +97,7 @@ public class MakeTSP {
 		String end = ("final MST: " + MST_value + " final TSP cost: " + TSP_value + " final MST/TSP value: " + MSTdivTSP); BasicLog_AddLineTXT(end); FullLog_AddLineTXT(end);
 		String finalDistances = "final distance array after: " + Arrays.toString(distances); BasicLog_AddLineTXT(finalDistances); FullLog_AddLineTXT(finalDistances);
 		System.out.println(end);
+		totalChangesMade = changes;
 		classFitness = MSTdivTSP;
 	}
 	
@@ -201,6 +203,53 @@ public class MakeTSP {
 		  array[index] = newValue; // Mutate value at index
 		  return array; //return this
 		}
+	
+	private static void hillClimberFitnessStart() throws IOException
+	{
+		hillClimberFitnessLog.addRowCSV("number of changes");
+		hillClimberFitnessLog.addRowCSV("MST cost");
+		hillClimberFitnessLog.addRowCSV("TSP cost");
+		hillClimberFitnessLog.addRowCSV("fitness (MST/TSP)");
+		hillClimberFitnessLog.addColumnCSV(""); 
+	}
+	
+	private static void fitnessRepeatsStart() throws IOException
+	{
+		fitnessRepeatsLog.addRowCSV("repeat number");
+		fitnessRepeatsLog.addRowCSV("starting fitness");
+		fitnessRepeatsLog.addRowCSV("best fitness");
+		fitnessRepeatsLog.addRowCSV("iteration at last change");
+		fitnessRepeatsLog.addRowCSV("number of changes");
+		fitnessRepeatsLog.addColumnCSV(""); 
+	}
+	
+	private static void fitnessRepeatsLogger(int i) throws IOException
+	{
+		fitnessRepeatsLog.addRowCSV(String.valueOf(i));
+		fitnessRepeatsLog.addRowCSV(String.valueOf(startFitness)); 
+		fitnessRepeatsLog.addRowCSV(String.valueOf(classFitness)); 
+		fitnessRepeatsLog.addRowCSV(String.valueOf(iterationOfLastChange)); 
+		fitnessRepeatsLog.addColumnCSV(String.valueOf(totalChangesMade)); 
+	}
+	
+	private static void openFiles(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int SolveIterations) throws IOException
+	{
+		String variables = " MakeTSP " + NumCities + " cities, " + DifficultTrueEasyFalse + " DifficultTrueEasyFalse, " + iterations + " inner, " + SolveIterations + " outer";
+		if (UsebasicLog) {basicLog = new FileWriterUtil(dateTime() + variables + " basicLog.txt", "txt"); basicLog.start();} //create basic log instance and start using the file
+		if (UseFullLog) {fullLog = new FileWriterUtil(dateTime() + variables + " fullLog.txt", "txt"); fullLog.start();} //create fullLog instance and start using the file
+		if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + variables+ " hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
+		if (UsefitnessRepeatsLog) {fitnessRepeatsLog = new FileWriterUtil(dateTime() + variables+ " fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start();}//used to track fitness at end of each iteration so we can see best fitness trend for repeats
+		if (UsefitnessRepeatsLog) {fitnessRepeatsStart();}
+		if (UsehillClimberFitnessLogLog) {hillClimberFitnessStart();}
+	}
+	
+	private static void closeFiles() throws IOException
+	{
+		if (UsebasicLog) {basicLog.close();} //stop using the file for basic log
+	    if (UseFullLog) {fullLog.close();} //stop using the file for log
+	    if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.close();} //stop using the file for log
+	    if (UsefitnessRepeatsLog) {fitnessRepeatsLog.close();} //stop using the file for log
+	}
 	
 	public static double roundTo1dp(double num){long rounded = Math.round(num * 10); return (double)rounded / 10;}
 	// Multiply by 10 and round to long. Divide by 10 to get back to 1 dp

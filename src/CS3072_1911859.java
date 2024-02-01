@@ -35,7 +35,6 @@ public class CS3072_1911859 {
 		int NumCities = 10;
 		int repeats = 20;
 		
-		
 		new MakeTSP(NumCities, true, iterations, repeats, iterations); 
 		new MakeTSP(NumCities, false, iterations, repeats, iterations);
 		
