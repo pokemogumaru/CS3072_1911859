@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random; // used for swapping random values
 import java.time.LocalDateTime;
@@ -103,6 +104,8 @@ public class SolveTSP { //this class is used for solving TSPs
 	  //Knowing each city is visited once means we meet this acceptance criteria for this and all future solutions
 	  List<Integer> cities = new ArrayList<>();
 	  for(int i = 1; i <= numCities; i++) {cities.add(i);}//basic loop to give us a starting solution
+	  Collections.shuffle(cities); // Shuffle cities list 
+	  //for(Integer city : cities) {System.out.print(city + " "); } //debug
 	  if (UseFullLog) {FullLog_AddLineTXT("SolveTSP: generateInitialSolution(): Cities list: " + cities);} //used for testing method. Just keeping in full log
 	  return cities;
 	}
