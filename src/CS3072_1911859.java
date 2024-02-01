@@ -43,29 +43,37 @@ public class CS3072_1911859 {
 		double[] TSP13 = new_TSP(13); //13 city
 		double[] TSP14 = new_TSP(14); //14 city
 		double[] TSP15 = new_TSP(15); //15 city
-		*/
+		
 		
 		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
-		
+		double[] TSP10 = new_TSP(10);
 		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
+		double[] TSP10 = new_TSP(10);
 		iterations = 11000;
 		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
 		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
+		double[] TSP10 = new_TSP(10);
 		iterations = 12000;
 		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
 		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
+		double[] TSP10 = new_TSP(10);
 		iterations = 13000;
 		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
+		double[] TSP10 = new_TSP(10);
 		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
+		double[] TSP10 = new_TSP(10);
 		iterations = 14000;
 		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
+		double[] TSP10 = new_TSP(10);
 		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
+		double[] TSP10 = new_TSP(10);
 		iterations = 15000;
 		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
+		double[] TSP10 = new_TSP(10);
 		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
+		*/
 		
-		
-		//testPrintR();
+		testPrintR();
 		
         /*
 		double[][] array2D = convert_1D_to_2D(new_TSP());
