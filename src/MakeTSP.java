@@ -11,6 +11,7 @@ public class MakeTSP {
 	private static double startFitness; //starting fitness, used by csv repeat logger
 	private static double iterationOfLastChange; //uses to track when the last change was made.
 	private static double totalChangesMade; //used by csv repeat logger
+	private static double[] distances; //used by csv repeat logger to record distance matrix
 	private static FileWriterUtil basicLog; private static boolean UsebasicLog = true;
 	private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
 	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
@@ -23,10 +24,10 @@ public class MakeTSP {
 		//End of initialising log files
 		String start_values = "MakeTSP: starting with DifficultTrueEasyFalse = " + DifficultTrueEasyFalse + " Outer iterations = " + iterations + " Inner iterations = " + SolveIterations + " Number of cities = " + NumCities;
 		BasicLog_AddLineTXT(start_values); FullLog_AddLineTXT(start_values);
-		
 		for (int i = 1; i <= repeats; i++)
 	    {
-			System.out.println("Doing repeat number " + i);
+			String doing = ("Doing repeat number " + i); BasicLog_AddLineTXT(doing); FullLog_AddLineTXT(doing);
+			String searchable = ("Searchable: repeat" + i); BasicLog_AddLineTXT(searchable); FullLog_AddLineTXT(searchable);
 			double[] TSP10 = CS3072_1911859.new_TSP(10); //doing this each time so we get a new TSP each repeat
 			HillClimbMakeTSP(TSP10, DifficultTrueEasyFalse, iterations, SolveIterations);
 			if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
@@ -61,8 +62,8 @@ public class MakeTSP {
 			solver = new SolveTSP(distances, SolveIterations); //to run the hill climber to solve a TSP
 			double new_TSP_value = solver.return_solution();
 			double new_MSTdivTSP = new_MST_value / new_TSP_value;
-			if (UseFullLog || UsebasicLog) {String temp_str = ("temp MST: " + new_MST_value + " temp TSP cost: " + new_TSP_value + " temp MST/TSP value: " + new_MSTdivTSP);
-			BasicLog_AddLineTXT(temp_str); FullLog_AddLineTXT(temp_str);}
+			if (UsebasicLog) {String temp_str = ("temp MST: " + new_MST_value + " temp TSP cost: " + new_TSP_value + " temp MST/TSP value: " + new_MSTdivTSP);
+			FullLog_AddLineTXT(temp_str);}
 			//6 compare old and new value and make change if needed
 			if ( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) )
 			{//We want harder TSPs and we found a harder TSP OR we want easier TSPs and we found a easier TSP
@@ -70,17 +71,15 @@ public class MakeTSP {
 				TSP_value = new_TSP_value;
 				MST_value = new_MST_value;
 				MSTdivTSP = new_MSTdivTSP; //Update this variable to climb the hill
-				if (UseFullLog || UsebasicLog) {String madeChange = ("( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) ) is true, made a change");
-				BasicLog_AddLineTXT(madeChange); FullLog_AddLineTXT(madeChange);}
+				if (UseFullLog) {String madeChange = ("( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) ) is true, made a change");
+				 FullLog_AddLineTXT(madeChange);}
 				changes++;
-				if (UseFullLog || UsebasicLog) {String changesSoFar = ("changes made to TSP so far: " + changes); BasicLog_AddLineTXT(changesSoFar); FullLog_AddLineTXT(changesSoFar);}
+				if (UseFullLog) {String changesSoFar = ("changes made to TSP so far: " + changes); FullLog_AddLineTXT(changesSoFar);}
 				if (UsehillClimberFitnessLogLog)
 				{//Doing this inside the if statement so we only record when there is a change made
-					//HillClimberFitnessLog_addColumnCSV(String.valueOf(changes)); 
 					HillClimberFitnessLog_addRowCSV(String.valueOf(changes)); 
 				    HillClimberFitnessLog_addRowCSV(String.valueOf(MST_value));
 				    HillClimberFitnessLog_addRowCSV(String.valueOf(TSP_value));
-				    //HillClimberFitnessLog_addRowCSV(String.valueOf(MSTdivTSP));
 				    HillClimberFitnessLog_addColumnCSV(String.valueOf(MSTdivTSP));
 				}
 				iterationOfLastChange = i; //update iterationOfLastChange
@@ -97,7 +96,7 @@ public class MakeTSP {
 		String end = ("final MST: " + MST_value + " final TSP cost: " + TSP_value + " final MST/TSP value: " + MSTdivTSP); BasicLog_AddLineTXT(end); FullLog_AddLineTXT(end);
 		String finalDistances = "final distance array after: " + Arrays.toString(distances); BasicLog_AddLineTXT(finalDistances); FullLog_AddLineTXT(finalDistances);
 		System.out.println(end);
-		totalChangesMade = changes;
+		totalChangesMade = changes; finalDistances = Arrays.toString(distances); //used for loggers
 		classFitness = MSTdivTSP;
 	}
 	
@@ -219,6 +218,7 @@ public class MakeTSP {
 		fitnessRepeatsLog.addRowCSV("starting fitness");
 		fitnessRepeatsLog.addRowCSV("best fitness");
 		fitnessRepeatsLog.addRowCSV("iteration at last change");
+		fitnessRepeatsLog.addRowCSV("final TSP");
 		fitnessRepeatsLog.addRowCSV("number of changes");
 		fitnessRepeatsLog.addColumnCSV(""); 
 	}
@@ -229,6 +229,7 @@ public class MakeTSP {
 		fitnessRepeatsLog.addRowCSV(String.valueOf(startFitness)); 
 		fitnessRepeatsLog.addRowCSV(String.valueOf(classFitness)); 
 		fitnessRepeatsLog.addRowCSV(String.valueOf(iterationOfLastChange)); 
+		fitnessRepeatsLog.addRowCSV(String.valueOf(distances)); 
 		fitnessRepeatsLog.addColumnCSV(String.valueOf(totalChangesMade)); 
 	}
 	

@@ -273,8 +273,8 @@ public class SolveTSP { //this class is used for solving TSPs
 	    int temp = newSolution.get(indexA);
 	    newSolution.set(indexA, newSolution.get(indexB));
 	    newSolution.set(indexB, temp);
-	    boolean condition1 = false;
-	    boolean condition2 = false;
+	    //boolean condition1 = false;
+	    //boolean condition2 = false;
 	    double newCost = generateTourCost(newSolution, distances,numCities);
 	    if(newCost < cost) { //update solution and cost
 	      solution = (ArrayList<Integer>) newSolution.clone();
