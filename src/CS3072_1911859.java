@@ -29,43 +29,15 @@ public class CS3072_1911859 {
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
 		
-		int iterations = 10000;
+		int iterations = 1000;
 		//int iterations100k = 100000;
 		//double[] TSP3 = new_TSP(3);
-		double[] TSP10 = new_TSP(10);
+		int NumCities = 10;
 		int repeats = 20;
 		
 		
-		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
-		TSP10 = new_TSP(10);
-		/*
-		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
-		TSP10 = new_TSP(10);
-		iterations = 11000;
-		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
-		TSP10 = new_TSP(10);
-		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
-		TSP10 = new_TSP(10);
-		iterations = 12000;
-		new MakeTSP(TSP10, true, iterations, repeats, iterations);
-		TSP10 = new_TSP(10);
-		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
-		TSP10 = new_TSP(10);
-		iterations = 13000;
-		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
-		TSP10 = new_TSP(10);
-		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
-		TSP10 = new_TSP(10);
-		iterations = 14000;
-		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
-		TSP10 = new_TSP(10);
-		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
-		TSP10 = new_TSP(10);
-		iterations = 15000;
-		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
-		TSP10 = new_TSP(10);
-		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
-		*/
+		new MakeTSP(NumCities, true, iterations, repeats, iterations); 
+		new MakeTSP(NumCities, false, iterations, repeats, iterations);
 		
 		//testPrintR();
 		

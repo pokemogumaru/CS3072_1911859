@@ -12,22 +12,23 @@ public class MakeTSP {
 	private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
 	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
 	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
-	public MakeTSP(double[] distances, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations) throws IOException
+	public MakeTSP(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations) throws IOException
 	{
 		Timer timer = new Timer(); timer.start(); //make timer instance and start timing. Doing this before opening files.
 		//Open files:
-		String variables = " MakeTSP " + SolveTSP.calculateCitiesAmount(distances) + " cities, " + DifficultTrueEasyFalse + " DifficultTrueEasyFalse, " + iterations + " inner, " + SolveIterations + " outer";
+		String variables = " MakeTSP " + NumCities + " cities, " + DifficultTrueEasyFalse + " DifficultTrueEasyFalse, " + iterations + " inner, " + SolveIterations + " outer";
 		if (UsebasicLog) {basicLog = new FileWriterUtil(dateTime() + variables + " basicLog.txt", "txt"); basicLog.start();} //create basic log instance and start using the file
 		if (UseFullLog) {fullLog = new FileWriterUtil(dateTime() + variables + " fullLog.txt", "txt"); fullLog.start();} //create fullLog instance and start using the file
 		if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + variables+ " hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
 		if (UsefitnessRepeatsLog) {fitnessRepeatsLog = new FileWriterUtil(dateTime() + variables+ " fitnessRepeatsLog.csv", "csv"); fitnessRepeatsLog.start();}//used to track fitness at end of each iteration so we can see best fitness trend for repeats
 		//End of initialising log files
-		String start_values = "MakeTSP: starting with DifficultTrueEasyFalse = " + DifficultTrueEasyFalse + " Outer iterations = " + iterations + " Inner iterations = " + SolveIterations + " Number of cities = " + SolveTSP.calculateCitiesAmount(distances);
+		String start_values = "MakeTSP: starting with DifficultTrueEasyFalse = " + DifficultTrueEasyFalse + " Outer iterations = " + iterations + " Inner iterations = " + SolveIterations + " Number of cities = " + NumCities;
 		BasicLog_AddLineTXT(start_values); FullLog_AddLineTXT(start_values);
 		for (int i = 1; i <= repeats; i++)
 	    {
 			System.out.println("Doing repeat number " + i);
-			HillClimbMakeTSP(distances, DifficultTrueEasyFalse, iterations, SolveIterations);
+			double[] TSP10 = CS3072_1911859.new_TSP(10); //doing this each time so we get a new TSP each repeat
+			HillClimbMakeTSP(TSP10, DifficultTrueEasyFalse, iterations, SolveIterations);
 			if (UsefitnessRepeatsLog) {fitnessRepeatsLog.addColumnCSV(String.valueOf(classFitness)); fitnessRepeatsLog.addRowCSV(String.valueOf(i));}
 	    }
 		String finished_repeats = ("Finished doing (" + repeats + ") repeats");BasicLog_AddLineTXT(finished_repeats); FullLog_AddLineTXT(finished_repeats);
