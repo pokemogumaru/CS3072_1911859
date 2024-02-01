@@ -37,7 +37,7 @@ public class CS3072_1911859 {
 		//double[] TSP3 = new_TSP(3);
 		double[] TSP10 = new_TSP(10);
 		int repeats = 20;
-		/*
+		
 		double[] TSP11 = new_TSP(11); //11 city
 		double[] TSP12 = new_TSP(12); //12 city
 		double[] TSP13 = new_TSP(13); //13 city
@@ -46,32 +46,34 @@ public class CS3072_1911859 {
 		
 		
 		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
-		double[] TSP10 = new_TSP(10);
+		TSP10 = new_TSP(10);
 		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
-		double[] TSP10 = new_TSP(10);
+		TSP10 = new_TSP(10);
 		iterations = 11000;
 		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
+		TSP10 = new_TSP(10);
 		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
-		double[] TSP10 = new_TSP(10);
+		TSP10 = new_TSP(10);
 		iterations = 12000;
-		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
+		new MakeTSP(TSP10, true, iterations, repeats, iterations);
+		TSP10 = new_TSP(10);
 		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
-		double[] TSP10 = new_TSP(10);
+		TSP10 = new_TSP(10);
 		iterations = 13000;
 		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
-		double[] TSP10 = new_TSP(10);
+		TSP10 = new_TSP(10);
 		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
-		double[] TSP10 = new_TSP(10);
+		TSP10 = new_TSP(10);
 		iterations = 14000;
 		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
-		double[] TSP10 = new_TSP(10);
+		TSP10 = new_TSP(10);
 		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
-		double[] TSP10 = new_TSP(10);
+		TSP10 = new_TSP(10);
 		iterations = 15000;
 		new MakeTSP(TSP10, true, iterations, repeats, iterations); 
-		double[] TSP10 = new_TSP(10);
+		TSP10 = new_TSP(10);
 		new MakeTSP(TSP10, false, iterations, repeats, iterations); //trying the same thing but for easier TSPs
-		*/
+		
 		
 		testPrintR();
 		
