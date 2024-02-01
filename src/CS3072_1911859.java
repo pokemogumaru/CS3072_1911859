@@ -28,7 +28,7 @@ public class CS3072_1911859 {
 		//test_MST(10); //To test our MST of a TSP. Input is number of cities
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
-		
+		/*
 		int iterations = 1000;
 		//int iterations100k = 100000;
 		//double[] TSP3 = new_TSP(3);
@@ -37,8 +37,10 @@ public class CS3072_1911859 {
 		
 		new MakeTSP(NumCities, true, iterations, repeats, iterations); 
 		new MakeTSP(NumCities, false, iterations, repeats, iterations);
+		*/
+				
 		
-		//testPrintR();
+		testPrintR();
 		
         /*
 		double[][] array2D = convert_1D_to_2D(new_TSP());
@@ -242,7 +244,14 @@ returns a 1-D array of type double
 		System.out.println("avg_distance <- mean(as.matrix(distances))");
 		System.out.println("print(paste(\"Average Distance:\", round(avg_distance, 2)))");
 	}
-	
+	public static void savePlotR(String name)
+	{
+		System.out.println("filePath <- \"C:/Users/james/Documents/TSP_FYP_data/_Rplots\""); //Set file path and name
+		System.out.println("fileName <- \""+ name + ".png\"");
+		System.out.println("png(file.path(filePath, fileName))");
+		System.out.println("plot(fit$points)");
+		System.out.println("dev.off()");
+	}
 	public static void printR(double[] arr, String name) throws IOException
 	{
 		System.out.println(name + ":");
@@ -250,6 +259,7 @@ returns a 1-D array of type double
 		fitR(name);
 		meanDistancesR(name);
 		plotR();
+		savePlotR(name);
 		System.out.println();
 	}
 
