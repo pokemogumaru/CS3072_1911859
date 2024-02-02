@@ -28,7 +28,7 @@ public class CS3072_1911859 {
 		int iterations = 20000;
 		//int iterations100k = 100000;
 		//double[] TSP3 = new_TSP(3);
-		int NumCities = 10;
+		int NumCities = 11;
 		int repeats = 20;
 		
 		new MakeTSP(NumCities, true, iterations, repeats, iterations); 
@@ -43,7 +43,7 @@ public class CS3072_1911859 {
 		fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
 		outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
 		CallR(outerIndexInnerDistances, fitnessRepeats);
-		NumCities = 15;
+		NumCities = 13;
 		new MakeTSP(NumCities, true, iterations, repeats, iterations); 
 		distanceRepeats = MakeTSP.getDistances(); //change to 2D double
 		fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
