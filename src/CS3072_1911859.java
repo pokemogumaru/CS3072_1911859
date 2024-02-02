@@ -29,7 +29,7 @@ public class CS3072_1911859 {
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
 		
-		int iterations = 2000;
+		int iterations = 20000;
 		//int iterations100k = 100000;
 		//double[] TSP3 = new_TSP(3);
 		int NumCities = 10;
@@ -37,14 +37,25 @@ public class CS3072_1911859 {
 		
 		new MakeTSP(NumCities, true, iterations, repeats, iterations); 
 		String[] distanceRepeats = MakeTSP.getDistances(); //change to 2D double
-		double[] fitnessRepeats = MakeTSP.getClassFitness();
+		double[] fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
+		double[][] outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
+		CallR(outerIndexInnerDistances, fitnessRepeats);
 		//printR(distances,name) //add num cities and iterations to filename
 		
 		new MakeTSP(NumCities, false, iterations, repeats, iterations);
-		
+		distanceRepeats = MakeTSP.getDistances(); //change to 2D double
+		fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
+		outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
+		CallR(outerIndexInnerDistances, fitnessRepeats);
 		NumCities = 15;
 		new MakeTSP(NumCities, true, iterations, repeats, iterations); 
+		distanceRepeats = MakeTSP.getDistances(); //change to 2D double
+		fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
+		outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
 		new MakeTSP(NumCities, false, iterations, repeats, iterations);	
+		distanceRepeats = MakeTSP.getDistances(); //change to 2D double
+		fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
+		outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
 		
 		//testPrintR();
 		
@@ -270,5 +281,29 @@ returns a 1-D array of type double
 		System.out.println();
 	}
 
+	public static double[][] convertStringToDouble2D(String[] distanceRepeats)
+	{
+		// Parse each string to a double[]  
+		double[][] result = new double[distanceRepeats.length][];
+		for (int i = 0; i < distanceRepeats.length; i++) {
+		  String[] splits = distanceRepeats[i].substring(1, distanceRepeats[i].length()-1).split(", ");
+		  result[i] = new double[splits.length];
+		  for (int j = 0; j < splits.length; j++) {
+		    result[i][j] = Double.parseDouble(splits[j].trim()); 
+		  }
+		}
+		return result;
+	}
+	
+	public static void CallR (double[][] outerIndexInnerDistances,double[] fitnessRepeats) throws IOException
+	{
+		for(int i = 0; i < fitnessRepeats.length; i++) {
+			  // Extract inner array for current outer index
+			  double[] innerArray = outerIndexInnerDistances[i]; 
+			  // Call printR with inner array and corresponding string 
+			  printR(innerArray, "fitness " + Double.toString(fitnessRepeats[i]) ); 
+			}
+	}
+	
 	}
 
