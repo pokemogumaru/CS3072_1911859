@@ -6,15 +6,11 @@ import java.util.Random;
 
 public class CS3072_1911859 {
 	private static FileWriterUtil csvLogger;
+	private static FileWriterUtil RLog;private static boolean UseRLog = true;
 	private static FileWriterUtil txtLogger;
 	public static void main(String[] args) throws Exception {
 		//Start File Loggers:
-		/*
-        csvLogger = new FileWriterUtil(dateTime() + " TSP_2D_export.csv", "csv"); // Create CSV file logger 
-        csvLogger.start(); // Start writing to file  
-        txtLogger = new FileWriterUtil(dateTime() + " TSP_2D_export.txt", "txt");
-		txtLogger.start();
-        */
+		if (UseRLog) {RLog = new FileWriterUtil(dateTime() + " RLog.R", "txt"); RLog.start();} //create log instance and start using the file
 		
 		//to test new_TSP_1dp_ascending (old method):
 		//test_new_TSP();
@@ -29,7 +25,7 @@ public class CS3072_1911859 {
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
 		
-		int iterations = 20000;
+		int iterations = 200;
 		//int iterations100k = 100000;
 		//double[] TSP3 = new_TSP(3);
 		int NumCities = 10;
@@ -59,17 +55,8 @@ public class CS3072_1911859 {
 		
 		//testPrintR();
 		
-        /*
-		double[][] array2D = convert_1D_to_2D(new_TSP());
-		 // Generate CSV 
-        generate_CSV_from_2D(array2D);
-        //export TXT
-        export_TXT_from_2D(array2D);
-        
         // Close writer 
-        csvLogger.close();
-        txtLogger.close();
-        */
+		if (UseRLog) {RLog.close();} //stop using the file for basic log
 	}
 
 	public static void test_new_TSP_1dp_ascending(){test_printer(new_TSP_1dp_ascending());} //tests the initial TSP generator by counting values and showing each value
@@ -175,10 +162,27 @@ returns a 1-D array of type double
 		  }
 		    //System.out.print("),");
 		    System.out.println();
-		    
 		  }
 		  System.out.println("nrow = " + nrow + ", ncol = "+ nrow +")");//assuming it's square
 		  System.out.println("print(" + name + ")");
+	}
+	
+	public static void logSquareR(double[][] array2D, String name) throws IOException
+	{
+		RLog.addLineTXT("");
+		int nrow = array2D.length;
+		RLog.printTXT(name + " <- matrix(c(");
+		  for(int i = 0; i < nrow; i++) {
+			  //System.out.print("(");
+		    for(int j = 0; j < array2D[i].length; j++) {
+		    if ((i + 1 == nrow) && (j + 1 == nrow)) {RLog.printTXT(array2D[i][j]+ "),"); }// Print value and position for last element
+		    else {RLog.printTXT(array2D[i][j]+ ", "); }// Print value and position for not last element 
+		  }
+		    //System.out.print("),");
+		    RLog.addLineTXT("");
+		  }
+		  RLog.addLineTXT("nrow = " + nrow + ", ncol = "+ nrow +")");//assuming it's square
+		  RLog.addLineTXT("print(" + name + ")");
 	}
 	
 	public static void printSquare(double[][] array) {
@@ -253,27 +257,65 @@ returns a 1-D array of type double
 		printR(easy,"easy");
 	}
 	
-	public static void fitR(String name){System.out.println("fit = cmdscale(" + name + ",eig=TRUE, k=2)");}
+	public static void fitR(String name) throws IOException{
+		String var1 = ("fit = cmdscale(" + name + ",eig=TRUE, k=2)");
+		if (UseRLog){RLog.addLineTXT(var1);}
+		else{System.out.println(var1); }
+		}
 	
-	public static void plotR(){System.out.println("plot(fit$points)");}
+	public static void plotR() throws IOException{
+		String var1 = ("plot(fit$points)");
+		if (UseRLog){RLog.addLineTXT(var1);}
+		else{System.out.println(var1); }
+		}
 	
-	public static void meanDistancesR(String name)
+	public static void meanDistancesR(String name) throws IOException
 	{
-		System.out.println("distances <- dist(" + name + ")");
-		System.out.println("avg_distance <- mean(as.matrix(distances))");
-		System.out.println("print(paste(\"Average Distance:\", round(avg_distance, 2)))");
+		String var1 = ("distances <- dist(" + name + ")");
+		String var2 = ("avg_distance <- mean(as.matrix(distances))");
+		String var3 = ("print(paste(\"Average Distance:\", round(avg_distance, 2)))");
+		if (UseRLog)
+		{
+			RLog.addLineTXT(var1);
+			RLog.addLineTXT(var2);
+			RLog.addLineTXT(var3);
+		}
+		else
+		{
+			System.out.println(var1); 
+			System.out.println(var2);
+			System.out.println(var3);
+		}
 	}
-	public static void savePlotR(String name)
+	public static void savePlotR(String name) throws IOException
 	{
-		System.out.println("filePath <- \"C:/Users/james/Documents/TSP_FYP_data/_Rplots\""); //Set file path and name
-		System.out.println("fileName <- \""+ name + ".png\"");
-		System.out.println("png(file.path(filePath, fileName), width = 7280, height = 4320, res = 500)");
-		System.out.println("plot(fit$points)");
-		System.out.println("dev.off()");
+		String var1 = ("filePath <- \"C:/Users/james/Documents/TSP_FYP_data/_Rplots\"");//Set file path and name
+		String var2 = ("fileName <- \""+ name + ".png\"");
+		String var3 = ("png(file.path(filePath, fileName), width = 7280, height = 4320, res = 500)");
+		String var4 = ("plot(fit$points)");
+		String var5 = ("dev.off()");
+		if (UseRLog)
+		{
+			RLog.addLineTXT(var1);
+			RLog.addLineTXT(var2);
+			RLog.addLineTXT(var3);
+			RLog.addLineTXT(var4);
+			RLog.addLineTXT(var5);
+		}
+		else
+		{
+			System.out.println(var1); 
+			System.out.println(var2);
+			System.out.println(var3);
+			System.out.println(var4);
+			System.out.println(var5);
+		}
+		
 	}
 	public static void printR(double[] arr, String name) throws IOException
 	{
-		printSquareR(convert_1D_to_2D(arr), name);
+		if (UseRLog){logSquareR(convert_1D_to_2D(arr), name);}
+		else{printSquareR(convert_1D_to_2D(arr), name);}
 		fitR(name);
 		meanDistancesR(name);
 		plotR();
@@ -301,7 +343,7 @@ returns a 1-D array of type double
 			  // Extract inner array for current outer index
 			  double[] innerArray = outerIndexInnerDistances[i]; 
 			  // Call printR with inner array and corresponding string 
-			  printR(innerArray, "fitness " + Double.toString(fitnessRepeats[i]) ); 
+			  printR(innerArray, "fitness_" + Double.toString(fitnessRepeats[i]) ); 
 			}
 	}
 	
