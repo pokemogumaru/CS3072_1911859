@@ -11,13 +11,17 @@ public class MakeTSP {
 	private static double startFitness; //starting fitness, used by csv repeat logger
 	private static double iterationOfLastChange; //uses to track when the last change was made.
 	private static double totalChangesMade; //used by csv repeat logger
-	private static double[] distances; //used by csv repeat logger to record distance matrix
+	private static String[] classDistancesRepeats; //for other classes to use
+	private static double[] classFitnessRepeats; //for other classes to use
+	private static double[] classDistances; //so MakeTSP can get the distance matrix from the HC
 	private static FileWriterUtil basicLog; private static boolean UsebasicLog = true;
-	private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
+	private static FileWriterUtil fullLog; private static boolean UseFullLog = false;
 	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
 	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
 	public MakeTSP(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations) throws IOException
 	{
+		String[] distanceRepeats = new String[repeats];
+		double[] fitnessRepeats = new double[repeats];
 		Timer timer = new Timer(); timer.start(); //make timer instance and start timing. Doing this before opening files.
 		//Open files:
 		openFiles(NumCities,DifficultTrueEasyFalse,iterations,SolveIterations);
@@ -31,7 +35,12 @@ public class MakeTSP {
 			double[] TSP10 = CS3072_1911859.new_TSP(10); //doing this each time so we get a new TSP each repeat
 			HillClimbMakeTSP(TSP10, DifficultTrueEasyFalse, iterations, SolveIterations);
 			if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
+			fitnessRepeats[i-1] = classFitness;
+			distanceRepeats[i-1] = Arrays.toString(classDistances);
+			
 	    }
+		classDistancesRepeats = distanceRepeats;
+		classFitnessRepeats = fitnessRepeats;
 		String finished_repeats = ("Finished doing (" + repeats + ") repeats");BasicLog_AddLineTXT(finished_repeats); FullLog_AddLineTXT(finished_repeats);
 		timer.stop();String result = timer.getTotal();
 	    String result1 = ("The SolveTSP method took: " + result);BasicLog_AddLineTXT(result1); FullLog_AddLineTXT(result1); //add to text loggers, have to do this before closing files
@@ -95,9 +104,10 @@ public class MakeTSP {
 		String totalChanges = ("total changes made to TSP: " + changes); BasicLog_AddLineTXT(totalChanges); FullLog_AddLineTXT(totalChanges);
 		String end = ("final MST: " + MST_value + " final TSP cost: " + TSP_value + " final MST/TSP value: " + MSTdivTSP); BasicLog_AddLineTXT(end); FullLog_AddLineTXT(end);
 		String finalDistances = "final distance array after: " + Arrays.toString(distances); BasicLog_AddLineTXT(finalDistances); FullLog_AddLineTXT(finalDistances);
-		System.out.println(end);
+		//System.out.println(end);
 		totalChangesMade = changes; finalDistances = Arrays.toString(distances); //used for loggers
 		classFitness = MSTdivTSP;
+		classDistances = distances;
 	}
 	
 	public static double GetMST(double[] distances){return (MST_total(MST.PrimsMST(convert_1D_to_2D(distances))));}
@@ -218,7 +228,6 @@ public class MakeTSP {
 		fitnessRepeatsLog.addRowCSV("starting fitness");
 		fitnessRepeatsLog.addRowCSV("best fitness");
 		fitnessRepeatsLog.addRowCSV("iteration at last change");
-		fitnessRepeatsLog.addRowCSV("final TSP");
 		fitnessRepeatsLog.addRowCSV("number of changes");
 		fitnessRepeatsLog.addColumnCSV(""); 
 	}
@@ -228,8 +237,7 @@ public class MakeTSP {
 		fitnessRepeatsLog.addRowCSV(String.valueOf(i));
 		fitnessRepeatsLog.addRowCSV(String.valueOf(startFitness)); 
 		fitnessRepeatsLog.addRowCSV(String.valueOf(classFitness)); 
-		fitnessRepeatsLog.addRowCSV(String.valueOf(iterationOfLastChange)); 
-		fitnessRepeatsLog.addRowCSV(String.valueOf(distances)); 
+		fitnessRepeatsLog.addRowCSV(String.valueOf(iterationOfLastChange));  
 		fitnessRepeatsLog.addColumnCSV(String.valueOf(totalChangesMade)); 
 	}
 	
@@ -251,6 +259,10 @@ public class MakeTSP {
 	    if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.close();} //stop using the file for log
 	    if (UsefitnessRepeatsLog) {fitnessRepeatsLog.close();} //stop using the file for log
 	}
+	
+	public static String[] getDistances(){return classDistancesRepeats;}//will be used by other class to get final distances
+	
+	public static double[] getClassFitness(){return classFitnessRepeats;} //returns classFitness
 	
 	public static double roundTo1dp(double num){long rounded = Math.round(num * 10); return (double)rounded / 10;}
 	// Multiply by 10 and round to long. Divide by 10 to get back to 1 dp
