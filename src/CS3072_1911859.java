@@ -38,7 +38,7 @@ public class CS3072_1911859 {
 		new MakeTSP(NumCities, true, iterations, repeats, iterations); 
 		String[] distanceRepeats = MakeTSP.getDistances(); //change to 2D double
 		double[] fitnessRepeats = MakeTSP.getClassFitness();
-		//printR(distances,name)
+		//printR(distances,name) //add num cities and iterations to filename
 		
 		new MakeTSP(NumCities, false, iterations, repeats, iterations);
 		
