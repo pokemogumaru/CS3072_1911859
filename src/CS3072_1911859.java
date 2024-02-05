@@ -25,10 +25,10 @@ public class CS3072_1911859 {
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
 		
-		int iterations = 20000;
+		int iterations = 200;
 		//int iterations100k = 100000;
 		//double[] TSP3 = new_TSP(3);
-		int NumCities = 11;
+		int NumCities = 10;
 		int repeats = 20;
 		
 		new MakeTSP(NumCities, true, iterations, repeats, iterations); 
