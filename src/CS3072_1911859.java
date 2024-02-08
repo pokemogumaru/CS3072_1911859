@@ -322,10 +322,10 @@ returns a 1-D array of type double
 	
 	public static void CallR (double[][] outerIndexInnerDistances,double[] fitnessRepeats, int numCities) throws IOException
 	{
-		System.out.println("CallR: numCities = " + numCities); //debug
-		System.out.println("CallR: fitnessRepeats.length = " + fitnessRepeats.length); //debug
+		//System.out.println("CallR: numCities = " + numCities); //debug
+		//System.out.println("CallR: fitnessRepeats.length = " + fitnessRepeats.length); //debug
 		for(int i = 0; i < fitnessRepeats.length; i++) {
-			  System.out.println("CS3072_1911859: CallR(): i = " + i); //debug
+			  //System.out.println("CS3072_1911859: CallR(): i = " + i); //debug
 			  double[] innerArray = outerIndexInnerDistances[i]; // Extract inner array for current outer index
 			  // Call printR with inner array and corresponding string 
 			  printR(innerArray, "numCities" + numCities + "fitness" + Double.toString(fitnessRepeats[i]) ); 
