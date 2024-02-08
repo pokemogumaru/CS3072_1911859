@@ -344,7 +344,7 @@ returns a 1-D array of type double
 			  // Extract inner array for current outer index
 			  double[] innerArray = outerIndexInnerDistances[i]; 
 			  // Call printR with inner array and corresponding string 
-			  printR(innerArray, "numCities-" + numCities + "-fitness-" + Double.toString(fitnessRepeats[i]) ); 
+			  printR(innerArray, "numCities" + numCities + "fitness" + Double.toString(fitnessRepeats[i]) ); 
 			}
 	}
 	
