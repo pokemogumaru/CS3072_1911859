@@ -130,6 +130,41 @@ public class SolveTSP { //this class is used for solving TSPs
 	}
   
   public static double generateTourCost(List<Integer> solution, double[] distances, int cities) throws IOException{
+	  //Making 2 sub methods to avoid having to keep doing full logging stuff we doing need to
+	  if (UseFullLog) {return generateTourCostWithFullLog(solution, distances, cities);}
+	  return generateTourCostWithFullLog(solution, distances, cities);//handle other case
+  }
+  
+  public static double generateTourCostWithoutFullLog(List<Integer> solution, double[] distances, int cities) throws IOException{
+	  //same as generateTourCostWithFullLog but no full log to speed up program
+	  double[][] TSP_2D = convert_1D_to_2D(distances);
+	 double totalCost = 0.0; double cost;
+	 for(int i = 0; i < cities -1 ; i++) {
+	   int from = solution.get(i) - 1;
+	   //System.out.println("solution.get(i) - 1 = " + (solution.get(i) -1));
+	   int to = solution.get(i+1) -1;
+	   //System.out.println("solution.get(i+1) - 1 = " + (solution.get(i+1) -1));
+	   cost = TSP_2D[from][to];
+	   if(cost == 0.0) {
+	     String warning0 = ("generateTourCost: warning, 0 value found! i = " + i); //should never happen
+	     System.out.println(warning0);
+	     BasicLog_AddLineTXT(warning0);
+	   }
+	   totalCost += cost;
+	   //System.out.println("total cost before returning to start = " + totalCost);
+	 }
+	 // Return to start city 
+	 //System.out.println("returning to start"); //debug only
+	 int start = solution.get(0);
+	 int end = solution.get(cities-1);
+	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
+	 //System.out.println(startString);
+	 totalCost += cost; //this will be final cost for this solution
+	 if (UsebasicLog) {BasicLog_AddLineTXT(("total cost after returning to start = " + totalCost));}
+	 return totalCost; // for example 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 the cost 5.0 is correct!
+  }
+  
+  public static double generateTourCostWithFullLog(List<Integer> solution, double[] distances, int cities) throws IOException{
 	  //A method to generate the total cost of a TSP solution.
 	  //Takes in:
 	  //solution, an arrayList of integers representing the cities to visit in order
@@ -148,7 +183,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	   int to = solution.get(i+1) -1;
 	   //System.out.println("solution.get(i+1) - 1 = " + (solution.get(i+1) -1));
 	   cost = TSP_2D[from][to];
-	   if (UseFullLog) {String fromCityToCityCost = ("from city = " + (from+1) + " to city = " + (to+1)+ " cost " + (i+1) + " = " + cost);FullLog_AddLineTXT(fromCityToCityCost);}
+	   String fromCityToCityCost = ("from city = " + (from+1) + " to city = " + (to+1)+ " cost " + (i+1) + " = " + cost);FullLog_AddLineTXT(fromCityToCityCost);
 	   if(cost == 0.0) {
 	     String warning0 = ("generateTourCost: warning, 0 value found! i = " + i); //should never happen
 	     System.out.println(warning0);
@@ -158,12 +193,12 @@ public class SolveTSP { //this class is used for solving TSPs
 	   //System.out.println("total cost before returning to start = " + totalCost);
 	 }
 	 // Return to start city 
-	 if (UseFullLog) {String returning = "returning to start"; FullLog_AddLineTXT(returning);} //useful for full log
+	 String returning = "returning to start"; FullLog_AddLineTXT(returning); //useful for full log
 	 //System.out.println(returning); //debug only
 	 int start = solution.get(0);
 	 int end = solution.get(cities-1);
 	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
-	 if (UseFullLog) {String startEndCostString = ("start = " + start + " , end = " + end + " , cost = " + cost); FullLog_AddLineTXT(startEndCostString);}
+	 String startEndCostString = ("start = " + start + " , end = " + end + " , cost = " + cost); FullLog_AddLineTXT(startEndCostString);
 	 //System.out.println(startString);
 	 totalCost += cost; //this will be final cost for this solution
 	 if (UseFullLog || UsebasicLog) {String totalCostString = ("total cost after returning to start = " + totalCost);BasicLog_AddLineTXT(totalCostString); FullLog_AddLineTXT(totalCostString);}
