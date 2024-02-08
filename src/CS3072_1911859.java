@@ -25,7 +25,7 @@ public class CS3072_1911859 {
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
 		
-		int iterations = 10000;
+		int iterations = 100;
 		//int iterations100k = 100000;
 		//double[] TSP3 = new_TSP(3);
 		int NumCities = 10;
@@ -36,7 +36,7 @@ public class CS3072_1911859 {
 		double[] fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
 		double[][] outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
 		CallR(outerIndexInnerDistances, fitnessRepeats);
-		//printR(distances,name) //add num cities and iterations to filename
+		//printR(distances,name) //add number of cities and iterations to filename
 		
 		new MakeTSP(NumCities, false, iterations, repeats, iterations);
 		distanceRepeats = MakeTSP.getDistances(); //change to 2D double
