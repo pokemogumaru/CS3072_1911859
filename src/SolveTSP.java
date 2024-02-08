@@ -130,14 +130,15 @@ public class SolveTSP { //this class is used for solving TSPs
 	}
   
   public static double generateTourCost(List<Integer> solution, double[] distances, int cities) throws IOException{
+	  //step 1 - make 2D representation of the TSP distances. 1D distances > 2D distances
+	  double[][] TSP_2D = convert_1D_to_2D(distances);
 	  //Making 2 sub methods to avoid having to keep doing full logging stuff we doing need to
-	  if (UseFullLog) {return generateTourCostWithFullLog(solution, distances, cities);}
-	  return generateTourCostWithFullLog(solution, distances, cities);//handle other case
+	  if (UseFullLog) {return generateTourCostWithFullLog(solution, distances, cities, TSP_2D);}
+	  return generateTourCostWithFullLog(solution, distances, cities, TSP_2D);//handle other case
   }
   
-  public static double generateTourCostWithoutFullLog(List<Integer> solution, double[] distances, int cities) throws IOException{
+  public static double generateTourCostWithoutFullLog(List<Integer> solution, double[] distances, int cities, double[][] TSP_2D) throws IOException{
 	  //same as generateTourCostWithFullLog but no full log to speed up program
-	  double[][] TSP_2D = convert_1D_to_2D(distances);
 	 double totalCost = 0.0; double cost;
 	 for(int i = 0; i < cities -1 ; i++) {
 	   int from = solution.get(i) - 1;
@@ -158,19 +159,17 @@ public class SolveTSP { //this class is used for solving TSPs
 	 int start = solution.get(0);
 	 int end = solution.get(cities-1);
 	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
-	 //System.out.println(startString);
+	 //System.out.println(startEndCostString);
 	 totalCost += cost; //this will be final cost for this solution
 	 if (UsebasicLog) {BasicLog_AddLineTXT(("total cost after returning to start = " + totalCost));}
 	 return totalCost; // for example 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 the cost 5.0 is correct!
   }
   
-  public static double generateTourCostWithFullLog(List<Integer> solution, double[] distances, int cities) throws IOException{
+  public static double generateTourCostWithFullLog(List<Integer> solution, double[] distances, int cities, double[][] TSP_2D) throws IOException{
 	  //A method to generate the total cost of a TSP solution.
 	  //Takes in:
 	  //solution, an arrayList of integers representing the cities to visit in order
 	  //distances, the 1D array of distance values (the TSP we are trying to solve)
-	  //step 1 - make 2D representation of the TSP distances. 1D distances > 2D distances
-	  double[][] TSP_2D = convert_1D_to_2D(distances);
 	  //print_2D(TSP_2D); //if we want to test the 2D representation
 	  //step 2 - calculate number of cities - skipping this as we now take this parameter in
 	 //int cities = calculateCitiesAmount(distances);
@@ -199,7 +198,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	 int end = solution.get(cities-1);
 	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
 	 String startEndCostString = ("start = " + start + " , end = " + end + " , cost = " + cost); FullLog_AddLineTXT(startEndCostString);
-	 //System.out.println(startString);
+	 //System.out.println(startEndCostString);
 	 totalCost += cost; //this will be final cost for this solution
 	 String totalCostString = ("total cost after returning to start = " + totalCost);BasicLog_AddLineTXT(totalCostString); FullLog_AddLineTXT(totalCostString);
 	//System.out.println(totalCostString);
