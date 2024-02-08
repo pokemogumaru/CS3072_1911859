@@ -40,7 +40,6 @@ public class SolveTSP { //this class is used for solving TSPs
     {
     	//System.out.println("loop start"); //used for debug
     	hcSolution = hillClimberSolver(numCities, initialSolution, iterations, distances);
-        //hasZeroValue(initialSolution,distances);
         //System.out.println("Best tour after hill climber:");
         //tourPrinter(hcSolution);
         generateTourCost = generateTourCost(hcSolution, distances, numCities);
@@ -232,56 +231,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	  solution[1] = y;
 	  return solution;
 	}
-  
-  public static boolean hasZeroValue(List<Integer> solution, double[] distances) throws IOException{
-	  //We shouldn't need this given every city is connected to every other city in TSP.
-	  //A method to check if there are 0 values, similar structure to generateTourCost.
-	  //Takes in:
-	  //solution, an arrayList of integers representing the cities to visit in order
-	  //distances, the 1D array of distance values (the TSP we are trying to solve)
-	  //step 1 - make 2D representation of the TSP distances. 1D distances > 2D distances
-	  double[][] TSP_2D = convert_1D_to_2D(distances);
-	  //print_2D(TSP_2D); //if we want to test the 2D representation
-	  //step 2 - calculate number of cities
-	 int cities = calculateCitiesAmount(distances);
-	  //step 3 - loop through cities array and find total cost of travel. Include cost of returning to start
-	 //double totalCost = 0.0;
-	 double cost;
-	 for(int i = 0; i < cities -1 ; i++) {
-	   int from = solution.get(i) -1;
-	   //System.out.println("from = " + (from+1));
-	   int to = from + 1;
-	   //System.out.println("to = " + (to+1));
-	   cost = TSP_2D[from][to];
-	   //System.out.println("cost " + (i+1) + " = " + cost);
-	   if(cost == 0.0) {
-		 System.out.println("hasZeroValue: i = " + i + ". from = " + from + ". to = " + to + ". cost = " + cost);
-	     System.out.println("hasZeroValue has found a zero value, returning true.");
-	     return true; //at this point we know there is at least one 0.0 value
-	   }
-	   //totalCost += cost;
-	   //System.out.println("total cost = " + totalCost);
-	 }
-	 // Return to start city 
-	 //System.out.println("returning to start");
-	 int start = solution.get(0);
-	 //System.out.println("start = " + start);
-	 int end = solution.get(cities-1);
-	 //System.out.println("end = " + end);
-	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
-	 if (cost == 0.0)
-	 {
-		 System.out.println("hasZeroValue has found a zero value, returning true. Found when returning to start");
-	     return true; //at this point we know there is at least one 0.0 value
-	 }
-	 //System.out.println("cost = " + cost);
-	 //totalCost += cost; //this will be final cost for this solution
-	 //System.out.println("total cost = " + totalCost);
-	//step 4 - return  total cost
-	 String noZeroValues = "hasZeroValue has found NO zero values, returning false" ; BasicLog_AddLineTXT(noZeroValues); FullLog_AddLineTXT(noZeroValues);
-	 System.out.println(noZeroValues);
-	 return false; // if we make it here then no zero values
-  }
   
   public static List<Integer> hillClimberSolver(int numCities, List<Integer> initialSolution, int iterations, double[] distances) throws IOException {
 	  //A method to solve TSPs using a basic hill climber
