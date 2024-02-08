@@ -48,10 +48,12 @@ public class CS3072_1911859 {
 		distanceRepeats = MakeTSP.getDistances(); //change to 2D double
 		fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
 		outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
+		CallR(outerIndexInnerDistances, fitnessRepeats);
 		new MakeTSP(NumCities, false, iterations, repeats, iterations);	
 		distanceRepeats = MakeTSP.getDistances(); //change to 2D double
 		fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
 		outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
+		CallR(outerIndexInnerDistances, fitnessRepeats);
 		
 		//testPrintR();
 		
@@ -339,7 +341,8 @@ returns a 1-D array of type double
 	
 	public static void CallR (double[][] outerIndexInnerDistances,double[] fitnessRepeats) throws IOException
 	{
-		int numCities = fitnessRepeats.length;
+		int numCities = outerIndexInnerDistances.length;
+		System.out.println("CallR: numCities = " + numCities); //debug
 		for(int i = 0; i < numCities; i++) {
 			  // Extract inner array for current outer index
 			  double[] innerArray = outerIndexInnerDistances[i]; 
