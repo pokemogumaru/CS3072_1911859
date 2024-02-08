@@ -128,7 +128,7 @@ public class MakeTSP {
 	public static double MST_total(double[][] graph){ return (total_2D(graph) / 2.0);} //A method that returns the sum of weights in a 2D double graph. 
 	
 	public static double[][] convert_1D_to_2D(double[] array_1D)
-	{//borrowed from CS3072_1911859 class
+	{
 		  int n = array_1D.length; // Get size of 1D array
 		  //System.out.println("convert_1D_to_2D(): n = " + n); //debug
 		  if (n < 1)
