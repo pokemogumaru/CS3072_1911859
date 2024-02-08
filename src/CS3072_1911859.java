@@ -28,14 +28,14 @@ public class CS3072_1911859 {
 		int iterations = 100;
 		//int iterations100k = 100000;
 		//double[] TSP3 = new_TSP(3);
-		int NumCities = 10;
+		int NumCities = 30;
 		int repeats = 20;
 		
 		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations);
-		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations);
-		NumCities = 100;
-		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations); 
-		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations);	
+		//MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations);
+		//NumCities = 100;
+		//MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations); 
+		//MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations);	
 		
 		//testPrintR();
 		
@@ -52,6 +52,7 @@ public class CS3072_1911859 {
 		  double[] arr = new double[( ((cities * cities) - cities) / 2 )];
 		  Random rand = new Random();
 		  for(int i = 0; i < arr.length; i++) {arr[i] = rand.nextDouble(); }
+		  //System.out.println("CS3072_1911859: new_TSP(): cities = " + cities + " arr.length = " + arr.length); //debug
 		  return arr;
 	}
 	
@@ -304,7 +305,7 @@ returns a 1-D array of type double
 		meanDistancesR(name);
 		plotR();
 		savePlotR(name);
-		System.out.println();
+		//System.out.println();
 	}
 
 	public static double[][] convertStringToDouble2D(String[] distanceRepeats)
@@ -321,25 +322,25 @@ returns a 1-D array of type double
 		return result;
 	}
 	
-	public static void CallR (double[][] outerIndexInnerDistances,double[] fitnessRepeats) throws IOException
+	public static void CallR (double[][] outerIndexInnerDistances,double[] fitnessRepeats, int numCities) throws IOException
 	{
-		int numCities = outerIndexInnerDistances.length;
 		System.out.println("CallR: numCities = " + numCities); //debug
-		for(int i = 0; i < numCities; i++) {
-			  // Extract inner array for current outer index
-			  double[] innerArray = outerIndexInnerDistances[i]; 
+		System.out.println("CallR: fitnessRepeats.length = " + fitnessRepeats.length); //debug
+		for(int i = 0; i < fitnessRepeats.length; i++) {
+			  System.out.println("CS3072_1911859: CallR(): i = " + i); //debug
+			  double[] innerArray = outerIndexInnerDistances[i]; // Extract inner array for current outer index
 			  // Call printR with inner array and corresponding string 
 			  printR(innerArray, "numCities" + numCities + "fitness" + Double.toString(fitnessRepeats[i]) ); 
 			}
 	}
 	
-	private static void MakeTSPsAndPlotWithR(int NumCities,boolean DifficultTrueEasyFalse, int repeats, int innerIterations, int outerIterations) throws IOException
+	private static void MakeTSPsAndPlotWithR(int NumCities,boolean DifficultTrueEasyFalse, int innerIterations, int repeats, int outerIterations) throws IOException
 	{
 		new MakeTSP(NumCities, true, innerIterations, repeats, outerIterations); 
 		String[] distanceRepeats = MakeTSP.getDistances(); //change to 2D double
 		double[] fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
 		double[][] outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
-		CallR(outerIndexInnerDistances, fitnessRepeats);
+		CallR(outerIndexInnerDistances, fitnessRepeats, NumCities);
 	}
 	
 	}
