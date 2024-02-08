@@ -20,7 +20,7 @@ public class MakeTSP {
 	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
 	public MakeTSP(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations) throws IOException
 	{
-		System.out.println("MakeTSP: NumCities = " + NumCities); //debug
+		//System.out.println("MakeTSP: NumCities = " + NumCities); //debug
 		String[] distanceRepeats = new String[repeats];
 		double[] fitnessRepeats = new double[repeats];
 		Timer timer = new Timer(); timer.start(); //make timer instance and start timing. Doing this before opening files.
