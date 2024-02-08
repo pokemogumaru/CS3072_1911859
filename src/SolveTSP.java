@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random; // used for swapping random values
@@ -53,7 +54,7 @@ public class SolveTSP { //this class is used for solving TSPs
     /*
     System.out.println("debug, cost of 10 -> 9 -> 7 -> 5 -> 6 -> 2 -> 4 -> 1 -> 3 -> 8 -> 10:");
     ArrayList<Integer> shouldBe2point4 = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 6, 7, 8, 9, 2, 10));
-    System.out.println(generateTourCost(shouldBe2point4,distances));
+    System.out.println(generateTourCost(shouldBe2point4,CS3072_1911859.new_TSP_1dp_ascending(),10));
     */
     
     timer.stop();String result = timer.getTotal();
@@ -136,7 +137,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  return generateTourCostWithFullLog(solution, distances, cities, TSP_2D);//handle other case
   }
   
-  public static double generateTourCostWithoutFullLog1(List<Integer> solution, double[] distances, int cities, double[][] TSP_2D) {
+  public static double generateTourCostWithoutFullLog(List<Integer> solution, double[] distances, int cities, double[][] TSP_2D) throws IOException {
 	  	//version that avoids unnecessary array lookups and method calls
 	    double totalCost = 0;
 	    int[] offsets = new int[cities]; // Offset indices once instead of calling solution.get()
@@ -154,10 +155,11 @@ public class SolveTSP { //this class is used for solving TSPs
 	    int end = offsets[cities-1];
 	    double cost = TSP_2D[end][start];
 	    totalCost += cost;
+		String totalCostString = ("total cost after returning to start = " + totalCost);BasicLog_AddLineTXT(totalCostString);
 	    return totalCost;
 	}
   
-  public static double generateTourCostWithoutFullLog(List<Integer> solution, double[] distances, int cities, double[][] TSP_2D) throws IOException{
+  public static double generateTourCostWithoutFullLog1(List<Integer> solution, double[] distances, int cities, double[][] TSP_2D) throws IOException{
 	  //same as generateTourCostWithFullLog but no full log to speed up program
 	 double totalCost = 0.0; double cost;
 	 for(int i = 0; i < cities -1 ; i++) {
@@ -180,7 +182,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	 int end = solution.get(cities-1);
 	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
 	 totalCost += cost; //this will be final cost for this solution
-	 if (UsebasicLog) {BasicLog_AddLineTXT(("total cost after returning to start = " + totalCost));}
+	 String totalCostString = ("total cost after returning to start = " + totalCost);BasicLog_AddLineTXT(totalCostString);
 	 return totalCost; // for example 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 the cost 5.0 is correct!
   }
   
