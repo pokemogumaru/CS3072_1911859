@@ -28,8 +28,8 @@ public class CS3072_1911859 {
 		int iterations = 10000;
 		//int iterations100k = 100000;
 		//double[] TSP3 = new_TSP(3);
-		int NumCities = 7;
-		int repeats = 20;
+		int NumCities = 5;
+		int repeats = 50;
 		
 		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations);
 		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations);
