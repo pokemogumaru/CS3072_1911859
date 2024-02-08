@@ -201,7 +201,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	 String startEndCostString = ("start = " + start + " , end = " + end + " , cost = " + cost); FullLog_AddLineTXT(startEndCostString);
 	 //System.out.println(startString);
 	 totalCost += cost; //this will be final cost for this solution
-	 if (UseFullLog || UsebasicLog) {String totalCostString = ("total cost after returning to start = " + totalCost);BasicLog_AddLineTXT(totalCostString); FullLog_AddLineTXT(totalCostString);}
+	 String totalCostString = ("total cost after returning to start = " + totalCost);BasicLog_AddLineTXT(totalCostString); FullLog_AddLineTXT(totalCostString);
 	//System.out.println(totalCostString);
 	//step 4 - return  total cost
 	 return totalCost; // for example 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 the cost 5.0 is correct!
