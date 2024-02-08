@@ -339,11 +339,12 @@ returns a 1-D array of type double
 	
 	public static void CallR (double[][] outerIndexInnerDistances,double[] fitnessRepeats) throws IOException
 	{
-		for(int i = 0; i < fitnessRepeats.length; i++) {
+		int numCities = fitnessRepeats.length;
+		for(int i = 0; i < numCities; i++) {
 			  // Extract inner array for current outer index
 			  double[] innerArray = outerIndexInnerDistances[i]; 
 			  // Call printR with inner array and corresponding string 
-			  printR(innerArray, "fitness" + Double.toString(fitnessRepeats[i]) ); 
+			  printR(innerArray, "numCities-" + numCities + "-fitness-" + Double.toString(fitnessRepeats[i]) ); 
 			}
 	}
 	
