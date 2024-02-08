@@ -136,6 +136,27 @@ public class SolveTSP { //this class is used for solving TSPs
 	  return generateTourCostWithFullLog(solution, distances, cities, TSP_2D);//handle other case
   }
   
+  public static double generateTourCostWithoutFullLog1(List<Integer> solution, double[] distances, int cities, double[][] TSP_2D) {
+	  	//version that avoids unnecessary array lookups and method calls
+	    double totalCost = 0;
+	    int[] offsets = new int[cities]; // Offset indices once instead of calling solution.get()
+	    for(int i = 0; i < cities; i++) {
+	        offsets[i] = solution.get(i) - 1; 
+	    }
+	    for(int i = 0; i < cities - 1; i++) {
+	        int from = offsets[i];
+	        int to = offsets[i+1];
+	        double cost = TSP_2D[from][to];
+	        totalCost += cost;
+	    }
+	    // Return to start city
+	    int start = offsets[0];
+	    int end = offsets[cities-1];
+	    double cost = TSP_2D[end][start];
+	    totalCost += cost;
+	    return totalCost;
+	}
+  
   public static double generateTourCostWithoutFullLog(List<Integer> solution, double[] distances, int cities, double[][] TSP_2D) throws IOException{
 	  //same as generateTourCostWithFullLog but no full log to speed up program
 	 double totalCost = 0.0; double cost;
@@ -158,7 +179,6 @@ public class SolveTSP { //this class is used for solving TSPs
 	 int start = solution.get(0);
 	 int end = solution.get(cities-1);
 	 cost = TSP_2D[end-1][start-1]; //-1 for each value java counts from 0
-	 //System.out.println(startEndCostString);
 	 totalCost += cost; //this will be final cost for this solution
 	 if (UsebasicLog) {BasicLog_AddLineTXT(("total cost after returning to start = " + totalCost));}
 	 return totalCost; // for example 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 the cost 5.0 is correct!
