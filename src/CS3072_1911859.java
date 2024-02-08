@@ -31,29 +31,11 @@ public class CS3072_1911859 {
 		int NumCities = 10;
 		int repeats = 20;
 		
-		new MakeTSP(NumCities, true, iterations, repeats, iterations); 
-		String[] distanceRepeats = MakeTSP.getDistances(); //change to 2D double
-		double[] fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
-		double[][] outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
-		CallR(outerIndexInnerDistances, fitnessRepeats);
-		//printR(distances,name) //add number of cities and iterations to filename
-		
-		new MakeTSP(NumCities, false, iterations, repeats, iterations);
-		distanceRepeats = MakeTSP.getDistances(); //change to 2D double
-		fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
-		outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
-		CallR(outerIndexInnerDistances, fitnessRepeats);
+		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations);
+		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations);
 		NumCities = 100;
-		new MakeTSP(NumCities, true, iterations, repeats, iterations); 
-		distanceRepeats = MakeTSP.getDistances(); //change to 2D double
-		fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
-		outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
-		CallR(outerIndexInnerDistances, fitnessRepeats);
-		new MakeTSP(NumCities, false, iterations, repeats, iterations);	
-		distanceRepeats = MakeTSP.getDistances(); //change to 2D double
-		fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
-		outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
-		CallR(outerIndexInnerDistances, fitnessRepeats);
+		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations); 
+		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations);	
 		
 		//testPrintR();
 		
@@ -349,6 +331,15 @@ returns a 1-D array of type double
 			  // Call printR with inner array and corresponding string 
 			  printR(innerArray, "numCities" + numCities + "fitness" + Double.toString(fitnessRepeats[i]) ); 
 			}
+	}
+	
+	private static void MakeTSPsAndPlotWithR(int NumCities,boolean DifficultTrueEasyFalse, int repeats, int innerIterations, int outerIterations) throws IOException
+	{
+		new MakeTSP(NumCities, true, innerIterations, repeats, outerIterations); 
+		String[] distanceRepeats = MakeTSP.getDistances(); //change to 2D double
+		double[] fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
+		double[][] outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
+		CallR(outerIndexInnerDistances, fitnessRepeats);
 	}
 	
 	}
