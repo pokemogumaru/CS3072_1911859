@@ -73,6 +73,7 @@ public class SolveTSP { //this class is used for solving TSPs
   
   public static int calculateCitiesPartial(int n) throws IOException
   {
+	  //System.out.println("calculateCitiesPartial: n = " + n); //debug
 	  if (n < 1)
 	  {// should never be less than 1 element, giving a 2x2 matrix
 		  String error = ("SolveTSP: calculateCitiesAmount(): less than 1 unique element, likely an error.");

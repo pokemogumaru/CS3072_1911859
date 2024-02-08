@@ -32,8 +32,8 @@ public class MakeTSP {
 	    {
 			String doing = ("Doing repeat number " + i); BasicLog_AddLineTXT(doing); FullLog_AddLineTXT(doing);
 			String searchable = ("Searchable: repeat" + i); BasicLog_AddLineTXT(searchable); FullLog_AddLineTXT(searchable);
-			double[] TSP10 = CS3072_1911859.new_TSP(10); //doing this each time so we get a new TSP each repeat
-			HillClimbMakeTSP(TSP10, DifficultTrueEasyFalse, iterations, SolveIterations);
+			double[] TSP = CS3072_1911859.new_TSP(NumCities); //doing this each time so we get a new TSP each repeat
+			HillClimbMakeTSP(TSP, DifficultTrueEasyFalse, iterations, SolveIterations);
 			if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
 			fitnessRepeats[i-1] = classFitness;
 			distanceRepeats[i-1] = Arrays.toString(classDistances);
