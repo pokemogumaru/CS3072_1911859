@@ -26,11 +26,11 @@ public class CS3072_1911859 {
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
 		
 		int iterations = 10000;
-		int NumCities = 3;
+		int NumCities = 4;
 		int repeats = 20;
 		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations);
 		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations);
-		NumCities = 15;
+		NumCities = 14;
 		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations); 
 		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations);	
 		
