@@ -33,7 +33,7 @@ public class CS3072_1911859 {
 		NumCities = 100;
 		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations); 
 		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations);	
-		
+		//NOTE TO SELF: Using Random mutations rather than small changes
 		
 		//testPrintR();
 		

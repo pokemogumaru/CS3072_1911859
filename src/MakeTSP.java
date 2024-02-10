@@ -65,7 +65,7 @@ public class MakeTSP {
 			//Before:
 			//System.out.println("Number of items: " + distances.length); for(double value : distances){System.out.println(value);} //Debug: prints the number of values & prints each value
 			//After:
-			double[] new_distances = mutate(distances);
+			double[] new_distances = mutateRandom(distances);
 			//System.out.println("Number of items: " + new_distances.length); for(double value : new_distances){System.out.println(value);} //Debug: prints the number of values & prints each value
 			//5 reevaluate MST / TSP value
 			double new_MST_value = GetMST(new_distances);
