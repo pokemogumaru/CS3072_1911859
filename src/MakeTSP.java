@@ -165,6 +165,17 @@ public class MakeTSP {
 	            MSTdivTSP = new_MSTdivTSP;
 	            changes++;
 	            iterationOfLastChange = i; // Update iterationOfLastChange
+	            if (UseFullLog) {String madeChange = ("( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) ) is true, made a change");
+				 FullLog_AddLineTXT(madeChange);}
+				changes++;
+				if (UseFullLog) {String changesSoFar = ("changes made to TSP so far: " + changes); FullLog_AddLineTXT(changesSoFar);}
+				if (UsehillClimberFitnessLogLog)
+				{//Doing this inside the if statement so we only record when there is a change made
+					HillClimberFitnessLog_addRowCSV(String.valueOf(changes)); 
+				    HillClimberFitnessLog_addRowCSV(String.valueOf(MST_value));
+				    HillClimberFitnessLog_addRowCSV(String.valueOf(TSP_value));
+				    HillClimberFitnessLog_addColumnCSV(String.valueOf(MSTdivTSP));
+				}
 	        }
 	    }
 
