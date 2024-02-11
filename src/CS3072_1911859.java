@@ -25,12 +25,12 @@ public class CS3072_1911859 {
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
 		
-		int iterations = 10000; int NumCities = 4; //number of iterations and number of cities
+		int iterations = 10000; int NumCities = 5; //number of iterations and number of cities
 		int repeats = 20; String type = "SA"; //number of repeats and type of HC to use (HC = basic hill climber) (SA = simulated annealing)
-		int initialTemp = 1000; double coolingRate = 0.8; //used in SA, if HC is selected, these values will not be used.
+		int initialTemp = 1000; double coolingRate = 0.9; //used in SA, if HC is selected, these values will not be used.
 		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, initialTemp,coolingRate);
 		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations,type, initialTemp,coolingRate);
-		NumCities = 14; //repeating with other amount of cities
+		NumCities = 10; //repeating with other amount of cities
 		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, initialTemp,coolingRate);		
 		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations, type, initialTemp,coolingRate);	
 		
