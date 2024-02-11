@@ -15,7 +15,7 @@ public class MakeTSP {
 	private static double[] classFitnessRepeats; //for other classes to use
 	private static double[] classDistances; //so MakeTSP can get the distance matrix from the HC
 	private static FileWriterUtil basicLog; private static boolean UsebasicLog = true;
-	private static FileWriterUtil fullLog; private static boolean UseFullLog = false;
+	private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
 	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
 	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
 	public MakeTSP(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations, String type, double initialTemperature, double coolingRate) throws IOException
@@ -203,6 +203,7 @@ public class MakeTSP {
 	    return Math.exp((newFitness - currentFitness) / temperature);
 	}
 
+	
 	
 	public static double GetMST(double[] distances){return (MST_total(MST.PrimsMST(convert_1D_to_2D(distances))));}
 	
