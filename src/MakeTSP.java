@@ -18,7 +18,7 @@ public class MakeTSP {
 	private static FileWriterUtil fullLog; private static boolean UseFullLog = false;
 	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
 	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
-	public MakeTSP(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations) throws IOException
+	public MakeTSP(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations, String type, double initialTemperature, double coolingRate) throws IOException
 	{
 		//System.out.println("MakeTSP: NumCities = " + NumCities); //debug
 		String[] distanceRepeats = new String[repeats];
@@ -27,19 +27,44 @@ public class MakeTSP {
 		//Open files:
 		openFiles(NumCities,DifficultTrueEasyFalse,iterations,SolveIterations);
 		//End of initialising log files
-		String start_values = "MakeTSP: starting with DifficultTrueEasyFalse = " + DifficultTrueEasyFalse + " Outer iterations = " + iterations + " Inner iterations = " + SolveIterations + " Number of cities = " + NumCities;
-		BasicLog_AddLineTXT(start_values); FullLog_AddLineTXT(start_values);
-		for (int i = 1; i <= repeats; i++)
-	    {
-			String doing = ("Doing repeat number " + i); BasicLog_AddLineTXT(doing); FullLog_AddLineTXT(doing);
-			String searchable = ("Searchable: repeat" + i); BasicLog_AddLineTXT(searchable); FullLog_AddLineTXT(searchable);
-			double[] TSP = CS3072_1911859.new_TSP(NumCities); //doing this each time so we get a new TSP each repeat
-			HillClimbMakeTSP(TSP, DifficultTrueEasyFalse, iterations, SolveIterations);
-			if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
-			fitnessRepeats[i-1] = classFitness;
-			distanceRepeats[i-1] = Arrays.toString(classDistances);
-			
-	    }
+		String start_values = "MakeTSP: starting with DifficultTrueEasyFalse = " + DifficultTrueEasyFalse + " Outer iterations = " + iterations + " Inner iterations = " + SolveIterations;
+		String start_values2 = " Number of cities = " + NumCities + " type = " + type + " initialTemperature = " + initialTemperature + " coolingRate = " + coolingRate;
+		BasicLog_AddLineTXT(start_values); FullLog_AddLineTXT(start_values); BasicLog_AddLineTXT(start_values2); FullLog_AddLineTXT(start_values2);
+		if (type.equals("HC"))
+		{
+			//do basic hill climber
+			for (int i = 1; i <= repeats; i++)
+		    {
+				String doing = ("Doing repeat number " + i); BasicLog_AddLineTXT(doing); FullLog_AddLineTXT(doing);
+				String searchable = ("Searchable: repeat" + i); BasicLog_AddLineTXT(searchable); FullLog_AddLineTXT(searchable);
+				double[] TSP = CS3072_1911859.new_TSP(NumCities); //doing this each time so we get a new TSP each repeat
+				HillClimbMakeTSP(TSP, DifficultTrueEasyFalse, iterations, SolveIterations);
+				if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
+				fitnessRepeats[i-1] = classFitness;
+				distanceRepeats[i-1] = Arrays.toString(classDistances);
+				
+		    }
+		}
+		else if (type.equals("SA"))
+		{
+			//do SA
+			for (int i = 1; i <= repeats; i++)
+		    {
+				String doing = ("Doing repeat number " + i); BasicLog_AddLineTXT(doing); FullLog_AddLineTXT(doing);
+				String searchable = ("Searchable: repeat" + i); BasicLog_AddLineTXT(searchable); FullLog_AddLineTXT(searchable);
+				double[] TSP = CS3072_1911859.new_TSP(NumCities); //doing this each time so we get a new TSP each repeat
+				SimulatedAnnealingMakeTSP(TSP, DifficultTrueEasyFalse, iterations, SolveIterations, initialTemperature, coolingRate);
+				if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
+				fitnessRepeats[i-1] = classFitness;
+				distanceRepeats[i-1] = Arrays.toString(classDistances);
+				
+		    }
+		}
+		else
+		{
+			System.out.println("LOUD WARNING MakeTSP: type not valid option");
+		}
+		
 		classDistancesRepeats = distanceRepeats;
 		classFitnessRepeats = fitnessRepeats;
 		String finished_repeats = ("Finished doing (" + repeats + ") repeats");BasicLog_AddLineTXT(finished_repeats); FullLog_AddLineTXT(finished_repeats);
@@ -65,7 +90,7 @@ public class MakeTSP {
 			//Before:
 			//System.out.println("Number of items: " + distances.length); for(double value : distances){System.out.println(value);} //Debug: prints the number of values & prints each value
 			//After:
-			double[] new_distances = mutateRandom(distances);
+			double[] new_distances = mutate(distances);
 			//System.out.println("Number of items: " + new_distances.length); for(double value : new_distances){System.out.println(value);} //Debug: prints the number of values & prints each value
 			//5 reevaluate MST / TSP value
 			double new_MST_value = GetMST(new_distances);
@@ -122,7 +147,7 @@ public class MakeTSP {
 	    startFitness = MSTdivTSP;
 	    int changes = 0; // Track number of changes made
 	    for (int i = 1; i <= iterations; i++) {
-	        double[] new_distances = mutateRandom(distances); // Generate a new candidate solution by making a small change to the current solution
+	        double[] new_distances = mutate(distances); // Generate a new candidate solution by making a small change to the current solution
 	        double new_MST_value = GetMST(new_distances); // Evaluate MST value of the new candidate solution
 	        solver = new SolveTSP(distances, SolveIterations); // Solve TSP for the new candidate solution
 	        double new_TSP_value = solver.return_solution();
@@ -130,7 +155,9 @@ public class MakeTSP {
 	        // Calculate acceptance probability based on current and new fitness values and temperature
 	        double temperature = initialTemperature / Math.log(1 + i);
 	        double acceptanceProbability = acceptanceProbability(MSTdivTSP, new_MSTdivTSP, temperature);
-	        if (acceptanceProbability > Math.random()) { // Accept or reject the new candidate solution based on acceptance probability
+	        double random = Math.random();
+	        if ((MaxOrMin && acceptanceProbability > random ) || (!MaxOrMin && acceptanceProbability < random)) {
+	            // Determine whether to accept the new solution based on MaxOrMin & acceptance probability
 	        	// Update current solution
 	        	distances = new_distances;
 	            TSP_value = new_TSP_value;

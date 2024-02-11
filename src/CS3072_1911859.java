@@ -25,15 +25,14 @@ public class CS3072_1911859 {
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
 		
-		int iterations = 10000;
-		int NumCities = 4;
-		int repeats = 20;
-		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations);
-		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations);
-		NumCities = 14;
-		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations); 
-		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations);	
-		//NOTE TO SELF: Using Random mutations rather than small changes
+		int iterations = 1000; int NumCities = 4; //number of iterations and number of cities
+		int repeats = 20; String type = "SA"; //number of repeats and type of HC to use (HC = basic hill climber) (SA = simulated annealing)
+		int initialTemp = 100; double coolingRate = 0.8; //used in SA, if HC is selected, these values will not be used.
+		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, initialTemp,coolingRate);
+		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations,type, initialTemp,coolingRate);
+		NumCities = 14; //repeating with other amount of cities
+		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, initialTemp,coolingRate);		
+		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations, type, initialTemp,coolingRate);	
 		
 		//testPrintR();
 		
@@ -332,9 +331,9 @@ returns a 1-D array of type double
 			}
 	}
 	
-	private static void MakeTSPsAndPlotWithR(int NumCities,boolean DifficultTrueEasyFalse, int innerIterations, int repeats, int outerIterations) throws IOException
+	private static void MakeTSPsAndPlotWithR(int NumCities,boolean DifficultTrueEasyFalse, int innerIterations, int repeats, int outerIterations, String type, int initialTemp, double coolingRate) throws IOException
 	{
-		new MakeTSP(NumCities, true, innerIterations, repeats, outerIterations); 
+		new MakeTSP(NumCities, true, innerIterations, repeats, outerIterations, type, initialTemp, coolingRate); 
 		String[] distanceRepeats = MakeTSP.getDistances(); //change to 2D double
 		double[] fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
 		double[][] outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
