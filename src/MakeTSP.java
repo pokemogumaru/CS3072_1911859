@@ -111,6 +111,61 @@ public class MakeTSP {
 		classDistances = distances;
 	}
 	
+	public static void SimulatedAnnealingMakeTSP(double[] distances, boolean MaxOrMin, int iterations, int SolveIterations, double initialTemperature, double coolingRate) throws IOException {
+	    double MST_value = GetMST(distances); // Calculate initial MST value
+	    SolveTSP solver = new SolveTSP(distances, SolveIterations); // Initialize TSP solver
+	    double TSP_value = solver.return_solution(); // Calculate initial TSP value
+	    double MSTdivTSP = MST_value / TSP_value; // Calculate initial MST/TSP ratio
+	    String start = ("MakeTSP: SimulatedAnnealingMakeTSP(): starting MST_value = " + MST_value + " starting TSP_value = " + TSP_value + " starting MSTdivTSP = " + MSTdivTSP);
+	    BasicLog_AddLineTXT(start);
+	    FullLog_AddLineTXT(start);
+	    startFitness = MSTdivTSP;
+	    int changes = 0; // Track number of changes made
+	    for (int i = 1; i <= iterations; i++) {
+	        double[] new_distances = mutateRandom(distances); // Generate a new candidate solution by making a small change to the current solution
+	        double new_MST_value = GetMST(new_distances); // Evaluate MST value of the new candidate solution
+	        solver = new SolveTSP(distances, SolveIterations); // Solve TSP for the new candidate solution
+	        double new_TSP_value = solver.return_solution();
+	        double new_MSTdivTSP = new_MST_value / new_TSP_value; // Calculate MST/TSP ratio for the new candidate solution
+	        // Calculate acceptance probability based on current and new fitness values and temperature
+	        double temperature = initialTemperature / Math.log(1 + i);
+	        double acceptanceProbability = acceptanceProbability(MSTdivTSP, new_MSTdivTSP, temperature);
+	        if (acceptanceProbability > Math.random()) { // Accept or reject the new candidate solution based on acceptance probability
+	        	// Update current solution
+	        	distances = new_distances;
+	            TSP_value = new_TSP_value;
+	            MST_value = new_MST_value;
+	            MSTdivTSP = new_MSTdivTSP;
+	            changes++;
+	            iterationOfLastChange = i; // Update iterationOfLastChange
+	        }
+	    }
+
+	    String totalChanges = ("total changes made to TSP: " + changes); // Log total changes made
+	    BasicLog_AddLineTXT(totalChanges);
+	    FullLog_AddLineTXT(totalChanges);
+	    String end = ("final MST: " + MST_value + " final TSP cost: " + TSP_value + " final MST/TSP value: " + MSTdivTSP);
+	    BasicLog_AddLineTXT(end);
+	    FullLog_AddLineTXT(end);
+	    String finalDistances = "final distance array after: " + Arrays.toString(distances); // Log final values
+	    BasicLog_AddLineTXT(finalDistances);
+	    FullLog_AddLineTXT(finalDistances);
+	    totalChangesMade = changes; // Store total changes made and final distances for logging
+	    finalDistances = Arrays.toString(distances);
+	    classFitness = MSTdivTSP;
+	    classDistances = distances;
+	}
+
+	private static double acceptanceProbability(double currentFitness, double newFitness, double temperature) {
+		// Function to calculate acceptance probability for Simulated Annealing
+	    if (newFitness > currentFitness) {
+	        return 1.0; // Always accept a better solution
+	    }
+	    // Accept worse solutions with a certain probability determined by temperature
+	    return Math.exp((newFitness - currentFitness) / temperature);
+	}
+
+	
 	public static double GetMST(double[] distances){return (MST_total(MST.PrimsMST(convert_1D_to_2D(distances))));}
 	
 	public static double total_2D(double[][] array2D)
