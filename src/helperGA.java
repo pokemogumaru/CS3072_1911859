@@ -33,9 +33,9 @@ public class helperGA {
 	    for (int i = 0; i < population.length; i++) {
 	        double[] solution = population[i]; // Get the solution for the current member
 	        double mst = MakeTSP.GetMST(solution); // Calculate the minimum spanning tree (MST) for the solution
-	        SolveTSP solver = new SolveTSP(solution,innerIterations);
-	        double tsp = solver.return_solution();
-	        fitness[i] = mst / tsp; 
+	        SolveTSP solver = new SolveTSP(solution,innerIterations); // Create a SolveTSP instance to solve the TSP for the current solution
+	        double tsp = solver.return_solution(); // Get the result of solving the TSP
+	        fitness[i] = mst / tsp; // Calculate fitness score for the current solution
 	    }
 	    globalStrings.add("helperGA: calculateFitness: fitness = " + Arrays.toString(fitness));
 	    //don't call fullLogStrings as not public method
@@ -60,12 +60,12 @@ public class helperGA {
 	public static double[][] survivors(double[][] offspring, double[][] population) throws IOException {
 		//Determines fittest solutions to carry over. Maintains constant population size
 		globalStrings.clear(); //clear the string arrayList
-	    double[][] combined = concatenate(offspring, population);
-	    double[] fitness = getFitness(combined);
-	    Arrays.sort(fitness); 
-	    double[][] nextGen = new double[population.length][];
+	    double[][] combined = concatenate(offspring, population); // Concatenate offspring and population arrays
+	    double[] fitness = getFitness(combined); // Get fitness values for the combined population
+	    Arrays.sort(fitness); // Sort the fitness values in ascending order
+	    double[][] nextGen = new double[population.length][]; // Create an array to store the next generation
 	    for (int i = 0; i < population.length; i++) {
-	        nextGen[i] = combined[indexOf(fitness, i)];
+	        nextGen[i] = combined[indexOf(fitness, i)]; // Select the best individuals for the next generation
 	        //globalStrings.add("helperGA: survivors: nextGen[" + i + "] = " + Arrays.toString(nextGen[i])); //this is a VERY large amount of text to write
 	    }
 	    MakeTSP.fullLogStrings(globalStrings);//when done, give the arrayList of strings back to be logged

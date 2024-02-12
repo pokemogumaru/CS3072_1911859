@@ -410,8 +410,11 @@ public class MakeTSP {
 	        population = helperGA.survivors(offspring, population); 
 	        double bestFitness = helperGA.getBestFitness(population);
 	        String bestFitnessSTR = "GeneticHillClimbMakeTSP: bestFitness = " + String.valueOf(bestFitness); FullLog_AddLineTXT(bestFitnessSTR);
-	        if (distances == null) {System.out.println("LOUD WARNING: MakeTSP: GeneticHillClimbMakeTSP: distances == null but will likely skip this invalid solution");} //debug
-	        if ( (helperGA.isBetter(bestFitness, startFitness, MaxOrMin)) && (helperGA.getBestSolution(population) != null) ) {
+	        if (distances.equals(null)) {
+	        	String nullDist = ("WARNING: MakeTSP: GeneticHillClimbMakeTSP: distances == null but will likely skip this invalid solution");
+	        	BasicLog_AddLineTXT(nullDist);FullLog_AddLineTXT(nullDist);
+	        	} //debug
+	        if ( (helperGA.isBetter(bestFitness, startFitness, MaxOrMin)) && (!helperGA.getBestSolution(population).equals(null)) ) {
 	        	//check if new solution is better AND not null
 	            distances = helperGA.getBestSolution(population);
 	            startFitness = bestFitness;
