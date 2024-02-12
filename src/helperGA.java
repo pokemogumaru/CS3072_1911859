@@ -142,13 +142,15 @@ public class helperGA {
 	    }
 	    return array;
 	}
-	public static double getBestFitness(double[][] population) {
+	public static double getBestFitness(double[][] population) throws IOException {
 	    double bestFitness = 0;
 	    for (double[] member : population) { 
 	        if (member[member.length - 1] > bestFitness) {
 	            bestFitness = member[member.length - 1];  
 	        }
 	    }
+	    globalStrings.add("helperGA: getBestFitness: bestFitness = " + String.valueOf(bestFitness));
+	    MakeTSP.fullLogStrings(globalStrings);//when done, give the arrayList of strings back to be logged
 	    return bestFitness;
 	}
 	public static double[][] crossover(double[][] parents, double crossoverRate) {
