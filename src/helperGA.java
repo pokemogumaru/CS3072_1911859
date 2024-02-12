@@ -11,7 +11,7 @@ public class helperGA {
 		//System.out.println(debug);
 	    double[][] parents = new double[2][distances.length];
 	    double[] fitness = calculateFitness(population, distances, innerIterations);
-	    globalStrings.add("selectParents: fitness = " + Arrays.toString(fitness)); 
+	    globalStrings.add("selectParents: fitness = " + Arrays.toString(fitness)); //this is a large amount of text to write
 	    // Roulette wheel selection
 	    parents[0] = selectViaRoulette(population, fitness);
 	    globalStrings.add("selectParents: parents[0] = " + Arrays.toString(parents[0]));
