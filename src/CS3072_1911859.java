@@ -333,9 +333,9 @@ returns a 1-D array of type double
 	}
 	
 	private static void MakeTSPsAndPlotWithR(int NumCities,boolean DifficultTrueEasyFalse, int innerIterations, int repeats, int outerIterations, String type,
-			double initialTemp, double coolingRate, int populationSize) throws IOException
+			double val1, double val2, int populationSize) throws IOException
 	{
-		new MakeTSP(NumCities, DifficultTrueEasyFalse, innerIterations, repeats, outerIterations, type, initialTemp, coolingRate, populationSize); 
+		new MakeTSP(NumCities, DifficultTrueEasyFalse, innerIterations, repeats, outerIterations, type, val1, val2, populationSize); 
 		String[] distanceRepeats = MakeTSP.getDistances(); //change to 2D double
 		double[] fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
 		double[][] outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
