@@ -11,9 +11,12 @@ public class helperGA {
 		//System.out.println(debug);
 	    double[][] parents = new double[2][distances.length];
 	    double[] fitness = calculateFitness(population, distances, innerIterations);
+	    globalStrings.add("selectParents: fitness = " + String.valueOf(fitness)); 
 	    // Roulette wheel selection
-	    parents[0] = selectViaRoulette(population, fitness); 
+	    parents[0] = selectViaRoulette(population, fitness);
+	    
 	    parents[1] = selectViaRoulette(population, fitness);
+	    
 	    MakeTSP.fullLogStrings(globalStrings);//when done, give the arrayList of strings back to be logged
 	    return parents;
 	}
@@ -27,6 +30,7 @@ public class helperGA {
 	        double tsp = solver.return_solution();
 	        fitness[i] = mst / tsp; 
 	    }
+	    //don't call fullLogStrings as not public method
 	    return fitness;
 	}
 	private static double[] selectViaRoulette(double[][] population, double[] fitness) {
@@ -38,6 +42,7 @@ public class helperGA {
 	        runningSum += fitness[i];
 	        if (runningSum > random) { return population[i];}
 	    }
+	  //don't call fullLogStrings as not public method
 	    return population[population.length - 1];
 	}
 	
@@ -62,6 +67,7 @@ public class helperGA {
 	    double[][] result = new double[firstLen + secondLen][];
 	    System.arraycopy(first, 0, result, 0, firstLen); 
 	    System.arraycopy(second, 0, result, firstLen, secondLen);
+	    //don't call fullLogStrings as not public method
 	    return result;
 	}
 	
@@ -83,6 +89,7 @@ public class helperGA {
 	            minIndex = i;
 	        }
 	    }
+	    //don't call fullLogStrings as not public method
 	    return minIndex;
 	}
 }
