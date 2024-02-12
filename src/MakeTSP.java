@@ -68,7 +68,18 @@ public class MakeTSP {
 			//do GA
 			String start_values2 =  " crossoverRate = " + val1 + " mutationRate = " + val2;
 			BasicLog_AddLineTXT(start_values2); FullLog_AddLineTXT(start_values2);
-			System.out.println("Not yet implemented");
+			for (int i = 1; i <= repeats; i++)
+		    {
+				String doing = ("Doing repeat number " + i); BasicLog_AddLineTXT(doing); FullLog_AddLineTXT(doing);
+				String searchable = ("Searchable: repeat" + i); BasicLog_AddLineTXT(searchable); FullLog_AddLineTXT(searchable);
+				double[] TSP = CS3072_1911859.new_TSP(NumCities); //doing this each time so we get a new TSP each repeat
+				GeneticHillClimbMakeTSP(TSP, DifficultTrueEasyFalse, iterations, SolveIterations, populationSize, val1, val2 ); //val1 , val2 
+				//double[] distances, boolean MaxOrMin, int iterations, int SolveIterations, int populationSize, double crossoverRate, double mutationRate
+				if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
+				fitnessRepeats[i-1] = classFitness;
+				distanceRepeats[i-1] = Arrays.toString(classDistances);
+				
+		    }
 		}
 		else
 		{
@@ -175,7 +186,7 @@ public class MakeTSP {
 	            MSTdivTSP = new_MSTdivTSP;
 	            changes++;
 	            iterationOfLastChange = i; // Update iterationOfLastChange
-	            if (UseFullLog) {String madeChange = ("( ((MaxOrMin) && (new_MSTdivTSP < MSTdivTSP)) || ((!MaxOrMin) && (new_MSTdivTSP > MSTdivTSP)) ) is true, made a change");
+	            if (UseFullLog) {String madeChange = ("((MaxOrMin && acceptanceProbability > random ) || (!MaxOrMin && acceptanceProbability < random)) is true, made a change");
 				 FullLog_AddLineTXT(madeChange);}
 				changes++;
 				if (UseFullLog) {String changesSoFar = ("changes made to TSP so far: " + changes); FullLog_AddLineTXT(changesSoFar);}
@@ -212,8 +223,6 @@ public class MakeTSP {
 	    // Accept worse solutions with a certain probability determined by temperature
 	    return Math.exp((newFitness - currentFitness) / temperature);
 	}
-
-	
 	
 	public static double GetMST(double[] distances){return (MST_total(MST.PrimsMST(convert_1D_to_2D(distances))));}
 	
@@ -379,4 +388,208 @@ public class MakeTSP {
 	public static void BasicLog_AddLineTXT(String input) throws IOException {if (UsebasicLog) {basicLog.addLineTXT(input);}}
 	public static void HillClimberFitnessLog_addColumnCSV(String input) throws IOException {if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.addColumnCSV(input);}}
 	public static void HillClimberFitnessLog_addRowCSV(String input) throws IOException {if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.addRowCSV(input);}}
+	
+	
+	
+	public static void GeneticHillClimbMakeTSP(double[] distances, boolean MaxOrMin, int iterations, int SolveIterations, int populationSize, double crossoverRate, double mutationRate) throws IOException {
+
+	    double MST_value = GetMST(distances); 
+	    SolveTSP solver = new SolveTSP(distances, SolveIterations);
+	    double TSP_value = solver.return_solution();
+	    double startFitness = MST_value / TSP_value;
+	    int changes = 0; // Track number of changes made
+	    double[][] population = generateInitialPopulation(distances, populationSize);
+	    for (int i = 0; i < iterations; i++) {
+	        double[][] parents = selectParents(population, distances, SolveIterations);
+	        double[][] offspring = mutate(crossover(parents, crossoverRate), mutationRate);
+	        evaluateFitness(offspring, distances, SolveIterations);  //TODO revisit: does this update by reference or do I need to rethink the logic here
+	        population = survivors(offspring, population); 
+	        double bestFitness = getBestFitness(population);
+	        if (isBetter(bestFitness, startFitness, MaxOrMin)) {
+	            distances = getBestSolution(population);
+	            startFitness = bestFitness;
+	            // Log changes:
+	            if (UseFullLog) {String madeChange = ("isBetter(bestFitness, startFitness, MaxOrMin is true, made a change");
+				 FullLog_AddLineTXT(madeChange);}
+				changes++;
+				if (UseFullLog) {String changesSoFar = ("changes made to TSP so far: " + changes); FullLog_AddLineTXT(changesSoFar);}
+				if (UsehillClimberFitnessLogLog)
+				{//Doing this inside the if statement so we only record when there is a change made
+					HillClimberFitnessLog_addRowCSV(String.valueOf(changes)); 
+				    HillClimberFitnessLog_addRowCSV(String.valueOf(MST_value));
+				    HillClimberFitnessLog_addRowCSV(String.valueOf(TSP_value));
+				    HillClimberFitnessLog_addColumnCSV(String.valueOf(startFitness));
+				}
+				iterationOfLastChange = i; //update iterationOfLastChange
+	        } 
+	        else {
+	        	String noChange = ("made no change");FullLog_AddLineTXT(noChange);String SoFar = ("changes made to TSP so far: " + changes); FullLog_AddLineTXT(SoFar); // Log no change
+	        }
+	    }
+	    String totalChanges = ("total changes made to TSP: " + changes); BasicLog_AddLineTXT(totalChanges); FullLog_AddLineTXT(totalChanges);
+		String end = ("final MST: " + MST_value + " final TSP cost: " + TSP_value + " final MST/TSP value: " + startFitness); BasicLog_AddLineTXT(end); FullLog_AddLineTXT(end);
+		String finalDistances = "final distance array after: " + Arrays.toString(distances); BasicLog_AddLineTXT(finalDistances); FullLog_AddLineTXT(finalDistances);
+		//System.out.println(end);
+		totalChangesMade = changes; finalDistances = Arrays.toString(distances); //used for loggers
+		classFitness = startFitness;
+		classDistances = distances;
+	}
+	
+	private static double[][] generateInitialPopulation(double[] distances, int populationSize) {
+		//Creates random initial population solutions by shuffling distance array
+		//Provides starting genetic diversity
+	    double[][] population = new double[populationSize][distances.length];
+	    for (int i = 0; i < populationSize; i++) {
+	        double[] solution = shuffle(distances); 
+	        population[i] = solution;
+	    }
+	    return population;
+	}
+	static double[] shuffle(double[] array) { //used by generateInitialPopulation to randomize array order
+		//randomly swaps elements in the array to generate a random ordering which creates new solution candidates
+	    Random rnd = new Random();
+	    for (int i = array.length - 1; i > 0; i--)
+	    {
+	        int index = rnd.nextInt(i + 1);
+	        // Simple swap
+	        double a = array[index];
+	        array[index] = array[i];
+	        array[i] = a;
+	    }
+	    return array;
+	}
+	static double[][] selectParents(double[][] population, double[] distances, int innerIterations) throws IOException {
+		//Chooses parents for crossover
+	    double[][] parents = new double[2][distances.length];
+	    double[] fitness = calculateFitness(population, distances, innerIterations);
+	    // Roulette wheel selection
+	    parents[0] = selectViaRoulette(population, fitness); 
+	    parents[1] = selectViaRoulette(population, fitness);
+	    return parents;
+	}
+	static double[] calculateFitness(double[][] population, double[] distances, int innerIterations) throws IOException {
+		//evaluates each member of the population to get an array of fitness scores. Needed for selections and survival
+	    double[] fitness = new double[population.length];
+	    for (int i = 0; i < population.length; i++) {
+	        double[] solution = population[i];
+	        double mst = GetMST(solution); 
+	        SolveTSP solver = new SolveTSP(solution,innerIterations);
+	        double tsp = solver.return_solution();
+	        fitness[i] = mst / tsp; 
+	    }
+	    return fitness;
+	}
+
+	static double[] selectViaRoulette(double[][] population, double[] fitness) {
+		//Random selection weighted by fitness. Higher fitness means higher chance of selection
+	    double totalFitness = sum(fitness);
+	    double random = Math.random() * totalFitness;
+	    double runningSum = 0;
+	    for (int i = 0; i < population.length; i++) {
+	        runningSum += fitness[i];
+	        if (runningSum > random) { return population[i];}
+	    }
+	    return population[population.length - 1];
+	}
+	static double sum(double[] array) {double total = 0;for(double value : array) {total += value;}return total;} //iterates through the array and totals up all the values
+	
+	static double[][] crossover(double[][] parents, double crossoverRate) {
+		//Exchanges sequence sections between parents. Creates new offspring solutions
+	    int length = parents[0].length;
+	    if (Math.random() > crossoverRate) {return parents;}
+	    double[][] offspring = new double[2][length]; 
+	    int split = (int)(Math.random() * length);
+	    // Single point crossover
+	    for (int i = 0; i < split; i++) {
+	        offspring[0][i] = parents[0][i]; 
+	        offspring[1][i] = parents[1][i];
+	    }
+	    for (int i = split; i < length; i++) {
+	        offspring[0][i] = parents[1][i];
+	        offspring[1][i] = parents[0][i];
+	    }
+	    return offspring;   
+	}
+	private static double[][] mutate(double[][] offspring, double mutationRate) {
+		//Randomly alters offspring solutions. Introduces genetic diversity
+	    for (double[] child : offspring) {
+	        for (int j = 0; j < child.length; j++) {
+	            if (Math.random() < mutationRate) {
+	                double rand = Math.random() * 50 - 25;
+	                child[j] += rand;
+	            }
+	        }
+	    }
+	    return offspring;
+	}
+	private static void evaluateFitness(double[][] offspring, double[] distances, int innerIterations) throws IOException {
+		//Gets updated fitness after mutations. Stores scores with solutions
+	    for (double[] solution : offspring) {
+	        double mst = GetMST(solution);
+	        SolveTSP solver = new SolveTSP(solution, innerIterations); 
+	        double tsp = solver.return_solution();
+	        double fitness = mst / tsp;
+	        solution[solution.length - 1] = fitness; 
+	    }
+	}
+	static double[][] survivors(double[][] offspring, double[][] population) {
+		//Determines fittest solutions to carry over. Maintains constant population size
+	    double[][] combined = concatenate(offspring, population);
+	    double[] fitness = getFitness(combined);
+	    Arrays.sort(fitness); 
+	    double[][] nextGen = new double[population.length][];
+	    for (int i = 0; i < population.length; i++) {
+	        nextGen[i] = combined[indexOf(fitness, i)];
+	    }
+	    return nextGen;   
+	}
+	
+	static double[][] concatenate(double[][] first, double[][] second) {// Concatenate two 2D arrays
+	    int firstLen = first.length;
+	    int secondLen = second.length;
+	    double[][] result = new double[firstLen + secondLen][];
+	    System.arraycopy(first, 0, result, 0, firstLen); 
+	    System.arraycopy(second, 0, result, firstLen, secondLen);
+	    return result;
+	}
+	
+	static double[] getFitness(double[][] population) {// Get array of fitness values from 2D array
+	    double[] fitness = new double[population.length];
+	    for(int i = 0; i < fitness.length; i++) {
+	        fitness[i] = population[i][population[i].length - 1]; 
+	    }
+	    return fitness;
+	}
+
+	static int indexOf(double[] array, double value) {// Get index of value in array
+	    for(int i = 0; i < array.length; i++) {if(array[i] == value) return i;}
+	    return -1;
+	}
+	static double getBestFitness(double[][] population) {
+	    double bestFitness = 0;
+	    for (double[] member : population) { 
+	        if (member[member.length - 1] > bestFitness) {
+	            bestFitness = member[member.length - 1];  
+	        }
+	    }
+	    return bestFitness;
+	}
+
+	private static double[] getBestSolution(double[][] population) {
+	    double bestFitness = 0; 
+	    double[] best = null;
+	    for (double[] member : population) {
+	        if (member[member.length - 1] > bestFitness) {
+	            bestFitness = member[member.length - 1];
+	            best = member;
+	        }
+	    }
+	    return best; 
+	}
+
+	static boolean isBetter(double newFitness, double oldFitness, boolean MaxOrMin) {
+	    if (MaxOrMin && newFitness > oldFitness) {return true;}
+	    if (!MaxOrMin && newFitness < oldFitness) {return true;}
+	    return false;
+	}
 }
