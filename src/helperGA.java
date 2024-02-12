@@ -95,4 +95,16 @@ public class helperGA {
 	    //don't call fullLogStrings as not public method
 	    return minIndex;
 	}
+	public static double[][] mutate(double[][] offspring, double mutationRate) {
+		//Randomly alters offspring solutions. Introduces genetic diversity
+	    for (double[] child : offspring) {
+	        for (int j = 0; j < child.length; j++) {
+	            if (Math.random() < mutationRate) {
+	                double rand = Math.random() * 50 - 25;
+	                child[j] += rand;
+	            }
+	        }
+	    }
+	    return offspring;
+	}
 }

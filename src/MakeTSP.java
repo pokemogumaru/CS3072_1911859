@@ -405,7 +405,7 @@ public class MakeTSP {
 	    FullLog_AddLineTXT(start);
 	    for (int i = 0; i < iterations; i++) {
 	        double[][] parents = helperGA.selectParents(population, distances, SolveIterations);
-	        double[][] offspring = mutate(crossover(parents, crossoverRate), mutationRate);
+	        double[][] offspring = helperGA.mutate(crossover(parents, crossoverRate), mutationRate);
 	        evaluateFitness(offspring, distances, SolveIterations);  //TODO revisit: does this update by reference or do I need to rethink the logic here
 	        population = helperGA.survivors(offspring, population); 
 	        double bestFitness = getBestFitness(population);
@@ -481,18 +481,7 @@ public class MakeTSP {
 	    }
 	    return offspring;   
 	}
-	public static double[][] mutate(double[][] offspring, double mutationRate) {
-		//Randomly alters offspring solutions. Introduces genetic diversity
-	    for (double[] child : offspring) {
-	        for (int j = 0; j < child.length; j++) {
-	            if (Math.random() < mutationRate) {
-	                double rand = Math.random() * 50 - 25;
-	                child[j] += rand;
-	            }
-	        }
-	    }
-	    return offspring;
-	}
+	
 	private static void evaluateFitness(double[][] offspring, double[] distances, int innerIterations) throws IOException {
 		//Gets updated fitness after mutations. Stores scores with solutions
 	    for (double[] solution : offspring) {
@@ -514,7 +503,7 @@ public class MakeTSP {
 	    return bestFitness;
 	}
 
-	private static double[] getBestSolution(double[][] population) {
+	public static double[] getBestSolution(double[][] population) {
 	    double bestFitness = 0; 
 	    double[] best = null;
 	    for (double[] member : population) {
