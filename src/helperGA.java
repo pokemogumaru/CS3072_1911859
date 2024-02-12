@@ -12,6 +12,7 @@ public class helperGA {
 		//Chooses parents for crossover
 		//if (!globalStrings.isEmpty()) {System.out.println("helperGA: selectParents: globalStrings was not empty.");} //debug
 		globalStrings.clear(); //clear the string arrayList
+		if (distances == null) {System.out.println("LOUD WARNING: helperGA: selectParents: distances == null !!!");} //debug
 		String distLengthInnerIter = ("helperGA: selectParents: distances.length = " + distances.length + " innerIterations = " + innerIterations);
 		globalStrings.add(distLengthInnerIter); 
 		//System.out.println(debug);
