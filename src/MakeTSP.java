@@ -393,7 +393,7 @@ public class MakeTSP {
 	
 	
 	public static void GeneticHillClimbMakeTSP(double[] distances, boolean MaxOrMin, int iterations, int SolveIterations, int populationSize, double crossoverRate, double mutationRate) throws IOException {
-
+		if (distances == null) {System.out.println("LOUD WARNING: MakeTSP: GeneticHillClimbMakeTSP: distances == null !!!");} //debug
 	    double MST_value = GetMST(distances); 
 	    SolveTSP solver = new SolveTSP(distances, SolveIterations);
 	    double TSP_value = solver.return_solution();
