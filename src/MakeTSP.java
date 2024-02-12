@@ -596,8 +596,8 @@ public class MakeTSP {
 	}
 
 	static boolean isBetter(double newFitness, double oldFitness, boolean MaxOrMin) {
-	    if (MaxOrMin && newFitness > oldFitness) {return true;}
-	    if (!MaxOrMin && newFitness < oldFitness) {return true;}
+	    if (MaxOrMin && newFitness < oldFitness) {return true;}
+	    if (!MaxOrMin && newFitness > oldFitness) {return true;}
 	    return false;
 	}
 }
