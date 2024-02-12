@@ -399,19 +399,19 @@ public class MakeTSP {
 	    double TSP_value = solver.return_solution();
 	    double startFitness = MST_value / TSP_value;
 	    int changes = 0; // Track number of changes made
-	    double[][] population = generateInitialPopulation(distances, populationSize);
+	    double[][] population = helperGA.generateInitialPopulation(distances, populationSize);
 	    String start = ("MakeTSP: GeneticHillClimbMakeTSP(): starting MST_value = " + MST_value + " starting TSP_value = " + TSP_value + " starting fitness = " + startFitness);
 	    BasicLog_AddLineTXT(start);
 	    FullLog_AddLineTXT(start);
 	    for (int i = 0; i < iterations; i++) {
 	        double[][] parents = helperGA.selectParents(population, distances, SolveIterations);
-	        double[][] offspring = helperGA.mutate(crossover(parents, crossoverRate), mutationRate);
+	        double[][] offspring = helperGA.mutate(helperGA.crossover(parents, crossoverRate), mutationRate);
 	        evaluateFitness(offspring, distances, SolveIterations);  //TODO revisit: does this update by reference or do I need to rethink the logic here
 	        population = helperGA.survivors(offspring, population); 
-	        double bestFitness = getBestFitness(population);
+	        double bestFitness = helperGA.getBestFitness(population);
 	        String bestFitnessSTR = "GeneticHillClimbMakeTSP: bestFitness = " + String.valueOf(bestFitness); FullLog_AddLineTXT(bestFitnessSTR);
-	        if (isBetter(bestFitness, startFitness, MaxOrMin)) {
-	            distances = getBestSolution(population);
+	        if (helperGA.isBetter(bestFitness, startFitness, MaxOrMin)) {
+	            distances = helperGA.getBestSolution(population);
 	            startFitness = bestFitness;
 	            // Log changes:
 	            if (UseFullLog) {String madeChange = ("isBetter(bestFitness, startFitness, MaxOrMin is true, made a change");
@@ -440,48 +440,6 @@ public class MakeTSP {
 		classDistances = distances;
 	}
 	
-	private static double[][] generateInitialPopulation(double[] distances, int populationSize) {
-		//Creates random initial population solutions by shuffling distance array
-		//Provides starting genetic diversity
-	    double[][] population = new double[populationSize][distances.length];
-	    for (int i = 0; i < populationSize; i++) {
-	        double[] solution = shuffle(distances); 
-	        population[i] = solution;
-	    }
-	    return population;
-	}
-	static double[] shuffle(double[] array) { //used by generateInitialPopulation to randomize array order
-		//randomly swaps elements in the array to generate a random ordering which creates new solution candidates
-	    Random rnd = new Random();
-	    for (int i = array.length - 1; i > 0; i--)
-	    {
-	        int index = rnd.nextInt(i + 1);
-	        // Simple swap
-	        double a = array[index];
-	        array[index] = array[i];
-	        array[i] = a;
-	    }
-	    return array;
-	}
-	
-	static double[][] crossover(double[][] parents, double crossoverRate) {
-		//Exchanges sequence sections between parents. Creates new offspring solutions
-	    int length = parents[0].length;
-	    if (Math.random() > crossoverRate) {return parents;}
-	    double[][] offspring = new double[2][length]; 
-	    int split = (int)(Math.random() * length);
-	    // Single point crossover
-	    for (int i = 0; i < split; i++) {
-	        offspring[0][i] = parents[0][i]; 
-	        offspring[1][i] = parents[1][i];
-	    }
-	    for (int i = split; i < length; i++) {
-	        offspring[0][i] = parents[1][i];
-	        offspring[1][i] = parents[0][i];
-	    }
-	    return offspring;   
-	}
-	
 	private static void evaluateFitness(double[][] offspring, double[] distances, int innerIterations) throws IOException {
 		//Gets updated fitness after mutations. Stores scores with solutions
 	    for (double[] solution : offspring) {
@@ -491,34 +449,6 @@ public class MakeTSP {
 	        double fitness = mst / tsp;
 	        solution[solution.length - 1] = fitness; 
 	    }
-	}
-	
-	static double getBestFitness(double[][] population) {
-	    double bestFitness = 0;
-	    for (double[] member : population) { 
-	        if (member[member.length - 1] > bestFitness) {
-	            bestFitness = member[member.length - 1];  
-	        }
-	    }
-	    return bestFitness;
-	}
-
-	public static double[] getBestSolution(double[][] population) {
-	    double bestFitness = 0; 
-	    double[] best = null;
-	    for (double[] member : population) {
-	        if (member[member.length - 1] > bestFitness) {
-	            bestFitness = member[member.length - 1];
-	            best = member;
-	        }
-	    }
-	    return best; 
-	}
-
-	static boolean isBetter(double newFitness, double oldFitness, boolean MaxOrMin) {
-	    if (MaxOrMin && newFitness < oldFitness) {return true;}
-	    if (!MaxOrMin && newFitness > oldFitness) {return true;}
-	    return false;
 	}
 	
 	public static void fullLogStrings(ArrayList<String> strings) throws IOException {
