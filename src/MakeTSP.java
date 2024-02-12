@@ -461,6 +461,8 @@ public class MakeTSP {
 	}
 	static double[][] selectParents(double[][] population, double[] distances, int innerIterations) throws IOException {
 		//Chooses parents for crossover
+		//String debug = ("selectParents: distances.length = " + distances.length + " innerIterations = " + innerIterations);
+		//System.out.println(debug);
 	    double[][] parents = new double[2][distances.length];
 	    double[] fitness = calculateFitness(population, distances, innerIterations);
 	    // Roulette wheel selection
