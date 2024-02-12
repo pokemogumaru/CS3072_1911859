@@ -393,7 +393,6 @@ public class MakeTSP {
 	
 	
 	public static void GeneticHillClimbMakeTSP(double[] distances, boolean MaxOrMin, int iterations, int SolveIterations, int populationSize, double crossoverRate, double mutationRate) throws IOException {
-		if (distances == null) {System.out.println("LOUD WARNING: MakeTSP: GeneticHillClimbMakeTSP: distances == null !!!");} //debug
 	    double MST_value = GetMST(distances); 
 	    SolveTSP solver = new SolveTSP(distances, SolveIterations);
 	    double TSP_value = solver.return_solution();
@@ -404,6 +403,7 @@ public class MakeTSP {
 	    BasicLog_AddLineTXT(start);
 	    FullLog_AddLineTXT(start);
 	    for (int i = 0; i < iterations; i++) {
+			if (distances == null) {System.out.println("LOUD WARNING: MakeTSP: GeneticHillClimbMakeTSP: distances == null !!!");} //debug
 	        double[][] parents = helperGA.selectParents(population, distances, SolveIterations);
 	        double[][] offspring = helperGA.mutate(helperGA.crossover(parents, crossoverRate), mutationRate);
 	        evaluateFitness(offspring, distances, SolveIterations);  //TODO revisit: does this update by reference or do I need to rethink the logic here
