@@ -66,7 +66,7 @@ public class MakeTSP {
 		else if (type.equals("GA"))
 		{
 			//do GA
-			String start_values2 =  " crossoverRate = " + val1 + " mutationRate = " + val2;
+			String start_values2 =  " crossoverRate = " + val1 + " mutationRate = " + val2 + " populationSize = " + populationSize;
 			BasicLog_AddLineTXT(start_values2); FullLog_AddLineTXT(start_values2);
 			for (int i = 1; i <= repeats; i++)
 		    {
