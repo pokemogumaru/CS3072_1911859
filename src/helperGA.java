@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class helperGA {
+	//This class contains methods used by the genetic algorithm.
+	//all public methods start by clearing the arrayList string and call the logger before returning.
+	//all private methods do not do this as they will start and finish with call to one of the public method.
 	private static ArrayList<String> globalStrings = new ArrayList<>(); //used to store arrays of strings for logging
 	public static double[][] selectParents(double[][] population, double[] distances, int innerIterations) throws IOException {
 		//Chooses parents for crossover
@@ -113,7 +116,7 @@ public class helperGA {
 	    }
 	    return offspring;
 	}
-	public static double[] getBestSolution(double[][] population) {
+	public static double[] getBestSolution(double[][] population) throws IOException {
 		globalStrings.clear(); //clear the string arrayList
 	    double bestFitness = 0; 
 	    double[] best = null;
@@ -123,6 +126,8 @@ public class helperGA {
 	            best = member;
 	        }
 	    }
+	    globalStrings.add("helperGA: getBestSolution: best = " + String.valueOf(best));
+	    MakeTSP.fullLogStrings(globalStrings);//when done, give the arrayList of strings back to be logged
 	    return best; 
 	}
 	public static double[][] generateInitialPopulation(double[] distances, int populationSize) {
