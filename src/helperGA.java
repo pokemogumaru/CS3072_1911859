@@ -7,7 +7,7 @@ public class helperGA {
 	private static ArrayList<String> globalStrings = new ArrayList<>(); //used to store arrays of strings for logging
 	public static double[][] selectParents(double[][] population, double[] distances, int innerIterations) throws IOException {
 		//Chooses parents for crossover
-		if (!globalStrings.isEmpty()) {System.out.println("helperGA: selectParents: globalStrings was not empty.");}
+		//if (!globalStrings.isEmpty()) {System.out.println("helperGA: selectParents: globalStrings was not empty.");} //debug
 		globalStrings.clear(); //clear the string arrayList
 		String distLengthInnerIter = ("helperGA: selectParents: distances.length = " + distances.length + " innerIterations = " + innerIterations);
 		globalStrings.add(distLengthInnerIter); 
@@ -55,6 +55,7 @@ public class helperGA {
 
 	public static double[][] survivors(double[][] offspring, double[][] population) throws IOException {
 		//Determines fittest solutions to carry over. Maintains constant population size
+		globalStrings.clear(); //clear the string arrayList
 	    double[][] combined = concatenate(offspring, population);
 	    double[] fitness = getFitness(combined);
 	    Arrays.sort(fitness); 
@@ -101,6 +102,7 @@ public class helperGA {
 	}
 	public static double[][] mutate(double[][] offspring, double mutationRate) {
 		//Randomly alters offspring solutions. Introduces genetic diversity
+		globalStrings.clear(); //clear the string arrayList
 	    for (double[] child : offspring) {
 	        for (int j = 0; j < child.length; j++) {
 	            if (Math.random() < mutationRate) {
@@ -112,6 +114,7 @@ public class helperGA {
 	    return offspring;
 	}
 	public static double[] getBestSolution(double[][] population) {
+		globalStrings.clear(); //clear the string arrayList
 	    double bestFitness = 0; 
 	    double[] best = null;
 	    for (double[] member : population) {
@@ -125,6 +128,7 @@ public class helperGA {
 	public static double[][] generateInitialPopulation(double[] distances, int populationSize) {
 		//Creates random initial population solutions by shuffling distance array
 		//Provides starting genetic diversity
+		globalStrings.clear(); //clear the string arrayList
 	    double[][] population = new double[populationSize][distances.length];
 	    for (int i = 0; i < populationSize; i++) {
 	        double[] solution = shuffle(distances); 
@@ -146,6 +150,7 @@ public class helperGA {
 	    return array;
 	}
 	public static double getBestFitness(double[][] population) throws IOException {
+		globalStrings.clear(); //clear the string arrayList
 	    double bestFitness = 0;
 	    for (double[] member : population) { 
 	        if (member[member.length - 1] > bestFitness) {
@@ -158,6 +163,7 @@ public class helperGA {
 	}
 	public static double[][] crossover(double[][] parents, double crossoverRate) {
 		//Exchanges sequence sections between parents. Creates new offspring solutions
+		globalStrings.clear(); //clear the string arrayList
 	    int length = parents[0].length;
 	    if (Math.random() > crossoverRate) {return parents;}
 	    double[][] offspring = new double[2][length]; 
@@ -174,6 +180,7 @@ public class helperGA {
 	    return offspring;   
 	}
 	public static boolean isBetter(double newFitness, double oldFitness, boolean MaxOrMin) {
+		globalStrings.clear(); //clear the string arrayList
 	    if (MaxOrMin && newFitness < oldFitness) {return true;}
 	    if (!MaxOrMin && newFitness > oldFitness) {return true;}
 	    return false;
