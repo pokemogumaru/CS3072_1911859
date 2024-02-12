@@ -43,12 +43,12 @@ public class helperGA {
 	}
 	private static double[] selectViaRoulette(double[][] population, double[] fitness) {
 		//Random selection weighted by fitness. Higher fitness means higher chance of selection
-	    double totalFitness = sum(fitness);
-	    double random = Math.random() * totalFitness;
-	    double runningSum = 0;
+	    double totalFitness = sum(fitness); // Calculate the total fitness of the population
+	    double random = Math.random() * totalFitness; // Generate a random number within the range of total fitness
+	    double runningSum = 0; // Generate a random number within the range of total fitness
 	    for (int i = 0; i < population.length; i++) {
-	        runningSum += fitness[i];
-	        if (runningSum > random) { return population[i];}
+	        runningSum += fitness[i]; // Add the fitness score of the current member to the running sum
+	        if (runningSum > random) { return population[i];} // Return the selected individual
 	    }
 	  //don't call fullLogStrings as not public method
 	    return population[population.length - 1];
