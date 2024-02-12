@@ -11,12 +11,12 @@ public class helperGA {
 		//System.out.println(debug);
 	    double[][] parents = new double[2][distances.length];
 	    double[] fitness = calculateFitness(population, distances, innerIterations);
-	    globalStrings.add("selectParents: fitness = " + String.valueOf(fitness)); 
+	    globalStrings.add("selectParents: fitness = " + Arrays.toString(fitness)); 
 	    // Roulette wheel selection
 	    parents[0] = selectViaRoulette(population, fitness);
-	    
+	    globalStrings.add("selectParents: parents[0] = " + Arrays.toString(parents[0]));
 	    parents[1] = selectViaRoulette(population, fitness);
-	    
+	    globalStrings.add("selectParents: parents[1] = " + Arrays.toString(parents[1]));
 	    MakeTSP.fullLogStrings(globalStrings);//when done, give the arrayList of strings back to be logged
 	    return parents;
 	}
