@@ -7,6 +7,8 @@ public class helperGA {
 	private static ArrayList<String> globalStrings = new ArrayList<>(); //used to store arrays of strings for logging
 	public static double[][] selectParents(double[][] population, double[] distances, int innerIterations) throws IOException {
 		//Chooses parents for crossover
+		if (!globalStrings.isEmpty()) {System.out.println("helperGA: selectParents: globalStrings was not empty.");}
+		globalStrings.clear(); //clear the string arrayList
 		String distLengthInnerIter = ("helperGA: selectParents: distances.length = " + distances.length + " innerIterations = " + innerIterations);
 		globalStrings.add(distLengthInnerIter); 
 		//System.out.println(debug);
@@ -59,7 +61,7 @@ public class helperGA {
 	    double[][] nextGen = new double[population.length][];
 	    for (int i = 0; i < population.length; i++) {
 	        nextGen[i] = combined[indexOf(fitness, i)];
-	        globalStrings.add("helperGA: survivors: nextGen[" + i + "] = " + Arrays.toString(nextGen[i]));
+	        //globalStrings.add("helperGA: survivors: nextGen[" + i + "] = " + Arrays.toString(nextGen[i])); //this is a VERY large amount of text to write
 	    }
 	    MakeTSP.fullLogStrings(globalStrings);//when done, give the arrayList of strings back to be logged
 	    return nextGen;   
