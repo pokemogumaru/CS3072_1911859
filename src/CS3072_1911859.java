@@ -26,13 +26,14 @@ public class CS3072_1911859 {
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
 		
 		int iterations = 10000; int NumCities = 5; //number of iterations and number of cities
-		int repeats = 20; String type = "SA"; //number of repeats and type of HC to use (HC = basic hill climber) (SA = simulated annealing)
-		int initialTemp = 100; double coolingRate = 0.9; //used in SA, if HC is selected, these values will not be used.
-		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, initialTemp,coolingRate);
-		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations,type, initialTemp,coolingRate);
+		int repeats = 20; String type = "GA"; //number of repeats and type of HC to use (HC = basic hill climber) (SA = simulated annealing)
+		//double val1 = 100; double val2 = 0.9; int populationSize = 0; //initialTemp & coolingRate used in SA. populationSize ignored in SA
+		double val1 = 0; double val2 = 0; int populationSize = 1000; //crossoverRate, mutationRate and populationSize used in GA
+		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, val1,val2, populationSize);
+		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations,type, val1,val2, populationSize);
 		NumCities = 10; //repeating with other amount of cities
-		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, initialTemp,coolingRate);		
-		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations, type, initialTemp,coolingRate);	
+		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, val1,val2, populationSize);		
+		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations, type, val1,val2, populationSize);	
 		
 		//testPrintR();
 		
@@ -331,9 +332,10 @@ returns a 1-D array of type double
 			}
 	}
 	
-	private static void MakeTSPsAndPlotWithR(int NumCities,boolean DifficultTrueEasyFalse, int innerIterations, int repeats, int outerIterations, String type, int initialTemp, double coolingRate) throws IOException
+	private static void MakeTSPsAndPlotWithR(int NumCities,boolean DifficultTrueEasyFalse, int innerIterations, int repeats, int outerIterations, String type,
+			double initialTemp, double coolingRate, int populationSize) throws IOException
 	{
-		new MakeTSP(NumCities, true, innerIterations, repeats, outerIterations, type, initialTemp, coolingRate); 
+		new MakeTSP(NumCities, true, innerIterations, repeats, outerIterations, type, initialTemp, coolingRate, populationSize); 
 		String[] distanceRepeats = MakeTSP.getDistances(); //change to 2D double
 		double[] fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
 		double[][] outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);

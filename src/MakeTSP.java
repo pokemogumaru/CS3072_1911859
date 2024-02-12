@@ -18,8 +18,9 @@ public class MakeTSP {
 	private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
 	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
 	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
-	public MakeTSP(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations, String type, double initialTemperature, double coolingRate) throws IOException
+	public MakeTSP(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations, String type, double val1, double val2, int populationSize) throws IOException
 	{
+		//val1: initialTemp in SA, crossoverRate in GA. val2: coolingRate in SA, mutationRate in GA
 		//System.out.println("MakeTSP: NumCities = " + NumCities); //debug
 		String[] distanceRepeats = new String[repeats];
 		double[] fitnessRepeats = new double[repeats];
@@ -27,9 +28,9 @@ public class MakeTSP {
 		//Open files:
 		openFiles(NumCities,DifficultTrueEasyFalse,iterations,SolveIterations);
 		//End of initialising log files
-		String start_values = "MakeTSP: starting with DifficultTrueEasyFalse = " + DifficultTrueEasyFalse + " Outer iterations = " + iterations + " Inner iterations = " + SolveIterations;
-		String start_values2 = " Number of cities = " + NumCities + " type = " + type + " initialTemperature = " + initialTemperature + " coolingRate = " + coolingRate;
-		BasicLog_AddLineTXT(start_values); FullLog_AddLineTXT(start_values); BasicLog_AddLineTXT(start_values2); FullLog_AddLineTXT(start_values2);
+		String start_values = "MakeTSP: starting with DifficultTrueEasyFalse = " + DifficultTrueEasyFalse + " Outer iterations = " + iterations + " Inner iterations = " + SolveIterations + " Number of cities = " + NumCities + " type = " + type;
+		
+		BasicLog_AddLineTXT(start_values); FullLog_AddLineTXT(start_values);
 		if (type.equals("HC"))
 		{
 			//do basic hill climber
@@ -48,17 +49,26 @@ public class MakeTSP {
 		else if (type.equals("SA"))
 		{
 			//do SA
+			String start_values2 =  " initialTemp = " + val1 + " coolingRate = " + val2;
+			BasicLog_AddLineTXT(start_values2); FullLog_AddLineTXT(start_values2);
 			for (int i = 1; i <= repeats; i++)
 		    {
 				String doing = ("Doing repeat number " + i); BasicLog_AddLineTXT(doing); FullLog_AddLineTXT(doing);
 				String searchable = ("Searchable: repeat" + i); BasicLog_AddLineTXT(searchable); FullLog_AddLineTXT(searchable);
 				double[] TSP = CS3072_1911859.new_TSP(NumCities); //doing this each time so we get a new TSP each repeat
-				SimulatedAnnealingMakeTSP(TSP, DifficultTrueEasyFalse, iterations, SolveIterations, initialTemperature, coolingRate);
+				SimulatedAnnealingMakeTSP(TSP, DifficultTrueEasyFalse, iterations, SolveIterations, val1, val2); //val1 initialTemp, val2 coolingRate
 				if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
 				fitnessRepeats[i-1] = classFitness;
 				distanceRepeats[i-1] = Arrays.toString(classDistances);
 				
 		    }
+		}
+		else if (type.equals("GA"))
+		{
+			//do GA
+			String start_values2 =  " crossoverRate = " + val1 + " mutationRate = " + val2;
+			BasicLog_AddLineTXT(start_values2); FullLog_AddLineTXT(start_values2);
+			System.out.println("Not yet implemented");
 		}
 		else
 		{
