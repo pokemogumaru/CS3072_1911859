@@ -403,14 +403,16 @@ public class MakeTSP {
 	    BasicLog_AddLineTXT(start);
 	    FullLog_AddLineTXT(start);
 	    for (int i = 0; i < iterations; i++) {
-			if (distances == null) {System.out.println("LOUD WARNING: MakeTSP: GeneticHillClimbMakeTSP: distances == null !!!");} //debug
+	    	if (distances == null) {System.out.println("LOUD WARNING: MakeTSP: GeneticHillClimbMakeTSP: distances == null !!!");} //debug
 	        double[][] parents = helperGA.selectParents(population, distances, SolveIterations);
 	        double[][] offspring = helperGA.mutate(helperGA.crossover(parents, crossoverRate), mutationRate);
 	        evaluateFitness(offspring, distances, SolveIterations);  //TODO revisit: does this update by reference or do I need to rethink the logic here
 	        population = helperGA.survivors(offspring, population); 
 	        double bestFitness = helperGA.getBestFitness(population);
 	        String bestFitnessSTR = "GeneticHillClimbMakeTSP: bestFitness = " + String.valueOf(bestFitness); FullLog_AddLineTXT(bestFitnessSTR);
-	        if (helperGA.isBetter(bestFitness, startFitness, MaxOrMin)) {
+	        if (distances == null) {System.out.println("LOUD WARNING: MakeTSP: GeneticHillClimbMakeTSP: distances == null but will likely skip this invalid solution");} //debug
+	        if ( (helperGA.isBetter(bestFitness, startFitness, MaxOrMin)) && (helperGA.getBestSolution(population) != null) ) {
+	        	//check if new solution is better AND not null
 	            distances = helperGA.getBestSolution(population);
 	            startFitness = bestFitness;
 	            // Log changes:
