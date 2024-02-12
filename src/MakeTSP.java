@@ -459,9 +459,10 @@ public class MakeTSP {
 	
 	public static void fullLogStrings(ArrayList<String> strings) throws IOException {
 		//for helper or other classes to be able to add to the full log file
-        for(String str : strings) {
+		if (UseFullLog) {for(String str : strings) {
             //System.out.println(str); //if we want to debug
-        	FullLog_AddLineTXT(str);
-        }
-    }
+			fullLog.addLineTXT(str);
+        	}
+		}
+	}
 }
