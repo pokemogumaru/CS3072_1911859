@@ -481,7 +481,7 @@ public class MakeTSP {
 	    }
 	    return offspring;   
 	}
-	private static double[][] mutate(double[][] offspring, double mutationRate) {
+	public static double[][] mutate(double[][] offspring, double mutationRate) {
 		//Randomly alters offspring solutions. Introduces genetic diversity
 	    for (double[] child : offspring) {
 	        for (int j = 0; j < child.length; j++) {
