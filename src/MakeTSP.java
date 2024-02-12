@@ -405,6 +405,7 @@ public class MakeTSP {
 	        evaluateFitness(offspring, distances, SolveIterations);  //TODO revisit: does this update by reference or do I need to rethink the logic here
 	        population = survivors(offspring, population); 
 	        double bestFitness = getBestFitness(population);
+	        String bestFitnessSTR = "GeneticHillClimbMakeTSP: bestFitness = " + String.valueOf(bestFitness); FullLog_AddLineTXT(bestFitnessSTR);
 	        if (isBetter(bestFitness, startFitness, MaxOrMin)) {
 	            distances = getBestSolution(population);
 	            startFitness = bestFitness;
