@@ -30,8 +30,8 @@ public class helperGA {
 	        SolveTSP solver = new SolveTSP(solution,innerIterations);
 	        double tsp = solver.return_solution();
 	        fitness[i] = mst / tsp; 
-	        globalStrings.add("helperGA: calculateFitness: fitness[i] = " + String.valueOf(fitness[i]));
 	    }
+	    globalStrings.add("helperGA: calculateFitness: fitness = " + Arrays.toString(fitness));
 	    //don't call fullLogStrings as not public method
 	    return fitness;
 	}
@@ -59,7 +59,7 @@ public class helperGA {
 	    double[][] nextGen = new double[population.length][];
 	    for (int i = 0; i < population.length; i++) {
 	        nextGen[i] = combined[indexOf(fitness, i)];
-	        globalStrings.add("helperGA: survivors: nextGen[i] = " + Arrays.toString(nextGen[i]));
+	        globalStrings.add("helperGA: survivors: nextGen[" + i + "] = " + Arrays.toString(nextGen[i]));
 	    }
 	    MakeTSP.fullLogStrings(globalStrings);//when done, give the arrayList of strings back to be logged
 	    return nextGen;   
@@ -80,6 +80,7 @@ public class helperGA {
 	    for(int i = 0; i < fitness.length; i++) {
 	        fitness[i] = population[i][population[i].length - 1]; 
 	    }
+	    globalStrings.add("helperGA: getFitness: fitness = " + Arrays.toString(fitness));
 	    return fitness;
 	}
 
