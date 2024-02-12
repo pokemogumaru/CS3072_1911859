@@ -128,7 +128,10 @@ public class helperGA {
 	        }
 	    }
 	    globalStrings.add("helperGA: getBestSolution: best = " + Arrays.toString(best));
-		if (best == null) {System.out.println("LOUD WARNING: helperGA: getBestSolution: distances == null !!!");} //debug
+		if (best == null) {
+			String warn = ("LOUD WARNING: helperGA: getBestSolution: distances == null !!!");
+			globalStrings.add(warn);
+			} //debug
 	    MakeTSP.fullLogStrings(globalStrings);//when done, give the arrayList of strings back to be logged
 	    return best; 
 	}
