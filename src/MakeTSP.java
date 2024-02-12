@@ -413,6 +413,7 @@ public class MakeTSP {
 	        if (distances.equals(null)) {
 	        	String nullDist = ("WARNING: MakeTSP: GeneticHillClimbMakeTSP: distances == null but will likely skip this invalid solution");
 	        	BasicLog_AddLineTXT(nullDist);FullLog_AddLineTXT(nullDist);
+	        	System.out.println(nullDist);
 	        	} //debug
 	        if ( (helperGA.isBetter(bestFitness, startFitness, MaxOrMin)) && (!helperGA.getBestSolution(population).equals(null)) ) {
 	        	//check if new solution is better AND not null
