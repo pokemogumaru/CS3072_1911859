@@ -561,9 +561,17 @@ public class MakeTSP {
 	    return fitness;
 	}
 
-	static int indexOf(double[] array, double value) {// Get index of value in array
-	    for(int i = 0; i < array.length; i++) {if(array[i] == value) return i;}
-	    return -1;
+	static int indexOf(double[] array, double value) {
+	    int minIndex = 0;
+	    double minDiff = Double.MAX_VALUE;  
+	    for(int i = 0; i < array.length; i++) {
+	        double diff = Math.abs(array[i] - value);
+	        if(diff < minDiff) {
+	            minDiff = diff;
+	            minIndex = i;
+	        }
+	    }
+	    return minIndex;
 	}
 	static double getBestFitness(double[][] population) {
 	    double bestFitness = 0;
