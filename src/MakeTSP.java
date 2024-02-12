@@ -399,6 +399,9 @@ public class MakeTSP {
 	    double startFitness = MST_value / TSP_value;
 	    int changes = 0; // Track number of changes made
 	    double[][] population = generateInitialPopulation(distances, populationSize);
+	    String start = ("MakeTSP: GeneticHillClimbMakeTSP(): starting MST_value = " + MST_value + " starting TSP_value = " + TSP_value + " starting fitness = " + startFitness);
+	    BasicLog_AddLineTXT(start);
+	    FullLog_AddLineTXT(start);
 	    for (int i = 0; i < iterations; i++) {
 	        double[][] parents = selectParents(population, distances, SolveIterations);
 	        double[][] offspring = mutate(crossover(parents, crossoverRate), mutationRate);
