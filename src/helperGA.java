@@ -126,7 +126,7 @@ public class helperGA {
 	            best = member;
 	        }
 	    }
-	    globalStrings.add("helperGA: getBestSolution: best = " + String.valueOf(best));
+	    globalStrings.add("helperGA: getBestSolution: best = " + Arrays.toString(best));
 	    MakeTSP.fullLogStrings(globalStrings);//when done, give the arrayList of strings back to be logged
 	    return best; 
 	}
