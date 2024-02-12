@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -403,10 +404,10 @@ public class MakeTSP {
 	    BasicLog_AddLineTXT(start);
 	    FullLog_AddLineTXT(start);
 	    for (int i = 0; i < iterations; i++) {
-	        double[][] parents = selectParents(population, distances, SolveIterations);
+	        double[][] parents = helperGA.selectParents(population, distances, SolveIterations);
 	        double[][] offspring = mutate(crossover(parents, crossoverRate), mutationRate);
 	        evaluateFitness(offspring, distances, SolveIterations);  //TODO revisit: does this update by reference or do I need to rethink the logic here
-	        population = survivors(offspring, population); 
+	        population = helperGA.survivors(offspring, population); 
 	        double bestFitness = getBestFitness(population);
 	        String bestFitnessSTR = "GeneticHillClimbMakeTSP: bestFitness = " + String.valueOf(bestFitness); FullLog_AddLineTXT(bestFitnessSTR);
 	        if (isBetter(bestFitness, startFitness, MaxOrMin)) {
@@ -462,42 +463,6 @@ public class MakeTSP {
 	    }
 	    return array;
 	}
-	static double[][] selectParents(double[][] population, double[] distances, int innerIterations) throws IOException {
-		//Chooses parents for crossover
-		//String debug = ("selectParents: distances.length = " + distances.length + " innerIterations = " + innerIterations);
-		//System.out.println(debug);
-	    double[][] parents = new double[2][distances.length];
-	    double[] fitness = calculateFitness(population, distances, innerIterations);
-	    // Roulette wheel selection
-	    parents[0] = selectViaRoulette(population, fitness); 
-	    parents[1] = selectViaRoulette(population, fitness);
-	    return parents;
-	}
-	static double[] calculateFitness(double[][] population, double[] distances, int innerIterations) throws IOException {
-		//evaluates each member of the population to get an array of fitness scores. Needed for selections and survival
-	    double[] fitness = new double[population.length];
-	    for (int i = 0; i < population.length; i++) {
-	        double[] solution = population[i];
-	        double mst = GetMST(solution); 
-	        SolveTSP solver = new SolveTSP(solution,innerIterations);
-	        double tsp = solver.return_solution();
-	        fitness[i] = mst / tsp; 
-	    }
-	    return fitness;
-	}
-
-	static double[] selectViaRoulette(double[][] population, double[] fitness) {
-		//Random selection weighted by fitness. Higher fitness means higher chance of selection
-	    double totalFitness = sum(fitness);
-	    double random = Math.random() * totalFitness;
-	    double runningSum = 0;
-	    for (int i = 0; i < population.length; i++) {
-	        runningSum += fitness[i];
-	        if (runningSum > random) { return population[i];}
-	    }
-	    return population[population.length - 1];
-	}
-	static double sum(double[] array) {double total = 0;for(double value : array) {total += value;}return total;} //iterates through the array and totals up all the values
 	
 	static double[][] crossover(double[][] parents, double crossoverRate) {
 		//Exchanges sequence sections between parents. Creates new offspring solutions
@@ -538,47 +503,7 @@ public class MakeTSP {
 	        solution[solution.length - 1] = fitness; 
 	    }
 	}
-	static double[][] survivors(double[][] offspring, double[][] population) {
-		//Determines fittest solutions to carry over. Maintains constant population size
-	    double[][] combined = concatenate(offspring, population);
-	    double[] fitness = getFitness(combined);
-	    Arrays.sort(fitness); 
-	    double[][] nextGen = new double[population.length][];
-	    for (int i = 0; i < population.length; i++) {
-	        nextGen[i] = combined[indexOf(fitness, i)];
-	    }
-	    return nextGen;   
-	}
 	
-	static double[][] concatenate(double[][] first, double[][] second) {// Concatenate two 2D arrays
-	    int firstLen = first.length;
-	    int secondLen = second.length;
-	    double[][] result = new double[firstLen + secondLen][];
-	    System.arraycopy(first, 0, result, 0, firstLen); 
-	    System.arraycopy(second, 0, result, firstLen, secondLen);
-	    return result;
-	}
-	
-	static double[] getFitness(double[][] population) {// Get array of fitness values from 2D array
-	    double[] fitness = new double[population.length];
-	    for(int i = 0; i < fitness.length; i++) {
-	        fitness[i] = population[i][population[i].length - 1]; 
-	    }
-	    return fitness;
-	}
-
-	static int indexOf(double[] array, double value) {
-	    int minIndex = 0;
-	    double minDiff = Double.MAX_VALUE;  
-	    for(int i = 0; i < array.length; i++) {
-	        double diff = Math.abs(array[i] - value);
-	        if(diff < minDiff) {
-	            minDiff = diff;
-	            minIndex = i;
-	        }
-	    }
-	    return minIndex;
-	}
 	static double getBestFitness(double[][] population) {
 	    double bestFitness = 0;
 	    for (double[] member : population) { 
@@ -606,4 +531,12 @@ public class MakeTSP {
 	    if (!MaxOrMin && newFitness > oldFitness) {return true;}
 	    return false;
 	}
+	
+	public static void fullLogStrings(ArrayList<String> strings) throws IOException {
+		//for helper or other classes to be able to add to the full log file
+        for(String str : strings) {
+            //System.out.println(str); //if we want to debug
+        	FullLog_AddLineTXT(str);
+        }
+    }
 }
