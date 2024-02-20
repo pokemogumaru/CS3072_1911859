@@ -131,9 +131,10 @@ public class helperGA {
 	    }
 	    globalStrings.add("helperGA: getBestSolution: best = " + Arrays.toString(best));
 		if (madeChange == false) {
-			String warn = ("LOUD WARNING: helperGA: getBestSolution: distances == null !!!");
+			String warn = ("LOUD WARNING: helperGA: getBestSolution: did not find best solution, will return first member of the population instead");
 			globalStrings.add(warn);
 			} //debug
+		best = Arrays.copyOf(population[0], population[0].length); //Return a copy of the first member of the population, not "best" solution, but avoids returning null
 	    MakeTSP.fullLogStrings(globalStrings);//when done, give the arrayList of strings back to be logged
 	    return best; 
 	}
