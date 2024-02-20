@@ -151,21 +151,19 @@ public class helperGA {
 	    Random rnd = new Random();
 	    for (int i = array.length - 1; i > 0; i--)
 	    {
-	        int index = rnd.nextInt(i + 1);
+	        int index = rnd.nextInt(i + 1); // Generates a random index from 0 to i 
 	        // Simple swap
-	        double a = array[index];
-	        array[index] = array[i];
-	        array[i] = a;
+	        double a = array[index]; // Temporarily stores value at 'index'
+	        array[index] = array[i]; // Swaps value at 'index' with value at 'i'
+	        array[i] = a; // Places original value from 'index' into 'i'
 	    }
 	    return array;
 	}
 	public static double getBestFitness(double[][] population) throws IOException {
 		globalStrings.clear(); //clear the string arrayList
-	    double bestFitness = 0;
-	    for (double[] member : population) { 
-	        if (member[member.length - 1] > bestFitness) {
-	            bestFitness = member[member.length - 1];  
-	        }
+	    double bestFitness = 0; // Initializes variable to track the best fitness 
+	    for (double[] member : population) { // Iterates over each 'member' of the population
+	        if (member[member.length - 1] > bestFitness) {bestFitness = member[member.length - 1];}// Store fitness if its higher
 	    }
 	    globalStrings.add("helperGA: getBestFitness: bestFitness = " + String.valueOf(bestFitness));
 	    MakeTSP.fullLogStrings(globalStrings);//when done, give the arrayList of strings back to be logged
@@ -174,18 +172,18 @@ public class helperGA {
 	public static double[][] crossover(double[][] parents, double crossoverRate) {
 		//Exchanges sequence sections between parents. Creates new offspring solutions
 		globalStrings.clear(); //clear the string arrayList
-	    int length = parents[0].length;
-	    if (Math.random() > crossoverRate) {return parents;}
-	    double[][] offspring = new double[2][length]; 
-	    int split = (int)(Math.random() * length);
+	    int length = parents[0].length; // Get the length of the solution representations
+	    if (Math.random() > crossoverRate) {return parents;} // No crossover if probability fails
+	    double[][] offspring = new double[2][length]; // Array to hold two offspring
+	    int split = (int)(Math.random() * length); // Random point for splitting solutions
 	    // Single point crossover
 	    for (int i = 0; i < split; i++) {
-	        offspring[0][i] = parents[0][i]; 
-	        offspring[1][i] = parents[1][i];
+	        offspring[0][i] = parents[0][i]; // Offspring 1 gets genes from Parent 1 (head) 
+	        offspring[1][i] = parents[1][i]; // Offspring 2 gets genes from Parent 2 (head)
 	    }
 	    for (int i = split; i < length; i++) {
-	        offspring[0][i] = parents[1][i];
-	        offspring[1][i] = parents[0][i];
+	        offspring[0][i] = parents[1][i]; // Offspring 1 gets genes from Parent 2 (tail)
+	        offspring[1][i] = parents[0][i]; // Offspring 2 gets genes from Parent 1 (tail)
 	    }
 	    return offspring;   
 	}
