@@ -121,14 +121,16 @@ public class helperGA {
 		globalStrings.clear(); //clear the string arrayList
 	    double bestFitness = 0; 
 	    double[] best = null;
+	    boolean madeChange = false;
 	    for (double[] member : population) {
 	        if (member[member.length - 1] > bestFitness) {
 	            bestFitness = member[member.length - 1];
 	            best = member;
+	            madeChange = true;
 	        }
 	    }
 	    globalStrings.add("helperGA: getBestSolution: best = " + Arrays.toString(best));
-		if (best == null) {
+		if (madeChange == false) {
 			String warn = ("LOUD WARNING: helperGA: getBestSolution: distances == null !!!");
 			globalStrings.add(warn);
 			} //debug
