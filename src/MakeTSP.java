@@ -415,7 +415,7 @@ public class MakeTSP {
 	        	BasicLog_AddLineTXT(nullDist);FullLog_AddLineTXT(nullDist);
 	        	System.out.println(nullDist);
 	        	} //debug
-	        if ( (helperGA.isBetter(bestFitness, startFitness, MaxOrMin)) && (!helperGA.getBestSolution(population).equals(null)) ) {
+	        if ( (helperGA.isBetter(bestFitness, startFitness, MaxOrMin)) && (helperGA.getBestSolution(population) != null) ) {
 	        	//check if new solution is better AND not null
 	            distances = helperGA.getBestSolution(population);
 	            startFitness = bestFitness;
