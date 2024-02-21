@@ -111,7 +111,7 @@ public class SolveTSP { //this class is used for solving TSPs
 	  return cities;
 	}
   
-  public static double[][] convert_1D_to_2D(double[] array_1D) throws IOException
+  public static double[][] convert_1D_to_2D_old(double[] array_1D) throws IOException
 	{//returns a 2D version of a 1D TSP array
 		//System.out.println("convert_1D_to_2D: calculateCitiesAmount(array_1D) = " + calculateCitiesAmount(array_1D));//debug
 		int x = calculateCitiesAmount(array_1D); // Get size of 1D array using calculateCitiesAmount method
@@ -127,6 +127,20 @@ public class SolveTSP { //this class is used for solving TSPs
 			  }
 			}
 		return array_2D;
+	}
+  
+  public static double[][] convert_1D_to_2D(double[] array_1D) throws IOException {
+	    int x = calculateCitiesAmount(array_1D); 
+	    double[][] array_2D = new double[x][x];
+	    for (int i = 0; i < x; i++) {
+	        array_2D[i][i] = 0;  // Distance from a city to itself is 0
+	        for (int j = 0; j < i; j++) { // Fill lower triangle 
+	            double distance = array_1D[i * (i - 1) / 2 + j];  // Efficient indexing
+	            array_2D[i][j] = distance;
+	            array_2D[j][i] = distance; // Symmetric property
+	        }
+	    }
+	    return array_2D;
 	}
   
   public static double generateTourCost(List<Integer> solution, double[] distances, int cities) throws IOException{
