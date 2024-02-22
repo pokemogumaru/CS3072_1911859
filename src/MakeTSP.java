@@ -30,18 +30,20 @@ public class MakeTSP {
 		openFiles(NumCities,DifficultTrueEasyFalse,iterations,SolveIterations);
 		//End of initialising log files
 		String start_values = "MakeTSP: starting with DifficultTrueEasyFalse = " + DifficultTrueEasyFalse + " Outer iterations = " + iterations + " Inner iterations = " + SolveIterations + " Number of cities = " + NumCities + " type = " + type;
-		
 		BasicLog_AddLineTXT(start_values); FullLog_AddLineTXT(start_values);
 		if (type.equals("HC"))
 		{
 			//do basic hill climber
+			Timer repeatTimer = new Timer(); 
 			for (int i = 1; i <= repeats; i++)
 		    {
+				repeatTimer.start();
 				String doing = ("Doing repeat number " + i); BasicLog_AddLineTXT(doing); FullLog_AddLineTXT(doing);
 				String searchable = ("Searchable: repeat" + i); BasicLog_AddLineTXT(searchable); FullLog_AddLineTXT(searchable);
 				double[] TSP = CS3072_1911859.new_TSP(NumCities); //doing this each time so we get a new TSP each repeat
 				HillClimbMakeTSP(TSP, DifficultTrueEasyFalse, iterations, SolveIterations);
-				if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
+				repeatTimer.stop(); String repeatTime = repeatTimer.getTotalSeconds();
+				if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i,repeatTime,NumCities);} //records values per repeat in csv log
 				fitnessRepeats[i-1] = classFitness;
 				distanceRepeats[i-1] = Arrays.toString(classDistances);
 				if (incrementCities) {NumCities++;}
@@ -50,15 +52,18 @@ public class MakeTSP {
 		else if (type.equals("SA"))
 		{
 			//do SA
+			Timer repeatTimer = new Timer(); 
 			String start_values2 =  " initialTemp = " + val1 + " coolingRate = " + val2;
 			BasicLog_AddLineTXT(start_values2); FullLog_AddLineTXT(start_values2);
 			for (int i = 1; i <= repeats; i++)
 		    {
+				repeatTimer.start();
 				String doing = ("Doing repeat number " + i); BasicLog_AddLineTXT(doing); FullLog_AddLineTXT(doing);
 				String searchable = ("Searchable: repeat" + i); BasicLog_AddLineTXT(searchable); FullLog_AddLineTXT(searchable);
 				double[] TSP = CS3072_1911859.new_TSP(NumCities); //doing this each time so we get a new TSP each repeat
 				SimulatedAnnealingMakeTSP(TSP, DifficultTrueEasyFalse, iterations, SolveIterations, val1, val2); //val1 initialTemp, val2 coolingRate
-				if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
+				repeatTimer.stop(); String repeatTime = repeatTimer.getTotalSeconds();
+				if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i,repeatTime,NumCities);} //records values per repeat in csv log
 				fitnessRepeats[i-1] = classFitness;
 				distanceRepeats[i-1] = Arrays.toString(classDistances);
 				if (incrementCities) {NumCities++;}
@@ -67,16 +72,20 @@ public class MakeTSP {
 		else if (type.equals("GA"))
 		{
 			//do GA
+			Timer repeatTimer = new Timer(); 
 			String start_values2 =  " crossoverRate = " + val1 + " mutationRate = " + val2 + " populationSize = " + populationSize;
 			BasicLog_AddLineTXT(start_values2); FullLog_AddLineTXT(start_values2);
 			for (int i = 1; i <= repeats; i++)
 		    {
+				repeatTimer.start();
+
 				String doing = ("Doing repeat number " + i); BasicLog_AddLineTXT(doing); FullLog_AddLineTXT(doing);
 				String searchable = ("Searchable: repeat" + i); BasicLog_AddLineTXT(searchable); FullLog_AddLineTXT(searchable);
 				double[] TSP = CS3072_1911859.new_TSP(NumCities); //doing this each time so we get a new TSP each repeat
 				GeneticHillClimbMakeTSP(TSP, DifficultTrueEasyFalse, iterations, SolveIterations, populationSize, val1, val2 ); //val1 , val2 
+				repeatTimer.stop(); String repeatTime = repeatTimer.getTotalSeconds();
 				//double[] distances, boolean MaxOrMin, int iterations, int SolveIterations, int populationSize, double crossoverRate, double mutationRate
-				if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
+				if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i,repeatTime,NumCities);} //records values per repeat in csv log
 				fitnessRepeats[i-1] = classFitness;
 				distanceRepeats[i-1] = Arrays.toString(classDistances);
 				if (incrementCities) {NumCities++;}
@@ -344,16 +353,21 @@ public class MakeTSP {
 		fitnessRepeatsLog.addRowCSV("best fitness");
 		fitnessRepeatsLog.addRowCSV("iteration at last change");
 		fitnessRepeatsLog.addRowCSV("number of changes");
+		fitnessRepeatsLog.addRowCSV("number of cities");
+		fitnessRepeatsLog.addRowCSV("time taken (seconds)");
 		fitnessRepeatsLog.addColumnCSV(""); 
 	}
 	
-	private static void fitnessRepeatsLogger(int i) throws IOException
+	private static void fitnessRepeatsLogger(int i, String repeatTime, int numCities) throws IOException
 	{
 		fitnessRepeatsLog.addRowCSV(String.valueOf(i));
 		fitnessRepeatsLog.addRowCSV(String.valueOf(startFitness)); 
 		fitnessRepeatsLog.addRowCSV(String.valueOf(classFitness)); 
 		fitnessRepeatsLog.addRowCSV(String.valueOf(iterationOfLastChange));  
-		fitnessRepeatsLog.addColumnCSV(String.valueOf(totalChangesMade)); 
+		fitnessRepeatsLog.addRowCSV(String.valueOf(totalChangesMade));
+		fitnessRepeatsLog.addRowCSV(String.valueOf(numCities));
+		fitnessRepeatsLog.addColumnCSV(String.valueOf(repeatTime)); 
+
 	}
 	
 	private static void openFiles(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int SolveIterations) throws IOException
