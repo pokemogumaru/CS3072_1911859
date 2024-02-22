@@ -19,7 +19,7 @@ public class MakeTSP {
 	private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
 	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
 	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
-	public MakeTSP(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations, String type, double val1, double val2, int populationSize) throws IOException
+	public MakeTSP(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations, String type, double val1, double val2, int populationSize, boolean incrementCities) throws IOException
 	{
 		//val1: initialTemp in SA, crossoverRate in GA. val2: coolingRate in SA, mutationRate in GA
 		//System.out.println("MakeTSP: NumCities = " + NumCities); //debug
@@ -44,7 +44,7 @@ public class MakeTSP {
 				if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
 				fitnessRepeats[i-1] = classFitness;
 				distanceRepeats[i-1] = Arrays.toString(classDistances);
-				
+				if (incrementCities) {NumCities++;}
 		    }
 		}
 		else if (type.equals("SA"))
@@ -61,7 +61,7 @@ public class MakeTSP {
 				if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
 				fitnessRepeats[i-1] = classFitness;
 				distanceRepeats[i-1] = Arrays.toString(classDistances);
-				
+				if (incrementCities) {NumCities++;}
 		    }
 		}
 		else if (type.equals("GA"))
@@ -79,7 +79,7 @@ public class MakeTSP {
 				if (UsefitnessRepeatsLog) {fitnessRepeatsLogger(i);} //records values per repeat in csv log
 				fitnessRepeats[i-1] = classFitness;
 				distanceRepeats[i-1] = Arrays.toString(classDistances);
-				
+				if (incrementCities) {NumCities++;}
 		    }
 		}
 		else

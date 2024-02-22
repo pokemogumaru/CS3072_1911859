@@ -24,19 +24,20 @@ public class CS3072_1911859 {
 		//test_MST(10); //To test our MST of a TSP. Input is number of cities
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
-		/*
+		
 		int iterations = 1000; int NumCities = 5; //number of iterations and number of cities
 		int repeats = 20; String type = "HC"; //number of repeats and type of HC to use (HC = basic hill climber) (SA = simulated annealing)
 		//double val1 = 100; double val2 = 0.99; int populationSize = 0; //initialTemp & coolingRate used in SA. populationSize ignored in SA. 100-1000 & 0.8-0.99 typical values
 		double val1 = 0.7; double val2 = 0.07; int populationSize = 70; //crossoverRate (0.6-0.9), mutationRate (0.01-0.1) and populationSize (50-100) used in GA
-		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, val1,val2, populationSize);
-		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations,type, val1,val2, populationSize);
-		NumCities = 10; //repeating with other amount of cities
-		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, val1,val2, populationSize);		
-		MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations, type, val1,val2, populationSize);	
-		*/
+		//boolean at the end determines if MakeTSP increments up the num of cities each repeat
+		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, val1,val2, populationSize, true);
+		//MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations,type, val1,val2, populationSize, false);
+		//NumCities = 10; //repeating with other amount of cities
+		//MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, val1,val2, populationSize, false);		
+		//MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations, type, val1,val2, populationSize,false);	
 		
-		Benchmark.main(null); //used to benchmark difference in methods that convert 1D to 2D array
+		
+		//Benchmark.main(null); //used to benchmark difference in methods that convert 1D to 2D array
 		
 		//testPrintR();
 		
@@ -336,10 +337,11 @@ returns a 1-D array of type double
 	}
 	
 	private static void MakeTSPsAndPlotWithR(int NumCities,boolean DifficultTrueEasyFalse, int innerIterations, int repeats, int outerIterations, String type,
-			double val1, double val2, int populationSize) throws IOException
+			double val1, double val2, int populationSize, boolean incrementCities) throws IOException
 	{
 		//System.out.println("MakeTSPsAndPlotWithR: innerIterations = " + innerIterations + " outerIterations = " + outerIterations + " type = " + type); //debug
-		new MakeTSP(NumCities, DifficultTrueEasyFalse, innerIterations, repeats, outerIterations, type, val1, val2, populationSize); 
+		new MakeTSP(NumCities, DifficultTrueEasyFalse, innerIterations, repeats, outerIterations,
+				type, val1, val2, populationSize, incrementCities); 
 		String[] distanceRepeats = MakeTSP.getDistances(); //change to 2D double
 		double[] fitnessRepeats = MakeTSP.getClassFitness(); //"fitness" + fitnessRepeats could be filename
 		double[][] outerIndexInnerDistances = convertStringToDouble2D(distanceRepeats);
