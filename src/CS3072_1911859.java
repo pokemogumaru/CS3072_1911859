@@ -25,12 +25,12 @@ public class CS3072_1911859 {
 		
 		//To run the TSP maker. input: TSP, harder (true) / easier (false), iterations for outer HC, repeats (use 1 for 1 run), iterations for inner HC
 		
-		int iterations = 1000; int NumCities = 5; //number of iterations and number of cities
-		int repeats = 20; String type = "HC"; //number of repeats and type of HC to use (HC = basic hill climber) (SA = simulated annealing)
-		//double val1 = 100; double val2 = 0.99; int populationSize = 0; //initialTemp & coolingRate used in SA. populationSize ignored in SA. 100-1000 & 0.8-0.99 typical values
-		double val1 = 0.7; double val2 = 0.07; int populationSize = 70; //crossoverRate (0.6-0.9), mutationRate (0.01-0.1) and populationSize (50-100) used in GA
+		int iterations = 10000; int NumCities = 10; //number of iterations and number of cities
+		int repeats = 20; String type = "SA"; //number of repeats and type of HC to use (HC = basic hill climber) (SA = simulated annealing)
+		double val1 = 10; double val2 = 0.99; int populationSize = 0; //initialTemp & coolingRate used in SA. populationSize ignored in SA. 100-1000 & 0.8-0.99 typical values
+		//double val1 = 0.7; double val2 = 0.07; int populationSize = 70; //crossoverRate (0.6-0.9), mutationRate (0.01-0.1) and populationSize (50-100) used in GA
 		//boolean at the end determines if MakeTSP increments up the num of cities each repeat
-		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, val1,val2, populationSize, true);
+		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, val1,val2, populationSize, false);
 		//MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations,type, val1,val2, populationSize, false);
 		//NumCities = 10; //repeating with other amount of cities
 		//MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, val1,val2, populationSize, false);		
