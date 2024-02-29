@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class CS3072_1911859 {
 	private static FileWriterUtil csvLogger;
-	private static FileWriterUtil RLog;private static boolean UseRLog = true;
+	private static FileWriterUtil RLog;private static boolean UseRLog = false;
 	private static FileWriterUtil txtLogger;
 	public static void main(String[] args) throws Exception {
 		//Start File Loggers:
