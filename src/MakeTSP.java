@@ -211,7 +211,6 @@ public class MakeTSP {
 				}
 	        }
 	    }
-
 	    String totalChanges = ("total changes made to TSP: " + changes); // Log total changes made
 	    BasicLog_AddLineTXT(totalChanges);
 	    FullLog_AddLineTXT(totalChanges);
