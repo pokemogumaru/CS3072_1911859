@@ -19,7 +19,8 @@ public class MakeTSP {
 	private static FileWriterUtil fullLog; private static boolean UseFullLog = false;
 	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = false;
 	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
-	private static String openFileName;
+	private static String openFileName; //used when we share repeat CSV files
+	private static boolean useSameRepeatFile = false; //set true to share repeat log files between programs (default true)
 	public MakeTSP(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations, String type, double val1, double val2, int populationSize, boolean incrementCities) throws IOException
 	{
 		//val1: initialTemp in SA, crossoverRate in GA. val2: coolingRate in SA, mutationRate in GA
@@ -368,7 +369,6 @@ public class MakeTSP {
 		fitnessRepeatsLog.addRowCSV(String.valueOf(totalChangesMade));
 		fitnessRepeatsLog.addRowCSV(String.valueOf(numCities));
 		fitnessRepeatsLog.addColumnCSV(String.valueOf(repeatTime)); 
-
 	}
 	
 	private static void openFiles(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int SolveIterations) throws IOException
@@ -378,10 +378,16 @@ public class MakeTSP {
 		if (UseFullLog) {fullLog = new FileWriterUtil(dateTime() + variables + " fullLog.txt", "txt"); fullLog.start();} //create fullLog instance and start using the file
 		if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + variables+ " hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
 		if (UsefitnessRepeatsLog) {
-			//use when you want separate files
-			//fitnessRepeatsLog = new FileWriterUtil(dateTime() + variables+ " fitnessRepeatsLog.csv", "csv");
-			//use when you want programs to save to the same CSV
-			fitnessRepeatsLog = new FileWriterUtil(variables+ " fitnessRepeatsLog.csv", "csv");
+			if (useSameRepeatFile)
+			{
+				//use when you want programs to save to the same CSV
+				fitnessRepeatsLog = new FileWriterUtil(variables+ " fitnessRepeatsLog.csv", "csv");
+			}
+			else
+			{
+				//use when you want separate files
+				fitnessRepeatsLog = new FileWriterUtil(dateTime() + variables+ " fitnessRepeatsLog.csv", "csv");
+			}
 			fitnessRepeatsLog.start();//used to track fitness at end of each iteration so we can see best fitness trend for repeats
 			openFileName = FileUtils.createOpenFile(); //indicate we have this file open
 			}
@@ -395,22 +401,29 @@ public class MakeTSP {
 	    if (UseFullLog) {fullLog.close();} //stop using the file for log
 	    if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog.close();} //stop using the file for log
 	    if (UsefitnessRepeatsLog) {
-	    	// Delete our file indicating a file is open 
-	    	boolean deleted = FileUtils.deleteOpenFile(openFileName);
-	    	if (!deleted)
+	    if (useSameRepeatFile)
 	    	{
-	    		System.out.println("LOUD: unable to delete file");
+	    		// Delete our file indicating a file is open 
+		    	boolean deleted = FileUtils.deleteOpenFile(openFileName);
+		    	if (!deleted)
+		    	{
+		    		System.out.println("LOUD: unable to delete file");
+		    	}
+		    	// Check for existing open files
+		    	if (FileUtils.hasOpenFiles()) {
+		    	    //files open, delete our file but don't close the repeat csv
+		    	}
+		    	else
+		    	{
+		    		//no files open, close the repeats csv
+		    		fitnessRepeatsLog.close();
+		    	}
 	    	}
-	    	// Check for existing open files
-	    	if (FileUtils.hasOpenFiles()) {
-	    	    //files open, delete our file but don't close the repeat csv
-	    	}
-	    	else
-	    	{
-	    		//no files open, close the repeats csv
-	    		fitnessRepeatsLog.close();
-	    	}
-	    	} 
+	    else
+	    {//not sharing files, close the file
+	    	fitnessRepeatsLog.close();
+	    }
+	    } 
 	}
 	
 	public static String[] getDistances(){return classDistancesRepeats;}//will be used by other class to get final distances
