@@ -30,7 +30,7 @@ public class CS3072_1911859 {
 		double val1 = 2; double val2 = 0.99; int populationSize = 0; //initialTemp & coolingRate used in SA. populationSize ignored in SA. 100-1000 & 0.8-0.99 typical values
 		//double val1 = 0.7; double val2 = 0.07; int populationSize = 70; //crossoverRate (0.6-0.9), mutationRate (0.01-0.1) and populationSize (50-100) used in GA
 		//boolean at the end determines if MakeTSP increments up the num of cities each repeat
-		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, val1,val2, populationSize, false);
+		MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, val1,val2, populationSize, true);
 		//MakeTSPsAndPlotWithR(NumCities, false, iterations, repeats, iterations,type, val1,val2, populationSize, false);
 		//NumCities = 10; //repeating with other amount of cities
 		//MakeTSPsAndPlotWithR(NumCities, true, iterations, repeats, iterations, type, val1,val2, populationSize, false);		
