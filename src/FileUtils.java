@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.Instant; // Import for nanosecond accuracy
 
 public class FileUtils {
 	//used so programs can say if they are keeping files open
@@ -16,17 +17,19 @@ public class FileUtils {
         try {
             // Ensure the directory exists
             Files.createDirectories(Paths.get(FILE_PATH));
-
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
             String timestamp = now.format(formatter);
-            String filename = "open_" + timestamp + ".open";
+            // Get nanosecond precision
+            Instant instant = Instant.now();
+            long nanoseconds = instant.getNano(); 
+            String filename = "open_" + timestamp + "_" + nanoseconds + ".open"; // Underscore added
             File newFile = new File(FILE_PATH, filename);
-            newFile.createNewFile(); 
-            return filename; 
+            newFile.createNewFile();
+            return filename;
         } catch (IOException e) {
             System.err.println("Error creating file: " + e.getMessage());
-            return null; // Return null on failure
+            return null; 
         }
     }
 
