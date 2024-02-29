@@ -15,9 +15,9 @@ public class MakeTSP {
 	private static String[] classDistancesRepeats; //for other classes to use
 	private static double[] classFitnessRepeats; //for other classes to use
 	private static double[] classDistances; //so MakeTSP can get the distance matrix from the HC
-	private static FileWriterUtil basicLog; private static boolean UsebasicLog = true;
-	private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
-	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
+	private static FileWriterUtil basicLog; private static boolean UsebasicLog = false;
+	private static FileWriterUtil fullLog; private static boolean UseFullLog = false;
+	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = false;
 	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
 	private static String openFileName;
 	public MakeTSP(int NumCities, boolean DifficultTrueEasyFalse, int iterations, int repeats, int SolveIterations, String type, double val1, double val2, int populationSize, boolean incrementCities) throws IOException
@@ -378,7 +378,10 @@ public class MakeTSP {
 		if (UseFullLog) {fullLog = new FileWriterUtil(dateTime() + variables + " fullLog.txt", "txt"); fullLog.start();} //create fullLog instance and start using the file
 		if (UsehillClimberFitnessLogLog) {hillClimberFitnessLog = new FileWriterUtil(dateTime() + variables+ " hillClimberFitnessLog.csv", "csv"); hillClimberFitnessLog.start();}//create hillClimberFitnessLog instance and start using the file
 		if (UsefitnessRepeatsLog) {
-			fitnessRepeatsLog = new FileWriterUtil(dateTime() + variables+ " fitnessRepeatsLog.csv", "csv");
+			//use when you want separate files
+			//fitnessRepeatsLog = new FileWriterUtil(dateTime() + variables+ " fitnessRepeatsLog.csv", "csv");
+			//use when you want programs to save to the same CSV
+			fitnessRepeatsLog = new FileWriterUtil(variables+ " fitnessRepeatsLog.csv", "csv");
 			fitnessRepeatsLog.start();//used to track fitness at end of each iteration so we can see best fitness trend for repeats
 			openFileName = FileUtils.createOpenFile(); //indicate we have this file open
 			}
