@@ -382,6 +382,7 @@ public class MakeTSP {
 			{
 				//use when you want programs to save to the same CSV
 				fitnessRepeatsLog = new FileWriterUtil(variables+ " fitnessRepeatsLog.csv", "csv");
+				openFileName = FileUtils.createOpenFile(); //indicate we have this file open
 			}
 			else
 			{
@@ -389,7 +390,6 @@ public class MakeTSP {
 				fitnessRepeatsLog = new FileWriterUtil(dateTime() + variables+ " fitnessRepeatsLog.csv", "csv");
 			}
 			fitnessRepeatsLog.start();//used to track fitness at end of each iteration so we can see best fitness trend for repeats
-			openFileName = FileUtils.createOpenFile(); //indicate we have this file open
 			}
 		if (UsefitnessRepeatsLog) {fitnessRepeatsStart();}//populates column names on 1st row
 		if (UsehillClimberFitnessLogLog) {hillClimberFitnessStart();}
