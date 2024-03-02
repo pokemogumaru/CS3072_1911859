@@ -15,9 +15,9 @@ public class MakeTSP {
 	private static String[] classDistancesRepeats; //for other classes to use
 	private static double[] classFitnessRepeats; //for other classes to use
 	private static double[] classDistances; //so MakeTSP can get the distance matrix from the HC
-	private static FileWriterUtil basicLog; private static boolean UsebasicLog = false;
-	private static FileWriterUtil fullLog; private static boolean UseFullLog = false;
-	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = false;
+	private static FileWriterUtil basicLog; private static boolean UsebasicLog = true;
+	private static FileWriterUtil fullLog; private static boolean UseFullLog = true;
+	private static FileWriterUtil hillClimberFitnessLog; private static boolean UsehillClimberFitnessLogLog = true;
 	private static FileWriterUtil fitnessRepeatsLog; private static boolean UsefitnessRepeatsLog = true;
 	private static String openFileName; //used when we share repeat CSV files
 	private static boolean useSameRepeatFile = false; //set true to share repeat log files between programs (default true)
